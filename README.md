@@ -16,7 +16,7 @@ https://angular.io/guide/service-worker-communications
 
 ## Container configuration
 
-The configuration files of the mix front are located in ```/home/amvara/projects/mix3030/mix_front```, there you have 3 main files:
+The configuration files of the mix front are located in ```/mix-pwa```, there you have 3 main files:
 
 * ```nginx.conf``` · stores the main nginx configuration, like ports and gzip
 * ```default.conf``` · stores the main website
