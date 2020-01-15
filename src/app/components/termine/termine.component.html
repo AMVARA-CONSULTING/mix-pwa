@@ -1,0 +1,472 @@
+<!-- New Wann Wann Wo Total -->
+<div class="checking_on_issues_2199"></div>
+<div class="new_was_wann_wo_bar show_total"
+  [class.hide_total]="( !(globals.search | async) && !(mobile | async) )
+                      || !(events_loaded | async)
+                      || (total | async) == 0">
+  {{"termine.total"|translate}}</div>
+<!-- New Wann Wann Wo Bar -->
+<div class="new_was_wann_wo_bar"
+  [class.show_was_wann_wo]="!globals.picture_fullscreen && ((globals.search | async) || !(mobile | async)) && (ready | async)">
+  <div class="input_group"
+    (click)="display_was.next(!display_was.getValue()); absorb_click=!display_was.getValue(); display_wann.next(false)">
+    <div class="input_text_container">
+      <div class="input_title">Was :</div>
+      <div class="input">{{ rubrik | async | wasValue }}</div>
+    </div>
+    <div class="input_arrow" [ngClass]="{'opened': (display_was | async)}"></div>
+    <div class="input_list_backdrop" (click)="disableDisplayWas($event)" *ngIf="display_was | async"></div>
+    <div class="input_list" *ngIf="(display_was | async) && _info.serverInfo as info">
+      <div class="input_element" *ngIf="((rubrik_array | async)?.length < info.rubriks.length-1) else unselectAll" (click)="addRubrik('all', $event)">{{ "termine.waswannwo.select_all" | translate }}</div>
+      <ng-template #unselectAll>
+        <div class="input_element" (click)="addRubrik('', $event)">{{ "termine.waswannwo.unselect_all" | translate }}</div>
+      </ng-template>
+      <div class="input_element" [class.selected]="(rubrik_array | async)?.includes(rubrik.rubrik)" *ngFor="let rubrik of info.rubriks" (click)="addRubrik(rubrik.rubrik, $event)">
+        {{rubrik.rubrik_text}}
+      </div>
+    </div>
+  </div>
+  <div class="input_group"
+    (click)="display_wann.next(!display_wann.getValue()); absorb_click=display_wann.getValue(); display_was.next(false)">
+    <div class="input_text_container">
+      <div class="input_title">Wann :</div>
+      <div class="input">{{ formday | async | wannValue | async }}</div>
+    </div>
+    <div class="input_arrow" [ngClass]="{'opened': (display_wann | async) }"></div>
+    <div class="input_list_backdrop" (click)="disableDisplayWann($event)" *ngIf="display_wann | async"></div>
+    <div class="input_list" *ngIf="(display_wann | async) && _info.serverInfo as info">
+      <div class="input_element" *ngFor="let wann of info.wann_items" (click)="changeNewWann(wann.value)">{{ "termine.waswannwo." + wann.translate | translate }}</div>
+      <div class="input_element" (click)="stopPropagation($event);triggerDatePicker()">
+        <!-- <input [min]="minDate" [formControl]="customDate" type="date" class="custom-date-input" [matDatepicker]="dateSelector" style="visibility: hidden;">Datum eingeben -->
+        <input [min]="minDate" [satDatepicker]="dateSelector" [formControl]="customDate" type="text" class="custom-date-input" style="visibility: hidden;">Datum eingeben
+      </div>
+      <!-- <mat-datepicker #dateSelector></mat-datepicker> -->
+      <sat-datepicker (closed)="closedDatePicker()" [selectFirstDateOnClose]="true" #dateSelector [closeAfterSelection]="false" [rangeMode]="true"></sat-datepicker>
+    </div>
+  </div>
+  <div class="input_group search_input">
+    <div><input (click)="checkResetSearch($event)" maxlength="50" class="new_search" spellcheck="false"
+        autocomplete="off" type="search" [placeholder]="'termine.suche' | translate" [formControl]="search" id="search">
+      <div class="delete_search" (click)="deleteSearch()"></div>
+    </div>
+  </div>
+</div>
+<div class="mobile_head_bar" *ngIf="(mobile | async) && (was_wann_wo | async)">
+  <div class="mix_back" (click)="was_wann_wo.next(false)"></div>
+  <div class="advanced_title">Advanced</div>
+</div>
+<!-- Ansicht Eye Trigger -->
+<div class="mix_view" id="mix_view_icon" [class.hide]="!(globals.isIconTermine | async) || (globals.merkliste_page | async)" (click)="toggleAnsicht()"
+    [class.selected]="ansicht | async"></div>
+<!-- Loader -->
+<mat-spinner *ngIf="!(events_loaded | async) || (loading | async) || (loadingDetail | async)" class="kaz-loading-spinner" diameter="50"></mat-spinner>
+<!-- Easter Egg -->
+<easter-egg *ngIf="easterEgg | async"></easter-egg>
+<!-- no results -->
+<mix-not-found *ngIf="(globals.no_results | async) && !(easterEgg | async) && !(!(events_loaded | async) || (loading | async))">
+    <!-- <mix-not-found *ngIf="(no_results | async) && (events_loaded | async) && !(search_from_backend_msg | async) && !(easterEgg | async) && !(!(events_loaded | async) || (loading | async))"> -->
+</mix-not-found>
+<!-- have events been grouped in backend, then show a nice msg -->
+<div (click)="openDetailedText()" *ngIf="!(globals.merkliste_page | async) && !(globals.login_page | async) && !(globals.settings_page | async) && _info.serverInfo.info_box_enable" [@flagAnimation] class="detailed-flag">i</div>
+<!-- Message to show when Alle Kategorien and Alle Zeiträume are selected but nothing to search yet -->
+<mix-too-much-items [more]="evenMore | async" *ngIf="(searchFromBackend | async) && !(!(events_loaded | async) || (loading | async))"></mix-too-much-items>
+<!-- termine detail -->
+<mix-termine-detail [event]="event_data | async" *ngIf="(selected_event | async)!='main'"></mix-termine-detail>
+<!-- Content -->
+<div class="container" [class.dark]="((mobile | async) && (filter | async) === 'rubrik') || globals.dark" [ngClass]="(filter | async)+'_container'"
+  [class.mobile_searching]="(globals.search | async)" [class.hide_loading]="!(event_show | async)"
+  *ngIf="(events_loaded | async) && !(searchFromBackend | async) && !(was_wann_wo | async) as www"
+  [class.waiting]="waiting"
+  [class.hide]="!www && (mobile | async) || globals.picture_fullscreen">
+  <div class="extended-search" *ngIf="(extendedSearch | async) && !(loading | async)">
+    <div class="info">
+      <!--<i></i>-->
+      <span>Wir haben Deine Suchoption erweitert und diese Termine für Dich gefunden.</span>
+    </div>
+    <!--<div class="other-filter" [ngSwitch]="extendedSearchClass | async">
+      <span *ngSwitchCase="'time'">But we found something for other dates.</span>
+      <span *ngSwitchCase="'rubrik'">But we found something for other rubriks.</span>
+      <span *ngSwitchCase="'both'">But we found something for other dates and/or rubriks.</span>
+      <span *ngSwitchDefault></span>
+    </div>-->
+  </div>
+  <!-- Renamed filter observable to static currentFilter variable -->
+  <div class="bottom_events" [class.disable-click]="disable_click" [class.mobile]="mobile | async"
+    [class.filtered]="currentFilter!='rubrik'" *ngIf="!(changing | async) && !(loading | async) && (filter | async) as currentFilter">
+    <!-- Iterate over each rubrik group type -->
+    <div *ngFor="let rubrik of events_rubrik | mapRubrikSorting:currentFilter:(mobile | async) | insertBanners:(banner_difference | async); index as rubrik_index"
+      [class.banner_section]="rubrik.rubrik=='banner'">
+      <!-- Rubrik Type Header -->
+      <div class="rubrik_section">
+        <div class="reference" *ngIf="rubrik.rubrik==(selected_rubrik | async)"></div>
+        <!-- Rubrik Titel ... shows the category and the total of termine found here -->
+        <h2 *ngIf="( 
+                    (
+                      setOffset(rubrik.rubrik) 
+                      && (!(mobile | async) && rubrik.rubrik!='banner' || currentFilter!='rubrik') 
+                      && (rubrik.rubrik!='total')
+                    )
+                    && rubrik.rubrik!='banner' 
+                  )
+                  " [class.clickable]="currentFilter=='rubrik'"
+          (click)="changeSelectedRubrik(selected_rubrik.getValue()==rubrik.rubrik ? '' : rubrik.rubrik);scrollKat()">
+          <div class="icon_uhr" *ngIf="currentFilter=='uhrzeit'"></div>
+          <div class="icon_adress" *ngIf="currentFilter=='adressname'"></div>
+          <span class="filter_info" [class.filter_titel_mini]="currentFilter=='uhrzeit' || currentFilter=='adressname'">
+            <ng-container *ngIf="currentFilter=='uhrzeit'">{{rubrik.datum_humanized}}{{ rubrik.datum | differentYear }}
+              <span class="bar mini">|</span>
+              {{rubrik.uhrzeit}}
+            </ng-container>
+            <ng-container *ngIf="currentFilter=='rubrik'">{{rubrik.rubrik}}</ng-container>
+            <ng-container *ngIf="currentFilter=='adressname'">{{rubrik.rubrik}}</ng-container>
+            <ng-container *ngIf="currentFilter=='titel'">{{ new_rubrik[rubrik.rubrik][0].rubrik }}</ng-container>
+            <span class="bar grey mini">|</span>
+            <span class="grey mini max">
+              <ng-container *ngIf="(filter | async) == 'rubrik'">{{ (new_rubrik[rubrik.rubrik] | reduceByTitel).length }}</ng-container>
+              <ng-container *ngIf="(filter | async) != 'rubrik'">{{ (new_rubrik[rubrik.rubrik]).length }}</ng-container>
+              <ng-container *ngIf="new_rubrik[rubrik.rubrik]?.length <= 1"> {{"termine.event_singular" | translate}}</ng-container>
+              <ng-container *ngIf="new_rubrik[rubrik.rubrik]?.length > 1"> {{"termine.event_plural" | translate}}</ng-container>
+            </span>
+          </span>
+          <div *ngIf="(filter | async) == 'rubrik'" class="change-view" [ngClass]="{'all_events': (selected_rubrik | async) == rubrik.rubrik}"></div>
+          <div class="listed_title" *ngIf="currentFilter=='titel'">
+            <div class="icon_titel"></div>
+            <p (click)="triggerFirstEvent($event)" class="filter_titel">{{ rubrik.rubrik | cutText:36 }}
+            </p>
+            <p (click)="triggerFirstEvent($event)" class="filter_besch">{{rubrik.beschreibung | cutText:150}}</p>
+          </div>
+        </h2>
+
+        <div [class.all_events]="(selected_rubrik | async) == rubrik.rubrik" class="rubrik"
+          [class.fullscreen]="(desktop_fullscreen | async)" [class.blocks]="currentFilter=='rubrik'"
+          [class.five_blocks]="amount_block_events>=3" [class.four_blocks]="amount_block_events==2"
+          [class.three_blocks]="amount_block_events==1" [class.two_blocks]="amount_block_events==0"
+          [class.listed]="currentFilter!='rubrik'" *ngIf="rubrik.rubrik!='banner'">
+
+          <ng-container *ngIf="!(mobile | async)">
+            <!-- Desktop / Tablet -->
+            <div class="rubrik_page" *ngIf="currentFilter == 'rubrik'">
+              <!-- Rubrik Event Block -->
+              <ng-template #owl>
+                <!-- Carousel for Desktop Rubrik -->
+                <div class="owl-wrapper">
+                  <mix-carousel (event)="goDetail($event)" [items]="new_rubrik[rubrik.rubrik] | reduceByTitel" [filter]="currentFilter">
+                  </mix-carousel>
+                </div>
+              </ng-template>
+              <!-- Loader -->
+              <div class="loading_container" style="display: none;z-index: 5;"
+                [ngClass]="'rubrik_spinner_'+(rubrik.rubrik | replaceSpaces)">
+                <div class="loading"></div>
+              </div>
+              <div *ngIf="(selected_rubrik | async) == rubrik.rubrik; else owl" class="events-wrapper">
+                <!-- Normal Events -->
+                <ng-container *ngFor="let event of new_rubrik[rubrik.rubrik] | reduceByTitel; let i = index; trackBy: getId; let last = last">
+                  <div class="event_display rubrik_block" [@fade] [class.no_image]="!event.image_name">
+                    <div class="event-wrapper" (click)="globals.selected_random_image=event; goDetail(event)"
+                      [style.background-image]="event | toTermineBackgroundImage">
+                      <div class="bottom_info">
+                        <div *ngIf="globals.editing"></div>
+                        <div class="rubrik_info">{{ event.rubrik }}</div>
+                        <div class="titel">{{event.title_cut_to_40}}</div>
+                        <div class="datum">
+                          <div class="rubrik_format">
+                            <div class="rubrik_format_data" *ngIf="currentFilter=='rubrik'">
+                              {{ event.datum_humanized }}{{ event.datum | differentYear }}</div>
+                          </div>
+                          <div class="datum_format">{{ event.uhrzeit }}
+                            <span *ngIf="event.assistants>5">| {{ event.assistants }} assistants</span>
+                          </div>
+                          <ng-container *ngIf="event.events_count > 1 || event.rubrik === 'Ausstellungen'; else oneOrte">
+                            <div class="adress adress_format">{{ 'termine.multiple_places' | translate }}</div>
+                          </ng-container>
+                          <ng-template #oneOrte>
+                            <div class="adress adress_format">{{event.adressname}}</div>
+                          </ng-template>
+                        </div>
+                      </div>
+                      <div class="share" (click)="openShare($event, event)"></div>
+                      <ng-container *ngIf="last">{{ hideRubrikSpinner(rubrik.rubrik) }}</ng-container>
+                    </div>
+                  </div>
+                  <!-- Banners -->
+                  <div class="banner_list_container" *ngIf="i % (banner_difference | async) == 0 && i!=0">
+                    <div class="banner_container">
+                      <div class="kaz_text banner_box">
+                        <mix-banner-wrapper *ngIf="globals.banners_loaded | async" [quantity]="1"></mix-banner-wrapper>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+            <div class="uhrzeit_page" *ngIf="currentFilter == 'uhrzeit'">
+              <!-- Uhrzeit Event Block -->
+              <ng-container *ngFor="let event of new_rubrik[rubrik.rubrik]; let i = index;">
+                <div (click)="globals.selected_random_image=event" class="event_display rubrik_block"
+                  [style.background-image]="event | toTermineBackgroundImage" [@fade]
+                  [class.no_image]="!event.image_name"
+                  (click)="goDetail(event)">
+                  <div class="bottom_info uhrzeit_list bottom_filtered bottom_free_column">
+                    <div *ngIf="globals.editing"></div>
+                    <div class="uhrzeit-flex">
+                      <div class="adress">{{event.title_cut_to_40}}</div>
+                      <div class="rubrik_info">{{event.rubrik}}</div>
+                    </div>
+                    <div class="titel">{{event.adressname}}</div>
+                  </div>
+                  <div class="share" (click)="openShare($event, event)"></div>
+                  <div *ngIf="checkList()"></div>
+                </div>
+              </ng-container>
+            </div>
+            <div class="title_page" *ngIf="currentFilter == 'titel'">
+              <!-- Title Event Block -->
+              <ng-container *ngFor="let event of new_rubrik[rubrik.rubrik]; let i = index;">
+                <div (click)="globals.selected_random_image=event" class="event_display rubrik_block"
+                  [style.background-image]="event | toTermineBackgroundImage" [@fade]
+                  [class.no_image]="!event.image_name"
+                  (click)="goDetail(event)">
+                  <div class="bottom_info bottom_filtered not_uhrzeit">
+                    <p class="filter_datum">{{event.datum_humanized}}{{ event.datum | differentYear }}</p>
+                    <p class="uhrzeit">{{event.uhrzeit}}</p>
+                    <div *ngIf="globals.editing"></div>
+                    <div class="rubrik_info"
+                      *ngIf="(currentFilter=='rubrik' && search_value!='')||(currentFilter=='rubrik')">
+                      {{event.rubrik}}</div>
+                    <div class="adress">{{event.adressname}}</div>
+                  </div>
+                  <div class="share" (click)="openShare($event, event)"></div>
+                  <div *ngIf="checkList()"></div>
+                </div>
+              </ng-container>
+            </div>
+            <div class="address_page" *ngIf="currentFilter == 'adressname'">
+              <!-- Address Event Block -->
+              <ng-container *ngFor="let event of new_rubrik[rubrik.rubrik]; let i = index;">
+                <div (click)="globals.selected_random_image=event" class="event_display rubrik_block"
+                  [style.background-image]="event | toTermineBackgroundImage" [@fade]
+                  [class.no_image]="!event.image_name"
+                  (click)="goDetail(event)">
+                  <div class="bottom_info bottom_filtered column_adressname not_uhrzeit">
+                    <p class="filter_datum">{{event.datum_humanized}}{{ event.datum | differentYear }}</p>
+                    <p class="uhrzeit">{{event.uhrzeit}}</p>
+                    <div *ngIf="globals.editing"></div>
+                    <div class="rubrik_info"
+                      *ngIf="(currentFilter=='rubrik' && search_value!='')||(currentFilter=='rubrik')">
+                      {{event.rubrik}}</div>
+                    <div class="titel">{{event.title_cut_to_40}}</div>
+                    <div class="datum">
+                      <div>
+                        <div>{{event.rubrik}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share" (click)="openShare($event, event)"></div>
+                  <ng-container *ngIf="currentFilter!='rubrik'">
+                    <div *ngIf="checkList()"></div>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+
+          <!-- Check if current view is mobile, if true it will be renamed to 'mob' -->
+          <ng-container *ngIf="mobile | async as mob">
+            <!-- Mobile -->
+            <div class="mobile-wrapper">
+              <div class="rubrik_page" *ngIf="currentFilter == 'rubrik' && rubrik_index == 0">
+                <!-- Rubrik Event Block -->
+                <ng-container *ngFor="let event of events | async | reduceByTitel | sortByTime | insertBanners:(banner_difference | async) | slicer:0:(mobile_offset | async); index as i;">
+                  <ng-container *ngIf="event.box_type === 'event' else banner">
+                    <div class="event_display" [class.no_image]="event.image_name==''||event.image_name==null"
+                      (click)="globals.selected_random_image=event;goDetail(event)"
+                      [style.background-image]="event | toTermineBackgroundImage" *ngIf="(((selected_rubrik | async)==rubrik.rubrik)&& i<400)
+                            && search_value=='' 
+                            || ((search_value!='')&&(rubrik_index==0)&& !(mobile | async)) 
+                            || (
+                              (mobile | async)
+                              && rubrik_index==0 
+                              && currentFilter=='rubrik' 
+                              && ((rubrik_arr.length==0)
+                              || (rubrik_arr.indexOf(event.rubrik)!=-1))
+                              )">
+                      <div class="bottom_info">
+                        <div *ngIf="globals.editing"></div>
+                        <div class="rubrik_info"
+                          *ngIf="(currentFilter=='rubrik' && search_value!='')||(currentFilter=='rubrik')||(desktop_fullscreen | async)">
+                          {{event.rubrik}}</div>
+                        <div class="titel">{{ event.title_cut_to_40 }}</div>
+                        <div class="datum">
+                          <div>
+                            <div class="rubrik_format">{{event.datum_humanized }}{{ event.datum | differentYear }}</div>
+                          </div>
+                          <div class="datum_format">{{event.uhrzeit}}
+                            <span *ngIf="event.assistants>5">| {{event.assistants}} assistants</span>
+                          </div>
+                          <ng-container *ngIf="event.events_count > 1 || event.rubrik === 'Ausstellungen'; else oneOrte">
+                            <div class="adress">{{ 'termine.multiple_places' | translate }}</div>
+                          </ng-container>
+                          <ng-template #oneOrte>
+                            <div class="adress">{{event.adressname}}</div>
+                          </ng-template>
+                        </div>
+                      </div>
+                      <div class="share" (click)="openShare($event, event)"></div>
+                    </div>
+                  </ng-container>
+                  <!-- Banners -->
+                  <ng-template #banner>
+                    <div class="banner_list_container">
+                      <div class="banner_container">
+                        <div class="kaz_text banner_box">
+                          <mix-banner-wrapper *ngIf="globals.banners_loaded | async" [quantity]="1"></mix-banner-wrapper>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ng-container>
+              </div>
+              <!-- Titel Event Block -->
+              <div class="titel_page" *ngIf="currentFilter == 'titel'">
+                <ng-container *ngFor="let event of new_rubrik[rubrik.rubrik]; index as i;">
+                  <div class="event_display" [class.no_image]="event.image_name==''||event.image_name==null"
+                    (click)="globals.selected_random_image=event; goDetail(event)"
+                    [style.background-image]="event | toTermineBackgroundImage">
+                    <div class="bottom_info bottom_filtered not_uhrzeit">
+                      <div style="width: 100%;" class="mobile_titel">
+                        <div class="flexed">
+                          <p class="filter_datum">
+                            {{event.datum_humanized }}{{ rubrik.datum | differentYear }}</p>
+                          <p class="uhrzeit">
+                            {{event.uhrzeit}}</p>
+                        </div>
+                        <div class="adress">{{event.adressname}}</div>
+                      </div>
+                      <div class="rubrik_info"
+                        *ngIf="(currentFilter=='rubrik' && search_value!='')||(currentFilter=='rubrik')||(desktop_fullscreen | async)">
+                        {{event.rubrik}}
+                      </div>
+                    </div>
+                    <div class="share" (click)="openShare($event, event)"></div>
+                    <div *ngIf="checkList()"></div>
+                  </div>
+                </ng-container>
+              </div>
+              <!-- Uhrzeit Event Block -->
+              <div class="uhrzeit_page" *ngIf="currentFilter == 'uhrzeit'">
+                <ng-container *ngFor="let event of new_rubrik[rubrik.rubrik]; let i = index;">
+                  <div class="event_display" [class.no_image]="event.image_name=='' || event.image_name==null"
+                    (click)="globals.selected_random_image=event; goDetail(event)"
+                    [style.background-image]="event | toTermineBackgroundImage" *ngIf="(
+                              ( 
+                                (((selected_rubrik | async)==rubrik.rubrik) && i<400) 
+                                && (!(mobile | async)||currentFilter!='rubrik')
+                              ) 
+                              &&  search_value=='' 
+                              ||  ( (search_value!='') && (rubrik_index==0) && !(mobile | async) ) 
+                              ||  (
+                                  (mobile | async)
+                                  && i<=(mobile_offset | async)
+                                  && rubrik_index==0 
+                                  && currentFilter=='rubrik' 
+                                  && ((rubrik_arr.length==0) || (rubrik_arr.indexOf(event.rubrik)!=-1))
+                                  )
+                            ) || 5==5 
+                            ">
+                    <div class="bottom_info uhrzeit_list bottom_filtered bottom_free_column">
+                      <div class="uhrzeit-flex">
+                        <div class="rubrik_info">{{event.rubrik}}</div>
+                        <div class="adress">{{event.titel}}</div>
+                      </div>
+                      <div class="titel">{{event.adressname}}</div>
+                    </div>
+                    <div class="share" (click)="openShare($event, event)"></div>
+                    <div *ngIf="checkList()"></div>
+                  </div>
+                </ng-container>
+              </div>
+              <!-- Addressname Event Block -->
+              <div class="adressname_page" *ngIf="currentFilter == 'adressname'">
+                <ng-container *ngFor="let event of new_rubrik[rubrik.rubrik]; index as i;">
+                  <div class="event_display" [class.no_image]="event.image_name==''||event.image_name==null"
+                    (click)="globals.selected_random_image=event; goDetail(event)"
+                    [style.background-image]="event | toTermineBackgroundImage">
+                    <div class="bottom_info bottom_filtered column_adressname not_uhrzeit">
+                      <div class="adress-flex">
+                        <div class="rubrik_info">{{event.rubrik}}</div>
+                        <div class="adress_datum">
+                          <span class="day">{{event.datum_humanized}}{{ event.datum | differentYear }}</span>
+                          <span class="hour">{{event.uhrzeit}}</span>
+                        </div>
+                      </div>
+                      <div class="titel">{{event.title_cut_to_40}}</div>
+                    </div>
+                    <div class="share" (click)="openShare($event, event)"></div>
+                    <div *ngIf="checkList()"></div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+
+
+          <!-- what is this for? -->
+          <!-- <ng-container *ngIf="rubrik.rubrik=='total'">
+            <p *ngIf="setMax(rubrik.total_events)"></p>
+          </ng-container> -->
+
+        </div>
+        <!-- Banners for Desktop (not Rubrik) -->
+        <ng-container *ngIf="!(mobile | async) || ((mobile | async) && currentFilter != 'rubrik')">
+          <div class="banner_container" [class.filter_banner]="currentFilter!='rubrik'"
+            *ngIf="events_rubrik.length <= 3 || ((rubrik.rubrik=='banner' && !(mobile | async)) || 
+                    (currentFilter!='rubrik' && (mobile | async)) ||
+                    (rubrik.rubrik=='banner' && currentFilter=='rubrik' && (mobile | async) && (rubrik_index==3 || rubrik_index==7))) && 
+                    ((search_value=='')||(search_value!='' && rubrik_index==initial_offset))">
+            <div *ngIf="rubrik.rubrik=='banner'" class="kaz_text banner_box">
+              <ng-container *ngIf="globals.banners_loaded | async">
+                <mix-banner-wrapper *ngIf="mobile | async else adsDesktop" [quantity]="1">
+                </mix-banner-wrapper>
+                <ng-template #adsDesktop>
+                  <mix-banner-wrapper [quantity]="3"></mix-banner-wrapper>
+                </ng-template>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Ansicht flyover -->
+<div (click)="ansicht.next(false)" *ngIf="ansicht | async" class="ansicht_backdrop"></div>
+<div class="ansicht animated slideInUp faster" id="ansicht" [class.dark]="globals.dark" [class.mobile]="mobile | async" *ngIf="ansicht | async">
+  <h4>{{ "termine.ansicht" | translate }}</h4>
+  <!-- Rubrik View -->
+  <div class="ansicht_option" [class.ansicht_selected]="(filter | async)=='rubrik'"
+    (click)="changeFilter('rubrik')">
+    <div class="ansicht_icon"></div>
+    <div>{{ "termine.bildern" | translate }}</div>
+  </div>
+  <!-- Titel View -->
+  <div class="ansicht_option" [class.ansicht_selected]="(filter | async)=='titel'"
+    (click)="changeFilter('titel')">
+    <div class="ansicht_icon"></div>
+    <div>{{ "termine.veranstaltung" | translate }}</div>
+  </div>
+  <!-- Uhrzeit View -->
+  <div class="ansicht_option" [class.ansicht_selected]="(filter | async)=='uhrzeit'"
+    (click)="changeFilter('uhrzeit')">
+    <div class="ansicht_icon"></div>
+    <div>{{ "termine.uhrzeit" | translate }}</div>
+  </div>
+  <!-- Addressname View -->
+  <div class="ansicht_option" [class.ansicht_selected]="(filter | async)=='adressname'"
+    (click)="changeFilter('adressname')">
+    <div class="ansicht_icon"></div>
+    <div>{{ "termine.orten" | translate }}</div>
+  </div>
+</div>

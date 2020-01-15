@@ -1,0 +1,100 @@
+<div [class.disable_event]="!(canclick | async)"
+    [class.shadowy]="!(rubrik_search_list | async).length && globals.search" [class.hidden]="email | async">
+    <div *ngIf="globals.search | async" [class.focus]="focusSearch()">
+
+        <div class="search">
+            <form id="search_f">
+                <div class="close_button" (click)="resetSearch()"></div>
+                <label for="search" style="position: absolute;opacity: 0;"></label>
+                <input maxlength="50" type="text" id="search" [placeholder]="'termine.suche' | translate" [value]="search_value | async"
+                    [formControl]="search_control">
+            </form>
+        </div>
+    </div>
+    <div *ngIf="!(search_display | async) || !(globals.search | async)" [class.searchMode]="globals.search | async" [class.noscroll]="email | async"
+        class="kaz-content" [ngClass]="'columns_'+(column_no | async)">
+        <div class="kazen" *ngFor="let kazclass of data$ | async;index as i;trackBy: getID"
+            [class.banner_box]="kazclass.rubrik=='banner_s'||kazclass.rubrik=='banner'">
+            <div class="englobe_ref">
+                <div class="anchor" [class.reference]="kazclass.rubrik == (kategorie | async)">The reference</div>
+            </div>
+            <div *ngIf="kazclass.rubrik!='banner' && kazclass.rubrik!='banner_s'" (click)="goKategorie(kazclass.rubrik)"
+                [class.selected]="kazclass.rubrik == (kategorie | async)" class="display" title="{{kazclass.rubrik}}"
+                [style.background-image]="getImage(kazclass.rubrik)"
+                style="background-repeat: no-repeat; background-size: 101% 70%, cover; background-position: 100% 101%, center;">
+                <div class="triangle"></div>
+                <div class="info">
+                    <div class="arrow"></div>
+                    <p>{{ kazclass.rubrik }}</p>
+                    <p>{{ kazclass.total }}</p>
+                </div>
+            </div>
+            <div [@FoldOut]="animation_check | async"
+                [class.one]="((checkClass(i)==1 || checkClass(i)==4) && (column_no | async)==3)||((checkClass(i)==1 || checkClass(i)==3 || checkClass(i)==5 ) && (column_no | async)==2) "
+                [class.two]="((checkClass(i)==2 || checkClass(i)==5) && (column_no | async)==3)||((checkClass(i)==2 || checkClass(i)==4 || checkClass(i)==6 ) && (column_no | async)==2)"
+                [class.three]="checkClass(i)==3 || checkClass(i)==6"
+                *ngIf="kazclass.rubrik == (kategorie | async) && kazclass.rubrik!='banner' && kazclass.rubrik!='banner_s'">
+                <mix-kaz-kategorie [mail_data$]="mail_data$" [pin_data]="pin_data" [kazen_data]="api.kazens"
+                    (pin)="reloadPin($event)" [rubrik]="kategorie | async" (mail)="checkForm($event)"
+                    [kategorie]="kazclass.rubrik" [ngClass]="'kazen_columns_'+(column_no | async)">
+                </mix-kaz-kategorie>
+            </div>
+        </div>
+        <div>
+            <div *ngIf="!!(data$ | async).length" class="footer">
+                <div>
+                    <p>MIX - die Stadt in der Tasche!</p>
+                    <p>Bitte <span routerLink="/aufgeben/kazen">hier klicken,</span> wer selber inserieren möchte.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="(search_display | async) && (globals.search | async)" [class.searchMode]="globals.search | async" [class.noscroll]="email | async"
+        class="kaz-content" [ngClass]="'columns_'+(column_no | async)">
+        <div class="kazen" *ngFor="let kazclass of rubrik_search_list | async;index as i;trackBy: getID">
+            <div class="englobe_ref">
+                <div class="anchor" [class.reference]="kazclass == (kategorie | async)">The reference</div>
+            </div>
+            <div (click)="goKategorie(kazclass)" [class.selected]="kazclass == (kategorie | async)" class="display"
+                [style.background-image]="getImage(kazclass)"
+                style="background-repeat: no-repeat; background-size: cover;background-position:center;">
+                <div class="triangle"></div>
+                <div class="info">
+                    <div class="arrow"></div>
+                    <p>{{ kazclass }}</p>
+                    <p>{{ getNumber(kazclass) }}</p>
+                </div>
+            </div>
+            <div [@FoldOut]="animation_check | async"
+                [class.one]="((checkClass(i)==1 || checkClass(i)==4) && (column_no | async)==3)||((checkClass(i)==1 || checkClass(i)==3 || checkClass(i)==5 ) && (column_no | async)==2) "
+                [class.two]="((checkClass(i)==2 || checkClass(i)==5) && (column_no | async)==3)||((checkClass(i)==2 || checkClass(i)==4 || checkClass(i)==6 ) && (column_no | async)==2)"
+                [class.three]="checkClass(i)==3 || checkClass(i)==6" *ngIf="kazclass == (kategorie | async)">
+                <mix-kaz-kategorie [mail_data$]="mail_data$" [search_value]="search_value | async" [pin_data]="pin_data"
+                    [kazen_data]="api.kazens" [rubrik]="kategorie | async" (mail)="checkForm($event)"
+                    (pin)="reloadPin($event)" [ngClass]="'kazen_columns_'+(column_no | async)"
+                    [kategorie]="kazclass.rubrik">
+                </mix-kaz-kategorie>
+            </div>
+        </div>
+        <mix-not-found *ngIf="!(rubrik_search_list | async).length"></mix-not-found>
+        <div>
+            <div *ngIf="!!(rubrik_search_list | async).length" class="footer">
+                <div>
+                    <p>MIX - die Stadt in der Tasche!</p>
+                    <p>Bitte <span routerLink="/aufgeben/kazen">hier klicken,</span> wer selber inserieren möchte.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<mix-kaz-email-form [columns]="column_no | async" (mail)="checkForm($event)" [kaz_text]="text | async" [email]="email | async"
+    *ngIf="email | async" [perPost]="per_post | async"></mix-kaz-email-form>
+<div class="alert" *ngIf="alert">
+    <div class="alert_message">
+        <div>{{pre_alert_message}}</div>
+        <div [innerHTML]="message_alert | safeHtml" style=" color: rgba(191, 16, 49, 1); text-align: center"></div>
+    </div>
+    <p class="ok" *ngIf="simple_alert==false" (click)="removeAlert()">OK</p>
+</div>
+<div>{{reloadPinMail()}}</div>
+<mat-spinner *ngIf="!(data$ | async).length" class="kaz-loading-spinner" diameter="60"></mat-spinner>

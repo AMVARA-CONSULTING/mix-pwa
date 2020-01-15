@@ -1,0 +1,7 @@
+<div mat-dialog-content class="red">
+  <mat-spinner *ngIf="loading | async" diameter="20"></mat-spinner>
+  <span *ngIf="!(loading | async)" [innerHTML]="info_box_text | async | safeHtml"></span>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" mat-dialog-close>Zurück</button>
+</div>

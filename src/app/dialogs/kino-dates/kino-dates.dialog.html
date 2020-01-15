@@ -1,0 +1,33 @@
+<div mat-dialog-content class="no-scroll">
+  <div class="selector animated slideInUp faster">
+    <mat-form-field appearance="fill" class="places">
+      <mat-label>{{ 'detail_dates.place' | translate }}</mat-label>
+      <mat-select panelClass="select-place" [formControl]="place">
+        <mat-optgroup *ngFor="let place of places | async | keyvalue" [label]="place.key">
+          <mat-option *ngFor="let location of place.value | keyvalue" [value]="location.value">
+            {{ location.key }}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button (click)="openPlaceInfo()" color="primary" class="info">INFO</button>
+  </div>
+  <div class="times animated slideInUp faster">
+    <div class="days">
+      <div class="day animated fadeIn" [class.activated]="day.key === (activeDay | async)" (click)="viewHours(day)" matRipple *ngFor="let day of days | async | keyvalue">{{ day.key | checkDatum }}{{day.key | differentYear }}</div>
+    </div>
+    <div class="hours">
+      <div class="hour animated fadeIn" *ngFor="let hour of hours | async | sortDateHours">
+        <div class="label">
+          <div class="time" [class.actual]="(activeDay | async) == events.event.datum && hour.hour == events.event.uhrzeit">{{ hour.hour }}</div>
+        </div>
+        <div class="buy">
+          <i (click)="openShare(hour)" class="cart"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button color="primary" mat-button mat-dialog-close>Zurück</button>
+</div>

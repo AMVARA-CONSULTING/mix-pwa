@@ -1,0 +1,29 @@
+<div mat-dialog-content>
+  <div class="header">Teilnehmer<span *ngIf="attended | async"> | {{ (assistants | async).length }}</span>
+  </div>
+  <div class="users-wrapper">
+    <div class="user me">
+      <div class="icon" [ngClass]="provider | async"></div>
+      <div class="name"></div>
+      <button [disabled]="attendDisabled | async" (click)="attend(false)" *ngIf="attended | async else doNotAttend"
+        class="set" mat-raised-button>{{ 'ui.not_attend' | translate }}</button>
+      <ng-template #doNotAttend>
+        <button [disabled]="attendDisabled | async" (click)="attend(true)" class="set" mat-raised-button>{{ 'ui.attend' | translate }}</button>
+      </ng-template>
+    </div>
+    <ng-container *ngIf="attended | async; else no_list_available">
+      <div class="user" *ngFor="let assistant of assistants | async">
+        <div class="icon" [ngClass]="assistant.user_origin"></div>
+        <div class="name">{{ assistant.user_name }}</div>
+      </div>
+    </ng-container>
+    <ng-template #no_list_available>
+      <div class="user" *ngIf="(assistants | async).length>=1">
+        {{ 'ui.hint-not-yet-attend' | translate }}
+      </div>
+    </ng-template>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Zurück</button>
+</div>

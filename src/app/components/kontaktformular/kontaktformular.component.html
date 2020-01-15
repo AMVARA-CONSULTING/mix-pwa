@@ -1,0 +1,89 @@
+<div class="content" [class.waiting]="waiting">
+  <div class="close" (click)="backHistory()"><img src="assets/images/close_detail.svg" /></div>
+  <div class="general">
+    <form [formGroup]="form" [class.one_col]="(columns | async)<2" (ngSubmit)="checkForm()">
+      <div class="form_plus">
+        <div class="info">
+          <h2>KONTAKTFORMULAR</h2>
+          <h5 style="margin-top: 50px;">Schicke eine eMail an das Mix.</h5>
+          <p>Termine werden über dieses Kontaktformular nicht angenommen. Wenn Du dem Mix einen Termin mitteilen
+            möchtest, <a routerLink="/aufgeben/termine"> bitte hier klicken</a>.</p>
+        </div>
+        <div class="text_form">
+          <div class="zone" [class.error]="name_error | async">
+            <label>Name/Firma*</label>
+            <input *ngIf="form_mode | async" maxlength="255" [class.missing]="form.value.name=='.'" type="text"
+              formControlName="name" (focus)="name_error.next(false)">
+            <div class="final_form" *ngIf="!(form_mode | async)">{{form.value.name}}</div>
+          </div>
+          <div class="zone" [class.error]="email_error | async">
+            <label>eMail*</label>
+            <input *ngIf="form_mode | async" maxlength="255" [class.missing]="form.value.email=='.'" type="text"
+              formControlName="email" (focus)="email_error.next(false)">
+            <div class="final_form" *ngIf="!(form_mode | async)">{{form.value.email}}</div>
+          </div>
+          <div class="zone" [class.error]="telefon_error | async">
+            <label>Telefon*</label>
+            <input *ngIf="form_mode | async" maxlength="255" [class.missing]="form.value.email=='.'" type="text"
+              formControlName="telefon" (focus)="telefon_error.next(false)">
+            <div class="final_form" *ngIf="!(form_mode | async)">{{form.value.email}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="photupload">
+        <div class="form_plus">
+          <div class="text_form">
+            <div class="zone" [class.error]="text_error | async">
+              <label>Nachricht*</label>
+              <textarea *ngIf="form_mode | async" maxlength="6000" (focus)="text_error.next(false)"
+                [class.missing]="form.value.text=='.'" [class.textarea_more]="(columns | async)>1"
+                [class.textarea_one]="(columns | async)<2" rows="4" cols="40" formControlName="text"
+                style="overflow:auto;resize:none">
+          </textarea>
+              <div class="final_form" *ngIf="!(form_mode | async)">{{form.value.text}}</div>
+            </div>
+            <div class="agree" [class.error]="captcha_error | async">
+              <input type="checkbox" name="copyright" id="agree" formControlName="agree">
+              <label for="agree">
+                <span></span>Mit dem Klick erteile ich meine Einwilligung und erkenne die Datenschutzerklärung an:
+              </label>
+            </div>
+            <div class="form_terms">
+              Hiermit willige ich ein, dass mich das MIX mittels Telefon, E-Mail oder Post kontaktieren darf.
+              Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular
+              inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von
+              Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.
+              Die Verarbeitung der in das Kontaktformular eingegebenen Daten erfolgt somit ausschließlich auf Grundlage
+              Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können diese Einwilligung jederzeit widerrufen. Dazu
+              reicht eine formlose Mitteilung per E-Mail an verlag@mix-online.de. Die Rechtmäßigkeit der bis zum
+              Widerruf erfolgten Datenverarbeitungsvorgänge bleibt vom Widerruf unberührt.
+              Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung
+              auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt.
+              Zwingende gesetzliche Bestimmungen - insbesondere Aufbewahrungsfristen - bleiben unberührt.
+            </div>
+            <div class="captcha">
+              <ngx-recaptcha2 *ngIf="captcha_required | async" class="google-recaptcha" #captchaElem
+                siteKey="6Ld3AaIUAAAAAO9WCYY-513nar3KL_iixsj6M_q4" [useGlobalDomain]="false" size="normal"
+                [hl]="language" theme="light" type="image" formControlName="captcha">
+              </ngx-recaptcha2>
+              <button class="abschicken" *ngIf="form_mode | async" type="submit"
+                [class.disabled]="!form.valid">abschicken</button>
+              <button *ngIf="!(form_mode | async)" type="button" (click)="onSubmit(); waiting=true;"
+                [class.disabled]="!form.valid">{{ 'mediadaten.buttonsubmit' | translate }}</button>
+              <!--<button class="form_edit" *ngIf="!(form_mode | async)" type="button"
+                (click)="form_mode.next(true)">bearbeiten</button>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="alert" *ngIf="alert | async">
+  <div class="alert_message">
+    <div>{{pre_alert_message | async}}</div>
+    <div [innerHTML]="message_alert | async | safeHtml" style=" color: rgba(191, 16, 49, 1); text-align: center"></div>
+  </div>
+  <p *ngIf="(form_mode | async) && exit==false" class="ok" (click)="alert.next(false); waiting=false">OK</p>
+  <p *ngIf="(form_mode | async) && exit" class="ok" (click)="passMail()">OK</p>
+</div>

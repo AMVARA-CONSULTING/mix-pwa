@@ -1,0 +1,371 @@
+@import "../../other/colors";
+@import "../../other/breakpoints";
+
+.main_print{
+    display: block;
+    height: 65vh;
+    width: 33vw;
+    margin: auto;
+    min-width: 300px;
+    margin-top: 40px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: 120px;
+    margin-bottom: 40px;
+    position: relative;
+    @include for-phone-only {
+        margin-top: 35px;
+    }
+    @include for-tablet-landscape-only {
+        margin-top: 30px;
+    }
+    @include for-tablet-portrait-only {
+        margin-top: 30px;
+        height: 55vh;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: url(^assets/blattermix_teaser.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+    }
+}
+@include for-desktop-up {
+    .actuels:after {
+        content: " PRINT MIX";
+    }
+}
+.main_print:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+.hide{
+    display: none;
+}
+.main_title{
+    color:$white;
+    line-height: 40px;
+    border-bottom: $mainColor 2px solid;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+}
+.full_print{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    height: 75vh;
+    width: 92vw;
+    margin: auto;
+    margin-top: 40px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.x, .x_fullscreen{
+    background-image: url(^assets/images/MIXICON_Close.svg);
+    width: 40px;
+    height: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0px;
+    top: 74px;
+    background-size: 20px 20px;
+    cursor: pointer;
+    -webkit-filter: brightness(200%);
+    filter: brightness(200%);
+    z-index: 1;
+}
+.x:hover{
+    opacity: 0.8;
+}
+.x.desktop{
+    background-color: #0c0c0c;
+}
+.arrow{
+    opacity: 0.7;
+    background-image: url(^assets/images/MIXICON_Back.svg);
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+.arrow:hover{
+    opacity: 0.5;
+}
+.arrow.photo_next{
+    position: absolute;
+    right: -10px;
+    top:45%;
+    -webkit-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
+    -webkit-filter:brightness(300%);
+            filter:brightness(300%);
+    width:20px;
+    height: 30px;
+    background-color: $black;
+    border:$black solid 5px;
+    border-top:$black solid 10px;
+    border-bottom:$black solid 10px;
+    border-radius: 10px;
+    background-position: center;
+    opacity: 0.5;
+    transition:opacity 0.5s;
+}
+.arrow.photo_back{
+    position: absolute;
+    left: -10px;
+    top:45%;
+    -webkit-filter:brightness(300%);
+            filter:brightness(300%);
+    width:20px;
+    height: 30px;
+    background-color: $black;
+    border:$black solid 5px;
+    border-top:$black solid 10px;
+    border-bottom:$black solid 10px;
+    border-radius: 10px;
+    background-position: center;
+    opacity: 0.5;
+    transition:opacity 0.5s;
+}
+.two_pages{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    
+}
+.page.one{
+    width: 49vw;
+    height: 91vh;
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat;
+    border-right: $black solid 2px;
+}
+.page.two{
+    width: 49vw;
+    height: 91vh;
+    background-size: contain;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+.two_pages {
+    .arrow{
+        top: 49%;
+        width: 21px;
+        height: 60px;
+        background-color: black;
+        border: black solid 19px;
+    }
+    .arrow.photo_back{
+        left: 27px;
+    }
+    .arrow.photo_next{
+        right: 27px;
+    }
+}
+.pdf{
+    background-image: url(^assets/images/pdf-icon-symbol-5.png);
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: fixed;
+    bottom: 50px;
+    right: 10px;
+    background-size: contain;
+
+}
+.pdf:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+.pdf.mobile{
+    width: 35px;
+    height: 35px;
+    top: 85px;
+    left: 2px;
+}
+.last{
+    background-image: url(^assets/images/MIXICON_Back.svg);
+    -webkit-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: fixed;
+    bottom: 106px;
+    right: 10px;
+    background-size: contain;
+
+}
+.last:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+.last.mobile{
+    width: 35px;
+    height: 35px;
+    top: 85px;
+    left: 80px;
+}
+.first{
+    background-image: url(^assets/images/MIXICON_Back.svg);
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: fixed;
+    bottom: 170px;
+    right: 13px;
+    background-size: contain;
+
+}
+.first:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+.first.mobile{
+    width: 35px;
+    height: 35px;
+    top: 85px;
+    left: 40px;
+}
+.old_print_container{
+    display: flex;
+    flex-wrap: wrap;
+    & > * {
+        flex: 1 25%;
+        box-sizing: border-box;
+        max-width: 25%;
+    }
+    margin-bottom: 50px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    @include for-tablet-only {
+        margin-top: 20px;
+    }
+}
+.old_print_title{
+    position: absolute;
+    bottom: -35px;
+    left: 34%;
+    color: $white;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+@media only screen and (max-width: 1200px) {
+    .old_print_container{
+        & > * {
+            flex: 0 33.3333333%;
+            max-width: 33.33333333%;
+        }
+    }
+}
+@media only screen and (max-width: 600px) {
+    .old_print_container{
+        & > * {
+            flex: 0 50%;
+            max-width: 50%;
+        }
+    }
+    .old_print_title{
+        position: absolute;
+        bottom: -30px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .old_print_title{
+        position: absolute;
+        bottom: -20px;
+    }
+}
+.old_print{
+    height: 220px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+.old_print:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+.aktuelles_desktop{
+    display: none;
+}
+@media only screen and (min-width: 1200px) {
+    .aktuelles{
+        display: none;
+    }
+    .aktuelles_desktop{
+        display: block;
+        color: $mainColor;
+        font-weight: bold;
+        position: absolute;
+        left: -190px;
+    }
+    .aktuelles_desktop span{
+        color: $white;
+        font-weight: normal;
+    }
+    .archiv_desktop{
+        border: none !important;
+        background: none !important;
+        color: $mainColor;
+        display: block;
+        margin-left: 5vw;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+}
+.page_no{
+    position: fixed;
+    bottom: 225px;
+    right: 10px;
+    input{
+        color: $white;
+        background-color: $black;
+        width: 40px;
+        height: 60px; 
+        font-size: 20px;
+        text-align: center;
+    }
+}
+.mobile.page_no{
+    bottom: 10px;
+}
+.fullscreen_print{
+    margin:auto;
+    background-size: 100vw 90vh;
+    height: 90vh;
+    width: 100vw;
+}
+.x_fullscreen{
+    top:5px !important;
+}
+.image_pointer{
+    width: 50vw;
+    margin: auto;
+    height: 100%;
+}

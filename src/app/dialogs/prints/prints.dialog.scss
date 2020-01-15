@@ -1,0 +1,80 @@
+
+@import '../../other/colors.scss';
+@import '../../other/breakpoints';
+
+:host * {
+  font-family: "Open Sans" !important;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+.mat-dialog-content::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.mat-dialog-content::-webkit-scrollbar-thumb {
+  background-color: $red-global;
+}
+
+.category {
+  color: rgba(255,255,255,.7);
+  text-transform: uppercase;
+  font-size: 12px;
+  @include for-tablet-portrait-up {
+    font-size: 14px;
+  }
+  margin-top: 0;
+  font-weight: normal;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+:host ::ng-deep .mat-dialog-content {
+  padding: 0;
+}
+
+a {
+  outline: 0;
+  text-decoration: none;
+  color: #333;
+}
+
+.print-item {
+  line-height: 50px;
+  display: flex;
+  height: 50px;
+  padding: 0 20px;
+  padding-left: 40px;
+  box-sizing: border-box;
+  position: relative;
+  color: rgba(white, .9);
+  @include for-phone-only {
+    padding-left: 30px;
+  }
+  .semibold {
+    color: lighten($red-global, 10);
+    flex: 1;
+    padding-left: 20px;
+    box-sizing: border-box;
+    display: inline-block;
+  }
+  .print-icon {
+    color: lighten($red-global, 10);
+  }
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(white,.03);
+  }
+  i {
+    flex: 0 30px;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 27px;
+    background-position: center;
+    margin-right: 20px;
+    background-image: url(^assets/images/print/open-book.svg);
+  }
+}

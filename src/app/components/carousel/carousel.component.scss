@@ -1,0 +1,178 @@
+
+@import '../../other/colors.scss';
+@import '../../other/breakpoints';
+
+:host {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+:host ::ng-deep .item {
+  height: 200px;
+  background-size: 100% 100%, cover;
+  background-repeat: no-repeat, repeat;
+  position: relative;
+  cursor: pointer;
+}
+
+:host ::ng-deep .owl-stage {
+  will-change: transform;
+}
+
+.pagination {
+  position: absolute;
+  right: 5px;
+  font-weight: 500;
+  opacity: .5;
+  top: -30px;
+}
+
+:host ::ng-deep .owl-wrapper > .owl-element > .item {
+  display: none !important;
+}
+
+:host ::ng-deep .item {
+  position: relative;
+  &:hover {
+      .share {
+          opacity: 1;
+      }
+  }
+  .share {
+      position: absolute;
+      background-image: url(^assets/images/termine/mix-icon-dotsmenu_margin.svg);
+      background-repeat: no-repeat;
+      background-size: 24px;
+      @include for-desktop-up {
+        opacity: .3;
+      }
+      background-position: center;
+      height: 35px;
+      width: 35px;
+      top: 3px;
+      right: 3px;
+      transform: rotate(90deg);
+  }
+}
+
+.owl-wrapper {
+  position: relative;
+  margin: 0 5vw;
+}
+
+::ng-deep .owl-item {
+  color: white;
+}
+
+.previous, .next {
+  display: block;
+  position: absolute;
+  width: 5vw;
+  top: 0;
+  height: 200px;
+  opacity: .6;
+  background-image: url(^assets/images/MIXICON_Back.svg);
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.previous {
+  left: 0;
+}
+
+.next {
+  right: 0;
+  transform: rotateY(180deg);
+}
+
+.rubrik_info {
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.rubrik_format, .datum_format {
+  font-size: 16px !important;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+@include for-tablet-portrait-up {
+  .rubrik_format, .datum_format {
+    font-size: 14px !important;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased;
+  }
+  .adress {
+    top: 3px !important;
+  }
+}
+
+.bottom_info{
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  width: calc(100% - 30px);
+  .titel{
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 22px;
+      line-height: 27px;
+      -webkit-font-smoothing: antialiased;
+  }
+  .adress{
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      vertical-align: text-bottom;
+      -o-text-overflow: ellipsis;
+         text-overflow: ellipsis;
+      -webkit-font-smoothing: antialiased
+      
+  }
+  .datum div{
+      font-size: 12px;
+      text-transform: uppercase;
+      flex: initial;
+  }
+  .datum div:nth-child(2):before{
+      content:"|";
+      margin-left: 8px;
+      margin-right: 8px;
+      position: relative;
+      bottom: 2px;
+  }
+}
+
+.adress_format {
+  display: inline;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: text-bottom;
+  text-overflow: ellipsis;
+  -webkit-font-smoothing: antialiased;
+}
+
+.datum {
+  white-space: nowrap;
+  display: flex !important;
+}
+
+.adress{
+  display: inline-block;
+  width: 60%;
+  line-height: 16px;
+  margin-bottom: -4px;
+  position: relative;
+  top: 5px;
+}
+
+.adress:before{
+  content: "|";
+  margin-left: 8px;
+  margin-right: 8px;
+  position: relative;
+  bottom: 2px;
+}

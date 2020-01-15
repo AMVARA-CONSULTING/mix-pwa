@@ -1,0 +1,91 @@
+
+//color
+
+$red-global: #BF1031;
+$red-light: rgb(250, 111, 137);
+$mainColor: rgba(191, 16, 49, 1);
+$mainColor_transparent: rgba(191, 16, 49, 0.4);
+$darkRed: rgba(152, 35, 23, 1);
+
+@if "true" == "true" {
+	$red-global: #BF1031;
+	$red-light: rgb(250, 111, 137);
+	$mainColor: rgba(191, 16, 49, 1);
+	$mainColor_transparent: rgba(191, 16, 49, 0.4);
+	$darkRed: rgba(152, 35, 23, 1);
+} @else {
+	$red-global: #1e88e5;
+	$red-light: rgb(250, 111, 137);
+	$mainColor: #1e88e5;
+	$mainColor_transparent: rgba(#1e88e5, .4);
+	$darkRed: #1e88e5;
+} 
+$white: rgba(255, 255, 255, 1);
+$whiteish: rgba(242, 242, 242, 1);
+$whiteishGray: rgba(255, 255, 255, 1);
+$lightgray: rgba(235, 236, 236, 1);
+$grayish: rgba(205, 206, 206, 1);
+$gray: rgba(184, 184, 185, 1);
+$grayblack: rgb(138, 138, 138);
+$darkBlueish: rgba(51, 51, 51, 1);
+$banner_gray: rgba(29, 29, 29, 1);
+$blackish: rgba(26, 26, 26, 1);
+$black: rgba(0, 0, 0, 1);
+$brownish: #D8CEC4;
+$green:rgb(12, 78, 5);
+$detail-title: #eaeaea;
+$greyish: rgb(223, 221, 221);
+
+//font
+
+$logoFont: Trebuchet, sans-serif;
+$shortTextFont: OpenSans, sans-serif;
+$longTextFont: Arial;
+
+$mobile-only: 599px;
+
+//header
+$header_height: 70px;
+
+input[type="checkbox"], input[type="radio"] {
+	-ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(2) translateY(0px) translateX(0px);
+  padding: 0px;
+	position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+input[type="checkbox"]:hover{
+	color:$mainColor;
+	cursor: pointer;
+}
+input[type="checkbox"] + label span, input[type="radio"] + label span {
+    display:inline-block;
+    width:15px;
+	height:15px;
+	background-color:$white;
+    margin:-4px 4px 0 0;
+    vertical-align:middle;
+    border:solid $gray 2px;
+	cursor:pointer;
+	border-radius: 5px;
+}
+
+
+input[type="checkbox"]:checked + label span, input[type="radio"]:checked + label span {
+	background-color:$mainColor;
+}
+input[type="checkbox"]:checked + label span:before, input[type="radio"]:checked + label span:before {
+	content:"✓";
+	font-weight: bold;
+	position: relative;
+	color:$whiteish;
+	pointer-events: none;
+	top:-3px;
+	left:1px;
+	font-size:15px;
+}

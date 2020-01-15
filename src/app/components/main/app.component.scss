@@ -1,0 +1,77 @@
+@import "../../other/colors";
+@import "../../other/breakpoints";
+
+.main_container{
+    margin: 0;
+    padding: 0;
+    margin-top: 70px;
+    // background-color: white;
+}
+header{
+    z-index: 3;
+}
+.absorb{
+    pointer-events: none;
+}
+
+.hide_cookies {
+    display: none;
+}
+
+//------------alert modal---------
+.alert-box {
+    z-index: 2000;
+	font-size: 15px;
+	position: fixed;
+    width: 60vw;
+    @include for-desktop-up {
+        width: auto;
+    }
+    display: none;
+    top: 50%; 
+    left: 50%; 
+    -webkit-transform: translate(-50%, -50%); 
+        -ms-transform: translate(-50%, -50%); 
+            transform: translate(-50%, -50%); 
+    background-color: $white;
+    font-weight: bold;
+    -webkit-box-shadow: 2px 2px 30px $darkBlueish;
+            box-shadow: 2px 2px 30px $darkBlueish;
+    text-align: center;
+	.alert_message{
+		padding:20px;
+        font-size: 14px;
+        color: black;
+        text-align: center;
+        .cm-custom-text {
+            color: $red-global !important;
+        }
+	}
+    .ok {
+		margin-top:20px;
+		padding:10px;
+		margin-top:2px;
+		background-color: $mainColor;
+		color:$whiteish;
+		margin-bottom:0px;
+		margin-top:1px;
+		padding: 0;
+		padding-top:5px;
+		padding-bottom: 5px;
+    }
+    .ok:hover {
+        opacity: 0.80;
+        cursor: pointer;
+    }
+    @media (max-width:1000px){
+        .ok{
+            padding-top: 6px;
+            margin: 0 20px 20px;
+            padding-bottom: 6px;
+            text-transform: uppercase;
+        }
+    }
+    .yes{
+        background-color:#929292;
+    }
+}

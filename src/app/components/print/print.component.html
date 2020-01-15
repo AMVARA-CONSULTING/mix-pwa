@@ -1,0 +1,42 @@
+<div class="container" *ngIf="print_main$ | async as mainPrint">
+  <div class="print_container" [class.hide]="selected_print!=''">
+    <div class="main_title aktuelles">Aktuelles Print-MIX {{ mainPrint.name | printDate }}</div>
+    <a [href]="getLink(mainPrint.name)" target="_blank" class="main_print" [style.background-image]="mainPrint.name | printBackground:'big'">
+      <div class="aktuelles_desktop">
+        <div class="actuels">AKTUELLES</div>
+        <div>
+          <span>MIX {{ mainPrint.name | printDate }}</span>
+        </div>
+      </div>
+    </a>
+    <div class="main_title archiv_desktop" *ngIf="(prints$ | async).length > 0">Archiv</div>
+    <div class="old_print_container">
+      <ng-container *ngFor="let print of prints$ | async">
+        <a target="_blank" [href]="getLink(print.name)" class="old_print" [style.background-image]="print.name | printBackground:'small'"> 
+          <div class="old_print_title">MIX {{ print.name | printDate }}</div>
+        </a>
+      </ng-container>
+      <div class="old_print" *ngIf="i!=0" [style.background-image]="'url(assets/images/print/Print_MIX_Archiv.jpg)'" (click)="openPrintArchive()"> 
+        <div class="old_print_title">{{ 'print.all_archive' | translate }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="x" [class.desktop]="mobile==false" *ngIf="selected_print!='' && globals.fullscreen_print==false" (click)="selected_print='';page=1; max_pages=0; globals.mobile_keyboard=false;backHistory()"></div>
+  <div class="x_fullscreen" *ngIf="globals.fullscreen_print" (click)="backHistory()"></div>
+  <div class="full_print hide" *ngIf="selected_print!='' && mobile && page!=max_pages-1" [style.background-image]="getPageBackground(selected_print, 1)"></div>
+  <div class="full_print hide" *ngIf="selected_print!='' && mobile && page>1 " [style.background-image]="getPageBackground(selected_print, -1)"></div>
+  <div class="full_print" [class.fullscreen_print]="globals.fullscreen_print" *ngIf="selected_print!='' && mobile" [style.background-image]="getSelectedBackground(selected_print)"><div class="image_pointer" (click)="globals.fullscreen_print=globals.fullscreen_print ? false : true;"></div><div class="arrow photo_next" (click)="page=page+1" *ngIf="page<max_pages-1 && globals.fullscreen_print==false"></div><div class="arrow photo_back" (click)="page=page-1"  *ngIf="page>1 && globals.fullscreen_print==false"></div></div>
+  <div class="two_pages" *ngIf="selected_print!='' && mobile==false">
+    <div class="page one hide" *ngIf="page>3" [style.background-image]="getPageBackground(selected_print, -1)"></div>
+    <div class="page two hide" *ngIf="page>3" [style.background-image]="getPageBackground(selected_print, -2)"></div>
+    <div class="page one" [style.background-image]="getPageBackground(selected_print, 0)"></div>
+    <div class="page two" *ngIf="page!=max_pages-1" [style.background-image]="getPageBackground(selected_print, 1)"></div>
+    <div class="page one hide" *ngIf="page!=max_pages-1 && page!=max_pages-3 && page!=max_pages-2" [style.background-image]="getPageBackground(selected_print, 2)"></div>
+    <div class="page two hide" *ngIf="page!=max_pages-1 && page!=max_pages-3 && page!=max_pages-2" [style.background-image]="getPageBackground(selected_print, 3)"></div>
+    <div class="arrow photo_next" *ngIf="page<max_pages-2" (click)="page=page+2;"></div><div class="arrow photo_back" *ngIf="page>2" (click)="page=page-2"></div>
+  </div>
+  <div class="pdf" [class.mobile]="mobile" *ngIf="selected_print!='' && globals.fullscreen_print==false" (click)="openPdf(selected_print)"></div>
+  <div class="last" [class.mobile]="mobile" *ngIf="selected_print!=''  && globals.fullscreen_print==false" (click)="page= mobile ? max_pages-1 : max_pages-2"></div>
+  <div class="first" [class.mobile]="mobile" *ngIf="selected_print!='' && globals.fullscreen_print==false" (click)="page=1"></div>
+  <div class="page_no" [class.mobile]="mobile" *ngIf="selected_print!='' && globals.fullscreen_print==false"><input type="text" value="{{page}}" (keyup)="changePage($event)"></div>
+</div>

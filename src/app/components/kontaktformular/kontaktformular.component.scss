@@ -1,0 +1,408 @@
+@import "../../other/colors.scss";
+@import "../../other/breakpoints";
+
+.waiting{
+	pointer-events: none;
+	cursor: default;
+}
+.content{
+    margin-top:$header_height;
+    top:0px;
+    bottom: 0px;
+    width: 100%;
+    position: fixed;
+    z-index: 2;
+    overflow-x: scroll;
+    background-color: $whiteishGray;
+}
+.info_text {
+    font-weight: 500;
+    margin-top: 50px;
+    font-size: 16px;
+}
+.close{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+.close img{
+    width:20px;
+    height:20px;
+}
+.close img:hover{
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+form {
+    padding: 30px;
+    box-sizing: border-box;
+}
+form .one_col {
+    margin:0;
+    margin-left: 0;
+    margin-right: 0;
+}
+form{
+    display: flex;
+    flex-wrap: wrap;
+}
+textarea {
+    font-family: "Open Sans";
+    font-size:16px;
+    height:200px !important;
+    border:$whiteish 1px solid;
+    width:45vw !important;
+}
+
+.photupload {
+    flex: 1 100%;
+    @include for-tablet-landscape-up {
+        flex: 1 50%;
+    }
+}
+
+form > .form_plus {
+    @include for-tablet-landscape-up {
+        padding-right: 30px;
+        box-sizing: border-box;
+    }
+}
+
+.form_plus{
+    border-right: $mainColor_transparent 1.25px solid;
+    flex: 1 100%;
+    @include for-tablet-landscape-up {
+        flex: 1 50%;
+        box-sizing: border-box;
+    }
+    @include for-tablet-portrait-only {
+        border-right: 0 !important;
+        margin-left: 0 !important;
+    }
+    .text_form{
+        color:$mainColor;
+        font-weight: 600;
+        margin-top: 50px;
+        .zone {
+            margin-bottom: 20px;
+            input {
+                border: 0;
+                margin-top: 5px;
+                display: block;
+                font-size: 16px;
+                width: 100%;
+                padding: 10px;
+                box-sizing: border-box;
+            }
+            label {
+                text-align: left;
+                margin-top: 15px;
+                display: block;
+                font-size: 16px;
+            }
+            
+        }
+    }
+}
+.form_terms {
+    color: #333;
+    height: 65px;
+    overflow-x: hidden;
+    font-size: 16px;
+    font-weight: normal;
+    scrollbar-color: $red-global white;
+    &::-webkit-scrollbar {
+        width: 7px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $red-global;
+    }
+}
+textarea {
+    box-sizing: border-box;
+    border: 0;
+}
+.one_col{
+    width: 100%;
+    @include for-phone-only {
+        overflow-x: hidden;
+    }
+    .form_plus{
+        border-right: none;
+        padding-right: 0;
+    }
+    textarea {
+        font-size:16px;
+        border: 0;
+        height:50px;
+    }
+    textarea:focus{
+        outline: none;
+        height:200px;
+    }
+}
+.form_plus:last-child{
+    border:unset;
+    margin-left: 30px;
+}
+.one_col {
+    .text_form{
+        width: 100%;
+        margin: auto;
+    }
+    textarea{
+        width: 100% !important;
+    }
+    .form_plus:last-child{
+        border:unset;
+        margin: 0px;
+    }
+}
+.textarea_one{
+    width: 85vw;
+}
+.textarea_more{
+    width: 100% !important;
+}
+
+textarea {
+    margin-top: 5px;
+}
+
+input[type=text], input[type=email] {
+    width: 200px;
+}
+h2 {
+    font-size:20px;
+    color: $mainColor;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+h5 {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size:18px;
+    margin-bottom: 0;
+}
+
+h5 + p a {
+    font-weight: 500;
+}
+
+span{
+    color:$mainColor;
+}
+
+
+//image upload
+::ng-deep .customClass {
+    border: none !important;
+    margin:5px;
+}
+
+.bold {
+    font-weight: bold;
+}
+//the upload text
+::ng-deep .customClass:before {
+    content: " ";
+    background-image:url(^assets/images/upload_icon.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding:20px;
+    position: relative;
+    top:45px;
+    opacity: 1;
+}
+::ng-deep .done .customClass:before {
+    content: " ";
+    background-image:url(^assets/images/upload_icon.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding:20px;
+    position: relative;
+    top:45px;
+    opacity: 0.3 ;
+}
+
+
+::ng-deep .customClass span{
+    text-transform: capitalize;
+    color: $mainColor !important;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+::ng-deep  .customClass .img-ul-clear {
+    background-color: $whiteishGray !important;
+    color:$mainColor !important;
+    font-weight: bold !important;
+    text-transform: capitalize !important;
+    border: 1px $mainColor dotted !important;
+    display: none !important;
+    
+}
+
+::ng-deep  .customClass .img-ul-drag-box-msg {
+    color:  $whiteishGray  !important;
+}
+
+::ng-deep  .customClass .img-ul-container {
+    background-color: $whiteishGray!important;
+}
+
+::ng-deep .img-ul-button, .img-ul-disabled{
+    background-color: $whiteishGray!important;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+    margin-left: 20px;
+}
+::ng-deep .img-ul-image{
+    width:180px !important;
+    height: 180px !important;
+    border: 2px $mainColor solid !important;
+    -webkit-box-shadow: 5px 5px 5px $gray;
+            box-shadow: 5px 5px 5px $gray;
+
+}
+
+::ng-deep .img-ul-x-mark{
+    background-color: $blackish !important;
+    
+
+}
+
+.photoupload p{
+    float:left;
+}
+.captcha {
+    position: relative;
+    margin-top: 20px;
+    text-align: center;
+    button{
+        border: 0;
+        border-radius: 5px;
+        background-color:$mainColor;
+        color: $white;
+        font-family: "Open Sans";
+        font-size: 20px;
+        padding: 10px 50px;
+        box-sizing: border-box;
+        margin-top: 20px;
+    }
+    button:hover{
+        cursor: pointer;
+        opacity: 0.85;
+    
+    }
+    button:disabled{
+        opacity: 0.5;
+    }
+    button:disabled:hover{
+        opacity: 0.5;
+    }
+    .form_edit{
+        width: 30%;
+        font-size: 16px;
+        height:30px;
+    }
+}
+.missing{
+    background-color:$mainColor;
+}
+
+.alert{
+    z-index: 4;
+	font-size: 15px;
+	position: fixed;
+	width: 90vw;
+    top: 50%; 
+    left: 50%; 
+    -webkit-transform: translate(-50%, -50%); 
+        -ms-transform: translate(-50%, -50%); 
+            transform: translate(-50%, -50%); 
+    background-color: $white;
+    font-weight: bold;
+    -webkit-box-shadow: 2px 2px 30px $darkBlueish;
+            box-shadow: 2px 2px 30px $darkBlueish;
+    text-align: center;
+	.alert_message{
+		padding:20px;
+		font-size: 14px;
+	}
+    .ok {
+		margin-top:20px;
+		padding:10px;
+		margin-top:2px;
+		background-color: $mainColor;
+		color:$whiteish;
+		margin-bottom:0px;
+		margin-top:1px;
+		padding: 0;
+		padding-top:5px;
+		padding-bottom: 5px;
+    }
+    .ok:hover {
+        opacity: 0.80;
+        cursor: pointer;
+	}
+}
+.final_form{
+    font-weight: normal;
+    color:$black;
+}
+.captcha p input{
+    position: absolute;
+    transition:1s;
+    width: 90px !important
+}
+.captcha p input:focus{
+    background-color: $white;
+}
+.agree{
+    margin-top: 50px;
+    color: $black;
+    font-weight: 500;
+    width: 100%;
+    &.error:before {
+        content: "*";
+        position: absolute;
+        left: -15px;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        height: 15px;
+        width: 15px;
+        color: $red-global;
+        font-size: 30px;
+    }
+}
+.error{
+	position: relative;
+    textarea {
+        border: 2px solid $red-global;
+    }
+}
+.error input[type="checkbox"] +  label span, .error input[type="radio"] + label span{
+	border:solid $mainColor 2px !important;
+}
+.error:before{
+	content: '*';
+	position: absolute;
+	font-size: 30px;
+	color:$mainColor;
+	left:-20px;
+	top:72%;
+	opacity: 1;
+	-webkit-transform: translate(-50%, -50%);
+	    -ms-transform: translate(-50%, -50%);
+	        transform: translate(-50%, -50%); 
+}
+.error input[type=text]{
+	border:solid $mainColor 2px !important;
+}
+input[type="text"], input[type="search"], textarea, .rubrik_close, input[type="time"]{
+    background-color: $lightgray;
+    outline: none;
+}

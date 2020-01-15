@@ -1,0 +1,44 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": "./",
+    "module": "esnext",
+    "types": [],
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "paths": {
+      "@services/*": [
+        "app/services/*"
+      ],
+      "@modules/*": [
+        "app/modules/*"
+      ],
+      "@dialogs/*": [
+        "app/dialogs/*"
+      ],
+      "@components/*": [
+        "app/components/*"
+      ],
+      "@environments/*": [
+        "environments/*"
+      ],
+      "@pipes/*": [
+        "app/pipes/*"
+      ],
+      "@directives/*": [
+        "app/directives/*"
+      ],
+      "@guards/*": [
+        "app/guards/*"
+      ],
+      "@other/*": [
+        "app/other/*"
+      ]
+    },
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ]
+}

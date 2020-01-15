@@ -1,0 +1,394 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'app/other/colors.scss';
+@import 'app/other/breakpoints';
+@import "~owl.carousel/dist/assets/owl.carousel.css";
+@import "~owl.carousel/dist/assets/owl.theme.default.css";
+@import "./material-theme.scss";
+
+@font-face {
+  font-family: "Open Sans";
+  font-display: auto;
+  src: url(^assets/fonts/Open_Sans/OpenSans-Regular.ttf) format("opentype");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-display: auto;
+  src: url(^assets/fonts/Open_Sans/OpenSans-SemiBold.ttf) format("opentype");
+  font-weight: bold;
+}
+
+html {
+  -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
+}
+
+semibold {
+  font-weight: 500;
+}
+
+red {
+  color: $red-global;
+}
+
+.mat-raised-button.mat-primary {
+  background-color: $red-global !important;
+}
+.mat-button.mat-primary {
+  color: $red-global !important;
+  .mat-ripple-element {
+    background-color: $red-global !important;
+  }
+}
+.mat-optgroup-label {
+  color: rgba($red-global, .75) !important;
+}
+.mat-option:hover {
+  background-color: rgba(black, .02) !important;
+}
+.mat-option.mat-selected {
+  background-color: rgba(black, 0.05) !important;
+  color: $red-global !important
+}
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: $red-global !important;
+}
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow,
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: $red-global !important;
+}
+
+go-paypal {
+  cursor: pointer;
+}
+
+mixredsemibold {
+  font-weight: 500;
+  color: $red-global;
+}
+
+underline {
+  text-decoration: underline;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-display: auto;
+  src: url(^assets/fonts/Open_Sans/OpenSans-SemiBold.ttf) format("opentype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Open Sans Semibold";
+  font-display: auto;
+  src: url(^assets/fonts/Open_Sans/OpenSans-SemiBold.ttf) format("opentype");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  background-color:white;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    overflow-y: auto !important;
+  }
+}
+/*Xavier: addes these rules (a, .kaz_text p span) here since using [innerHTML] to retrieve text data on kaz-kategorie with the url <a> and first three words
+<span> tags arent afected by the correspondig rules on kaz.component.scss. */
+
+.aufgeben-icon {
+  display: inline-block;
+  height: 13px;
+  width: 11px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(^assets/images/MIXICON_Back.svg);
+  -webkit-filter: brightness(400%);
+          filter: brightness(400%);
+  vertical-align: middle;
+  &.back {
+    margin-right: 15px;
+  }
+  &.next {
+    margin-left: 15px;
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+  }
+}
+
+@include for-phone-only {
+  .no-mobile {
+    display: none;
+  }
+}
+
+.bold {
+  font-weight: 500;
+}
+
+a {
+  color: rgba(191, 16, 49, 1);
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.kaz_text span {
+  font-weight: 500;
+}
+
+.kazen .kazen_display .text span {
+  font-weight: bold;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.alert-link {
+  cursor: pointer;
+  color: black !important;
+}
+
+.owl-carousel .owl-stage { 
+  transition: all .3s ease-out 0s !important
+}
+
+@media (max-width: 500px) {
+  .no-margin-on-mobile {
+    margin-left: 0px !important;
+  }
+}
+
+.owl-carousel {
+  width: calc(100% - 10px);
+  margin: 0 auto;
+}
+
+.mat-simple-snackbar-action button {
+  background-color: $red-global !important;
+  color: white !important
+}
+
+.mat-tooltip {
+  font-size: .8rem !important;
+}
+
+.mat-datepicker-toggle-active {
+  color: darken($red-global, 2) !important;
+}
+
+.mat-calendar-body-selected {
+  background-color: darken($red-global, 2) !important;
+}
+
+.mat-calendar-body-today.mat-calendar-body-selected {
+  box-shadow: none !important;
+}
+
+//------------alert modal---------
+.alert {
+  z-index: 4;
+  font-size: 15px;
+  position: fixed;
+  width: 80vw !important;
+  @include for-tablet-portrait-up {
+    width: 50vw !important;
+  }
+  top: 50%; 
+  left: 50%; 
+  -webkit-transform: translate(-50%, -50%); 
+      -ms-transform: translate(-50%, -50%); 
+          transform: translate(-50%, -50%); 
+  background-color: $white;
+  font-weight: bold;
+  -webkit-box-shadow: 2px 2px 30px $darkBlueish;
+          box-shadow: 2px 2px 30px $darkBlueish;
+  text-align: center;
+
+  .alert_message {
+    padding:20px;
+    font-size: 14px;
+  }
+
+  .ok {
+    margin-top:20px;
+    padding:10px;
+    margin-top:2px;
+    background-color: $mainColor;
+    color:$whiteish;
+    margin-bottom:0px;
+    margin-top:1px;
+    padding: 0;
+    padding-top:5px;
+    padding-bottom: 5px;
+    margin: 0 !important;
+  }
+
+  .ok:hover {
+      opacity: 0.80;
+      cursor: pointer;
+  }
+  @media (max-width:1000px){
+    .ok{
+      margin: 20px;
+    }
+  }
+  .yes{
+      background-color:$grayish;
+  }
+}
+/* end of alert modal */
+
+.pointer {
+  cursor: pointer;
+}
+
+.alert .alert_message {
+  @include for-desktop-only {
+    font-size: 15px !important;
+  }
+}
+
+.alert {
+  @include for-tablet-portrait-only {
+    width: 60vw !important;
+  }
+}
+
+p, .content {
+  user-select: auto !important;
+}
+
+.mat-calendar-header .mat-icon-button {
+  width: 45px !important;
+  height: 45px !important;
+}
+
+.calendar-toggle svg {
+  height: 40px !important;
+  width: 40px !important;
+}
+
+.sending_form_spinner {
+  margin: 7px auto 0;
+  circle {
+    stroke: white;
+  }
+}
+
+.select-place {
+  min-width: calc(100% + 92px) !important;
+  @include for-phone-only {
+    min-width: calc(100% + 55px) !important;
+  }
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $red-global;
+  }
+}
+
+.relative {
+  position: relative;
+}
+
+input[type="checkbox"]:checked + label span, input[type="radio"]:checked + label span {
+  border-color: $red-global !important;
+}
+
+.google-recaptcha > div > div > div {
+  margin: 0 auto;
+}
+
+.google-recaptcha {
+  @include for-phone-only {
+    width: 100px;
+    display: block;
+  }
+}
+
+.kaz-loading-spinner {
+  position: fixed !important;
+  width: 60px;
+  z-index: 99;
+  height: 60px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  circle {
+    stroke: $red-global;
+  }
+}
+
+.mat-snack-bar-handset .mat-snack-bar-container.copied-link {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.kino-dates-panel {
+  width: 95vw;
+  .mat-dialog-container {
+    padding: 24px !important;
+  }
+  @include for-tablet-portrait-up {
+    width: 400px;
+  }
+}
+
+.prints-dialog .mat-dialog-container {
+  background-color: lighten($blackish, 5);
+}
+
+.copied-link .mat-simple-snackbar {
+  font-size: 16px;
+}
+
+.copied-link {
+  min-width: 120px !important;
+  width: 120px !important;
+}
+
+.mat-calendar-body-disabled {
+  pointer-events: none !important;
+}
+
+.social-permission-panel {
+  /* @include for-phone-only {
+    max-width: 100% !important;
+    position: absolute !important;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 70px);
+  } */
+  .mat-dialog-container {
+    background-color: #FAFAFA;
+  }
+}
+
+@include for-tablet-portrait-up {
+  .uhrzeit_container,
+  .titel_container,
+  .adressname_container {
+    .rubrik_section {
+      padding-bottom: 10px !important;
+      h2 {
+        padding-top: 20px !important;
+        .icon_adress {
+          top: 25px !important;
+        }
+        .icon_uhr {
+          top: 25px !important;
+        }
+      }
+    }
+  }
+}

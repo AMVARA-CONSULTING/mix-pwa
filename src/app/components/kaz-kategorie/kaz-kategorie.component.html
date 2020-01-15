@@ -1,0 +1,15 @@
+<div class="all" [class.banner_kategorie]="kazdata.rubrik=='banner'" *ngFor="let kazdata of kazens | async | markplatzSearch:search_value | insertMarktplatzBanners"
+    [class.fett]="kazdata.text_typ=='Fett'" [class.farbig]="kazdata.text_typ=='Farbig'">
+    <div *ngIf="kazdata.rubrik!='banner'" [innerHTML]="kazdata.text" class="kaz_text"></div>
+    <div *ngIf="kazdata.rubrik=='banner'" class="kaz_text banner_box">
+        <mix-banner-wrapper [quantity]="1"></mix-banner-wrapper>
+        <!-- <div class="banner" [style.background-image]="getBanner(kazdata.bild)" (click)="openBanner(kazdata.url)"></div> -->
+    </div>
+    <div class="icons" *ngIf="kazdata.rubrik!='banner'">
+        <div class="clip_icon" [class.pin_on]="checkPin(kazdata.hashwert)" (click)="setPin(kazdata)"></div>
+        <a *ngIf="kazdata.email" (click)="passMail(kazdata.id, kazdata.text, kazdata.per_post)">
+            <div class="mail_icon" [class.sent]="checkSend(kazdata.id)"></div>
+        </a>
+        <div *ngIf="kazdata.email=='false'" class="mail_icon_off"></div>
+    </div>
+</div>

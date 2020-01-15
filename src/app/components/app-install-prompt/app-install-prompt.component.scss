@@ -1,0 +1,49 @@
+
+:host {
+    display: block;
+    background-color: rgba(255,255,255,.9);
+    border-radius: 10px;
+    z-index: 9999999;
+    transform: translate3d(0, 100px, 0);
+    will-change: transform;
+    position: fixed;
+    bottom: 20px;
+    width: 90%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    .icon {
+        flex: 0 30px;
+        height: 30px;
+        background-image: url(^assets/images/add.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        position: relative;
+        top: 2px;
+    }
+    .text {
+        flex: 1;
+        margin-left: 12px;
+        font-size: 13px;
+        font-family: -apple-system,system-ui,BlinkMacSystemFont,"Helvetica","Open Sans",sans-serif;
+        i {
+            display: inline-block;
+            background-image: url(^assets/images/ios-share.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 17px;
+            width: 17px;
+            position: relative;
+            top: 3px;
+        }
+    }
+}

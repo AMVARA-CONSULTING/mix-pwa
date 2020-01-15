@@ -1,0 +1,10 @@
+<div class="text"  routerLink="/datenschutz">
+  <div class="cookies_text">
+    <div [innerHtml]='"cookies"|translate'></div>
+    <div class="nicenDatenschutzLink" routerLink='/datenschutz' [innerHtml]='"cookies_link_datenschutz"|translate'></div>
+  </div>
+</div>
+<div class="button_container">
+  <div class="button no" (click)="disagree()">{{ 'cookies_not_agree' | translate }}</div>
+  <div class="button ok" (click)="agree()">{{ 'cookies_agree' | translate }}</div>
+</div>

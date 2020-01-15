@@ -1,0 +1,339 @@
+@import "../../other/colors";
+@import "../../other/breakpoints";
+
+:host {
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+.login_container{
+    position: fixed;
+    width: 100vw;
+    height: calc(100vh - 70px);
+    overflow: auto;
+    top: 70px;
+    z-index: 2;
+    background-color:$white;
+    background-image: url(^assets/social/MIXFORM_LoginDesktop_2.jpg);
+    background-size: contain;
+    background-repeat: repeat-x;
+    background-position: 0px bottom;
+    transition: 500s background-position;
+}
+.animate_bg{
+    background-position: 2400px bottom;
+}
+
+@media (max-width: 600px){
+    .login_container{
+        background-image: url(^assets/social/MIXFORM_LoginMobile.jpg) !important;
+    }
+}
+.close{
+    background-image: url(^assets/images/MIXICON_Close.svg);
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 5vw;
+    top:20px;
+    @include for-desktop-up {
+        top: 40px;
+    }
+    background-size: 20px 20px;
+
+}
+.close:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+.login_body{
+    margin:auto;
+    width: 70vw;
+    @include for-phone-only {
+        width: 75vw;
+    }
+    margin-top: 50px;
+    text-align: center;
+    @include for-desktop-up {
+        margin-top: 110px;
+    }
+    padding-bottom: 100px;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 25px;
+}
+.red{
+    font-weight: bold;
+    color:$mainColor;
+}
+.blue{
+    font-weight: bold;
+    color:rgba(0, 0, 255, 0.507);
+}
+p{
+    margin-bottom: 30px;
+}
+.hover:hover{
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+:host::ng-deep .mat-spinner.google-loader circle {
+    stroke: $red-global;
+}
+
+:host::ng-deep .mat-spinner.facebook-loader circle {
+    stroke: white;
+}
+
+:host::ng-deep .mat-spinner.google-loader,
+:host::ng-deep .mat-spinner.facebook-loader {
+    display: block;
+    margin: 15px auto 0;
+}
+
+.social_buttons{
+    margin-top: 60px;
+    .button{
+        margin:auto;
+        font-weight: bold;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        position: relative;
+        line-height: 59px;
+    }
+    .google{
+        background-color: $grayish;
+        color:$blackish;
+        background-color: white;
+        background-image: url(^assets/social/btn_google_signin_light_focus_web2.png);
+        background-size: contain;
+        background-position: center;
+        height: 59px;
+        -webkit-box-shadow: black 1px 1px 15px -5px;
+                box-shadow: black 1px 1px 15px -5px;
+        &.loading {
+            background-image: none;
+        }
+    }
+    .facebook{
+        background-color: rgb(58,91,152);
+        color:$white;
+        .icon{
+            background-image: url(^assets/social/fb_white.png);
+            background-size: 30px 30px;
+            
+        }
+    }
+    .mix{
+        background-color: $mainColor;
+        color:$white;
+        .icon{
+            background-image: url(^assets/social/MIXICON_Mix_Imag.svg);
+            background-size: 30px 30px;
+            border:white solid 1px;
+            border-radius:10px;
+        }
+    }
+    .icon{
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        margin-top:14px;
+        left: 10px;
+    }
+}
+@media (min-width: 800px){
+    .social_buttons{
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        .social_icon{
+            margin: 10px;
+            width:20vw;
+        }
+        
+    }
+}
+.social_icon:not(.mix_button_open){
+    max-width: 250px;
+}
+.icon_title{
+    margin-left: 20px;
+}
+.mix_button_open{
+    .icon_title{
+        margin-left: 9px !important;
+    }
+}
+//when mix login is open
+.login_mix{
+    display:block;
+    .mix{
+        transition: 0.25s all;
+        width: 100%;
+        padding: 0;
+        margin: auto;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+    }
+    .google, .facebook{
+        margin: auto;
+        margin-top: 40px;
+        margin-bottom: 10px;
+    }
+    .mix_hide{
+        height: 200px;
+        width: unset;
+        visibility: visible;
+    }
+    .mix_form{
+        position: static;
+        transition: 1s all, 0.25s border;
+        padding-top: 15px;
+        border: solid 2px $red-global;
+        background-color: rgba(255,255,255,.7);
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        .input_container{
+            margin:auto;
+        }
+        .hint {
+            width: 178px;
+            font-size: 13px;
+            margin: -10px auto -3px;
+            @include for-tablet-portrait-up {
+                width: 70%;
+            }
+        }
+        input{
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+            border-radius: 5px;
+            outline: 0;
+            border: 0;
+            width: 178px;
+            @include for-tablet-portrait-up {
+                width: 70%;
+            }
+            @include for-desktop-up {
+                font-size: 16px;
+            }
+            @supports (-webkit-overflow-scrolling: touch) {
+                font-size: 16px !important;
+            }              
+            padding: 10px;
+            box-sizing: border-box;
+            font-family: 'Open Sans';
+            font-weight: bold;
+            background-color: lighten($grayish, 10);
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .log_button, .join_button, .email_button{
+            display: block;
+            width: 178px;
+            @include for-tablet-portrait-up {
+                width: 70%;
+            }
+            @include for-desktop-up {
+                font-size: 16px;
+            }
+            line-height: 40px;
+            margin: auto;
+            background-color: $red-global;
+            color:$white;
+            -webkit-box-shadow: 1px 1px 10px -3px black;
+                    box-shadow: 1px 1px 10px -3px black;
+            cursor: pointer;
+            transition: 0.5s all;
+            margin-top: 25px;
+            border-radius: 5px;
+        }
+        .join_button {
+            margin-bottom: 15px;
+            border: 0;
+            outline: 0;
+            &:disabled {
+                opacity: .5;
+            }
+        }
+    }
+    .mix_form_register{
+        transition: all 0.25s;
+    }
+    .new_account{
+        color:$red-global;
+        line-height: 50px;
+        display: block;
+        margin-top: 30px;
+        cursor: pointer;
+    }
+    .new_account:hover{
+        opacity: 0.8;
+    }
+}
+.password-hint {
+    padding: 0 10px;
+    box-sizing: border-box;
+    font-size: 13px;
+    margin-top: -10px;
+}
+.mix_hide{
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    position: absolute;
+}
+.reference{
+    position: absolute;
+    margin-bottom: 30px;
+}
+.relative_error{
+    position: relative;
+    margin: 0 Auto;
+}
+.error_message{
+    display: block;
+}
+
+.waiting{
+	pointer-events: none;
+	cursor: default;
+}
+.forgot{
+    line-height: unset;
+    display: block;
+    color:$red-global;
+    margin-bottom: 20px;
+}
+.forgot:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+.forgot_subtitle{
+    color:$white;
+}
+
+:host::ng-deep .accept_terms_signup .mat-checkbox-layout {
+    white-space: unset;
+    display: block;
+    max-width: 70%;
+    margin: 0 auto;
+}
+
+:host::ng-deep .accept_terms_signup .mat-checkbox-label {
+    font-size: 14px;
+}
+
+:host::ng-deep .accept_terms_signup .mat-checkbox-layout .mat-checkbox-label {
+    line-height: 20px;
+}

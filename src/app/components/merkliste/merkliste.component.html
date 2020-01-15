@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="merkliste_body" *ngIf="loaded | async else spinner">
+      <h4>Deine Merkliste</h4>
+      <div class="merkliste-not-found" *ngIf="!(termine_list | async).length && !(kazen_list | async).length">
+        <div class="animated-bg">
+          <div class="bg" [style.backgroundImage]="notFoundImage | async"></div>
+        </div>
+        <div class="title">{{ 'merkliste.empty_title' | translate }}</div>
+        <p>{{ 'merkliste.empty1' | translate }}</p>
+        <p>{{ 'merkliste.empty2' | translate }}</p>
+      </div>
+      <ng-container *ngIf="!!(termine_list | async).length">
+        <div class="termine">
+            <h5><span>Termine</span> | {{ (termine_list | async).length }} Treffer</h5>
+            <div class="termine_block">
+              <div class="event_display" [class.no_image]="termine.totalImages === 0" *ngFor="let termine of termine_list | async">
+                <div class="event-wrapper" (click)="goEvent(termine)" [style.background-image]="termine | toTermineBackgroundImage ">
+                  <div class="bottom_info">
+                    <div class="rubrik">{{ termine.rubrik }}</div>
+                    <div class="titel">{{ termine.titel | cutText:45 }}</div>
+                    <div class="datum">{{ termine.datum | checkDatum }}{{ termine.datum | differentYear }}</div>
+                    <div class="uhrzeit">{{ termine.uhrzeit }}</div>
+                    <div class="verort">{{ termine.verort }}</div>
+                  </div>
+                  <!-- <div class="attend-icon" (click)="openAttend($event, termine)"></div> -->
+                  <div (click)="deletePin($event, 'termine', termine.eventid)" class="delete"></div>
+                  <div class="share" (click)="openShare($event, termine)"></div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!!(kazen_list | async).length">
+        <h5><span>Marktplatz | Kontakte</span> | {{ (kazen_list | async).length }} Anzeigen</h5>
+        <div class="kazen">
+          <div class="kazen_display" *ngFor="let kazen of kazen_list | async" [class.fett]="kazen.text_typ=='Fett'" [class.farbig]="kazen.text_typ=='Farbig'" [class.none]="!kazen_total">
+            <div class="empty-bg" *ngIf="kazen.text_typ=='Farbig'"></div>
+            <div class="kazen-wrapper">
+              <div class="kazen_rubrik">{{ kazen.rubrik }}</div>
+              <div class="text" [innerHTML]="kazen.text" style="font-size: 14px"></div>
+              <div class="mail_icon" *ngIf="kazen.email" (click)="SetUpMail(kazen.kazen_hash, kazen.text)" [class.sent]="checkSend(kazen.kazen_hash)"></div>
+              <div (click)="deletePin($event, 'kazen', kazen.kazen_hash)" class="delete delete_kazen"></div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+</div>
+<ng-template #spinner>
+  <mat-spinner diameter="60" class="spinner" color="primary"></mat-spinner>
+</ng-template>
+<!-- <div (click)="openDetailedText()" class="detailed-flag">i</div> -->
+<mix-kaz-email-form [returnTo]="returnTo" [columns]="column_no" (mail)="checkForm($event)" [kaz_text]="text" [email]="email" *ngIf="email"></mix-kaz-email-form>
+<div class="alert" *ngIf="alert">
+    <div class="alert_message">
+      <div>{{ pre_alert_message }}</div>
+      <div [innerHTML]="message_alert | safeHtml" style="text-transform: capitalize; color: rgba(191, 16, 49, 1); text-align: center"></div>
+    </div>
+    <p class="ok" (click)="removeAlert()">OK</p>
+</div>

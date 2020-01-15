@@ -1,0 +1,1170 @@
+{
+    "version": "1.1.190",
+    "scenario": "dev",
+    "languages": {
+        "de": "Deutsch",
+        "en": "English"
+    },
+    "language": "de",
+    "changelog": [
+        {
+            "version": "1.1.190",
+            "text": [
+                "#2037 - Don't filter EventIm and DeinKinoTicket in Share Dialog"
+            ]
+        },
+        {
+            "version": "1.1.189",
+            "text": [
+                "#2071 - Fix Kontakte and Marktplatz Searching patterns"
+            ]
+        },
+        {
+            "version": "1.1.188",
+            "text": [
+                "#2065 - Revert change of #1984"
+            ]
+        },
+        {
+            "version": "1.1.187",
+            "text": [
+                "#2028 - Hover effect on mail icons"
+            ]
+        },
+        {
+            "version": "1.1.186",
+            "text": [
+                "#2034 - Remove tabs from Aufgeben Forms"
+            ]
+        },
+        {
+            "version": "1.1.185",
+            "text": [
+                "#2033 - Enable eventim and dk tickets"
+            ]
+        },
+        {
+            "version": "1.1.184",
+            "text": [
+                "#2029 - Fix Google Maps urls",
+                "#2028 - Change letter icons to red"
+            ]
+        },
+        {
+            "version": "1.1.183",
+            "text": [
+                "#2025 - Fix Aufgeben Forms Units discrepancy between front and backend"
+            ]
+        },
+        {
+            "version": "1.1.182",
+            "text": [
+                "#2017 - Improve code on ticket providers, and use the same code in Share Popup as in DTV"
+            ]
+        },
+        {
+            "version": "1.1.181",
+            "text": [
+                "#1786 - Enable Rechnung inputs always"
+            ]
+        },
+        {
+            "version": "1.1.180",
+            "text": [
+                "#1884 - Rename file name on upload Termine Images or Documents",
+                "#2017 - Disable Eventim and Deinkinoticket"
+            ]
+        },
+        {
+            "version": "1.1.179",
+            "text": [
+                "#2006 - Fix typings in aufgeben termine & kazen"
+            ]
+        },
+        {
+            "version": "1.1.178",
+            "text": [
+                "#2003 - Fix DTV issue in Safari"
+            ]
+        },
+        {
+            "version": "1.1.177",
+            "text": [
+                "#1994 - Fix some events not begind showed in mobile categories"
+            ]
+        },
+        {
+            "version": "1.1.176",
+            "text": [
+                "#1981 - Reset Service Worker unconditionally",
+                "#1914 - Make links to event detail also share the sessionid"
+            ]
+        },
+        {
+            "version": "1.1.175",
+            "text": [
+                "#1984 - Fix DTV pixeling in Safari browser"
+            ]
+        },
+        {
+            "version": "1.1.174",
+            "text": [
+                "#1916 - Fix iOS 10 issue",
+                "#1852 - Fix Galaxy Tab S4 issue, adjust breakpoints according to Termine"
+            ]
+        },
+        {
+            "version": "1.1.173",
+            "text": [
+                "#1976 - Fix was_wan_wo bar not showing when switching paths"
+            ]
+        },
+        {
+            "version": "1.1.172",
+            "text": [
+                "#1916 - Fix special error on iOS 10"
+            ]
+        },
+        {
+            "version": "1.1.171",
+            "text": [
+                "#1915 - Fix so much space in uhrzeit view",
+                "#1972 - Disable Service Worker in Edge"
+            ]
+        },
+        {
+            "version": "1.1.170",
+            "text": [
+                "#1961 - Check the mandatory fields are filled if Rechnung is checked"
+            ]
+        },
+        {
+            "version": "1.1.169",
+            "text": [
+                "#1969 - Make IBAN of Aufgeben Marktplatz the same validation as in Aufgeben Termine"
+            ]
+        },
+        {
+            "version": "1.1.167",
+            "text": [
+                "#1887 - Visual adjustment of hits in time view (iPhone 7+)"
+            ]
+        },
+        {
+            "version": "1.1.167",
+            "text": [
+                "#1887 - Visual adjustment of extended search text margins on all devices"
+            ]
+        },
+        {
+            "version": "1.1.166",
+            "text": [
+                "#1887 - Visual adjustment of extended search text margins on all devices"
+            ]
+        },
+        {
+            "version": "1.1.161",
+            "text": [
+                "#1950 - Fix link when there is only one provider and change title text"
+            ]
+        },
+        {
+            "version": "1.1.161",
+            "text": [
+                "#1868 - Use of -webkit-text-size-adjust to prevent font size changing on iOS devices"
+            ]
+        },
+        {
+            "version": "1.1.160",
+            "text": [
+                "#1847 - Show text of \"No connection\" if the error dialog receives a status 0 request or online status is false"
+            ]
+        },
+        {
+            "version": "1.1.159",
+            "text": [
+                "#1938 - Fix aufgeben termine datepicker unable to pick same date"
+            ]
+        },
+        {
+            "version": "1.1.158",
+            "text": [
+                "#1923 - Fix number of hits in Order by Titel 2"
+            ]
+        },
+        {
+            "version": "1.1.157",
+            "text": [
+                "#1854 - Make icon Ansicht wahlen without background color red"
+            ]
+        },
+        {
+            "version": "1.1.155",
+            "text": [
+                "#1857 - Fix validation of some fields in Aufgeben Kazen"
+            ]
+        },
+        {
+            "version": "1.1.154",
+            "text": [
+                "#1923 - Fix number of hits in Order by Titel",
+                "#1915 - Remove red eye icon in menu Ansicht wahlen"
+            ]
+        },
+        {
+            "version": "1.1.153",
+            "text": [
+                "#1885 - Hide telefon in other places if it's null or empty"
+            ]
+        },
+        {
+            "version": "1.1.151",
+            "text": [
+                "#1887 - Fix padding top of extended search text on mobile devices"
+            ]
+        },
+        {
+            "version": "1.1.150",
+            "text": [
+                "#1915 - Adjustments on mobile and tablet"
+            ]
+        },
+        {
+            "version": "1.1.148",
+            "text": [
+                "#1890 - Make view icon 10% smaller"
+            ]
+        },
+        {
+            "version": "1.1.149",
+            "text": [
+                "#1890 - Solve visual issues discussed by phone"
+            ]
+        },
+        {
+            "version": "1.1.148",
+            "text": [
+                "#1898 - Set line height of mix login checkbox to 20px"
+            ]
+        },
+        {
+            "version": "1.1.147",
+            "text": [
+                "#1890 - Adjust extended search text alignment"
+            ]
+        },
+        {
+            "version": "1.1.146",
+            "text": [
+                "#1890 - Make eye icon rectangular and at the side to allow correct layout flow"
+            ]
+        },
+        {
+            "version": "1.1.145",
+            "text": [
+                "#1854 - Fix wahlen and show eye icon behind the menu item"
+            ]
+        },
+        {
+            "version": "1.1.144",
+            "text": [
+                "#1852 - Solve visual issues for iPhone 7"
+            ]
+        },
+        {
+            "version": "1.1.143",
+            "text": [
+                "#1887 - Solve some visual issues withing Extended Search"
+            ]
+        },
+        {
+            "version": "1.1.141",
+            "text": [
+                "#1885 - Don't show hyphen only on detail view telefon phrase"
+            ]
+        },
+        {
+            "version": "1.1.140",
+            "text": [
+                "#1881 - Cancel texts uploads when changing the page in Termine Aufgeben"
+            ]
+        },
+        {
+            "version": "1.1.139",
+            "text": [
+                "#1898 - Correctly calculate units in Aufgebe Kazen"
+            ]
+        },
+        {
+            "version": "1.1.138",
+            "text": [
+                "#1898 - Set label of accept policy terms to font size 14px"
+            ]
+        },
+        {
+            "version": "1.1.137",
+            "text": [
+                "#1854 - Added feature Ansicht Wählen"
+            ]
+        },
+        {
+            "version": "1.1.136",
+            "text": [
+                "#1898 - Set label of accept policy terms to font size 14px"
+            ]
+        },
+        {
+            "version": "1.1.137",
+            "text": [
+                "#1898 - Set label of accept policy terms to font size 14px",
+                "#1881 - Aufgeben Termine: Cancel images upload if user changes the page"
+            ]
+        },
+        {
+            "version": "1.1.133",
+            "text": [
+                "#1898 - Disable sign up button if the user has not accepted the privacy policy"
+            ]
+        },
+        {
+            "version": "1.1.132",
+            "text": [
+                "#1718 - Fix timestamp error on thumbnail of first detail view"
+            ]
+        },
+        {
+            "version": "1.1.131",
+            "text": [
+                "#1887 - Extended search feature"
+            ]
+        },
+        {
+            "version": "1.1.130",
+            "text": [
+                "#1852 - Samsung Galaxy Tab S4 and iPhone 7 Plus"
+            ]
+        },
+        {
+            "version": "1.1.129",
+            "text": [
+                "#1853 - Better detection of URLs and eMail addresses"
+            ]
+        },
+        {
+            "version": "1.1.128",
+            "text": [
+                "#1894 - Termin aufgeben: Abrechnungseinheit and Einheiten"
+            ]
+        },
+        {
+            "version": "1.1.127",
+            "text": [
+                "#1900 - Changed feedback interval of 60 times reload"
+            ]
+        },
+        {
+            "version": "1.1.126",
+            "text": [
+                "#1889 - Over 2000 hits!"
+            ]
+        },
+        {
+            "version": "1.1.125",
+            "text": [
+                "#1896 - Kleinanzeigen aufgeben: Change text"
+            ]
+        },
+        {
+            "version": "1.1.124",
+            "text": [
+                "#1888 - Klick on MIX Icon"
+            ]
+        },
+        {
+            "version": "1.1.123",
+            "text": [
+                "#1890 - Eye representation"
+            ]
+        },
+    	{
+	    "version": "1.1.120",
+	    "text": [
+	    	"#1876 - Changed aufgeben page 3 informational text"
+	    ]
+	},
+        {
+            "version": "1.1.119",
+            "text": [
+                "#1855 - Fixed fullscreen dialog not taking in account empty trailerurls instead of null"
+            ]
+        },
+        {
+            "version": "1.1.118",
+            "text": [
+                "#1812 - Aufgeben Kazen cancel spinner if request fails"
+            ]
+        },
+        {
+            "version": "1.1.117",
+            "text": [
+                "#1849 - Make text on detail flag appear once XHR is loaded"
+            ]
+        },
+        {
+            "version": "1.1.116",
+            "text": [
+                "#1851 - Fix first detail view big picture"
+            ]
+        },
+        {
+            "version": "1.1.115",
+            "text": [
+                "#1848 - Make detail flag appear the first 3 times"
+            ]
+        },
+        {
+            "version": "1.1.114",
+            "text": [
+                "#1842 - Update Angular to 8.2.0 and other dependencies"
+            ]
+        },
+        {
+            "version": "1.1.113",
+            "text": [
+                "#1842 - Disable Service Worker for Mac devices"
+            ]
+        },
+        {
+            "version": "1.1.112",
+            "text": [
+                "#1841 - Fix infinite spinner on Aufgeben Termine"
+            ]
+        },
+        {
+            "version": "1.1.111",
+            "text": [
+                "#1769 - Remove MIX icon in social login permissions"
+            ]
+        },
+        {
+            "version": "1.1.110",
+            "text": [
+                "#1831 - Fix typo in error message window"
+            ]
+        },
+        {
+            "version": "1.1.109",
+            "text": [
+                "#1827 - Fix click on event not triggering Angular detection zone",
+                "#1827 - Fix click on share event not triggering Angular detection zone"
+            ]
+        },
+        {
+            "version": "1.1.108",
+            "text": [
+                "#1822 - Fix termine not getting results on first visit"
+            ]
+        },
+        {
+            "version": "1.1.107",
+            "text": [
+                "#1769 - Close social permissions dialog after clicking on button"
+            ]
+        },
+        {
+            "version": "1.1.106",
+            "text": [
+                "#1778 - Fix reset cookies also in Datenschutz"
+            ]
+        },
+        {
+            "version": "1.1.122",
+            "text": [
+                "#1865 - User login window"
+            ]
+        },
+        {
+            "version": "1.1.121",
+            "text": [
+                "#1856 - Font size hint window MB"
+            ]
+        },
+    	{
+	    "version": "1.1.120",
+	    "text": [
+	    	"#1876 - Changed aufgeben page 3 informational text"
+	    ]
+	},
+        {
+            "version": "1.1.119",
+            "text": [
+                "#1855 - Fixed fullscreen dialog not taking in account empty trailerurls instead of null"
+            ]
+        },
+        {
+            "version": "1.1.118",
+            "text": [
+                "#1812 - Aufgeben Kazen cancel spinner if request fails"
+            ]
+        },
+        {
+            "version": "1.1.117",
+            "text": [
+                "#1849 - Make text on detail flag appear once XHR is loaded"
+            ]
+        },
+        {
+            "version": "1.1.116",
+            "text": [
+                "#1851 - Fix first detail view big picture"
+            ]
+        },
+        {
+            "version": "1.1.115",
+            "text": [
+                "#1848 - Make detail flag appear the first 3 times"
+            ]
+        },
+        {
+            "version": "1.1.114",
+            "text": [
+                "#1842 - Update Angular to 8.2.0 and other dependencies"
+            ]
+        },
+        {
+            "version": "1.1.113",
+            "text": [
+                "#1842 - Disable Service Worker for Mac devices"
+            ]
+        },
+        {
+            "version": "1.1.112",
+            "text": [
+                "#1841 - Fix infinite spinner on Aufgeben Termine"
+            ]
+        },
+        {
+            "version": "1.1.111",
+            "text": [
+                "#1769 - Remove MIX icon in social login permissions"
+            ]
+        },
+        {
+            "version": "1.1.110",
+            "text": [
+                "#1831 - Fix typo in error message window"
+            ]
+        },
+        {
+            "version": "1.1.109",
+            "text": [
+                "#1827 - Fix click on event not triggering Angular detection zone",
+                "#1827 - Fix click on share event not triggering Angular detection zone"
+            ]
+        },
+        {
+            "version": "1.1.108",
+            "text": [
+                "#1822 - Fix termine not getting results on first visit"
+            ]
+        },
+        {
+            "version": "1.1.107",
+            "text": [
+                "#1769 - Close social permissions dialog after clicking on button"
+            ]
+        },
+        {
+            "version": "1.1.106",
+            "text": [
+                "#1778 - Fix reset cookies also in Datenschutz"
+            ]
+        },
+        {
+            "version": "1.1.104",
+            "text": [
+                "#1814 - Fix dialog window appears when pressing Enter in any field of Aufgeben Termine"
+            ]
+        },
+        {
+            "version": "1.1.103",
+            "text": [
+                "#1793 - Now disabled dates are completely unselectable"
+            ]
+        },
+        {
+            "version": "1.1.102",
+            "text": [
+                "#1767 - Reload i-box text when displaying"
+            ]
+        },
+        {
+            "version": "1.1.101",
+            "text": [
+                "#1803 - Fix big pictures shown when owlCarousel is not fully loaded"
+            ]
+        },
+        {
+            "version": "1.1.100",
+            "text": [
+                "#1804 - Fix i-box in Tablet"
+            ]
+        },
+        {
+            "version": "1.1.99",
+            "text": [
+                "#1798 - Change Word of Wann und Wo noch"
+            ]
+        },
+        {
+            "version": "1.1.98",
+            "text": [
+                "#1777 - Aufgeben Termine cancel image requests on submitting form"
+            ]
+        },
+        {
+            "version": "1.1.97",
+            "text": [
+                "#1793 - Date selection only when user closes the datepicker"
+            ]
+        },
+        {
+            "version": "1.1.96",
+            "text": [
+                "#1763 - Deutsch IOS App install translation, Multiple iOS icons fixed & fixed serverDeploy.sh syntax issue"
+            ]
+        },
+        {
+            "version": "1.1.95",
+            "text": [
+                "#1784 - Encode image path to avoid special characters conflict"
+            ]
+        },
+        {
+            "version": "1.1.94",
+            "text": [
+                "#1793 - Close calendar only on click outside"
+            ]
+        },
+        {
+            "version": "1.1.93",
+            "text": [
+                "#1793 - Fixed German months for saturn-datepicker"
+            ]
+        },
+        {
+            "version": "1.1.92",
+            "text": [
+                "#1789 - Preopen new tab window when buying ticket from Share Dialog"
+            ]
+        },
+        {
+            "version": "1.1.91",
+            "text": [
+                "#1757 - Fix Deselect all button in Termine not being showed"
+            ]
+        },
+        {
+            "version": "1.1.90",
+            "text": [
+                "#1754 - Show year in event if it's next year"
+            ]
+        },
+        {
+            "version": "1.1.89",
+            "text": [
+                "#1742 - Make all non bilder views 7 banner difference again"
+            ]
+        },
+        {
+            "version": "1.1.88",
+            "text": [
+                "#1773 - Taking in account that aufgeben termine can have null values in form"
+            ]
+        },
+        {
+            "version": "1.1.87",
+            "text": [
+                "#1757 - Fix Alles auswählen translation & simple date if it's the same"
+            ]
+        },
+        {
+            "version": "1.1.86",
+            "text": [
+                "#1769 - Spinner also for Facebook"
+            ]
+        },
+        {
+            "version": "1.1.85",
+            "text": [
+                "#1764 - Make arrow on kino dates bigger"
+            ]
+        },
+        {
+            "version": "1.1.82",
+            "text": [
+                "#1777 - Reset loading images spinner when changing any page of Aufgeben Termine"
+            ]
+        },
+        {
+            "version": "1.1.81",
+            "text": [
+                "#1757 - Ausstellungen not selectable by default"
+            ]
+        },
+        {
+            "version": "1.1.80",
+            "text": [
+                "#1757 - Multiple selection of categories and date range"
+            ]
+        },
+        {
+            "version": "1.1.79",
+            "text": [
+                "#1773 - Replace special characters when submitting Aufgeben forms"
+            ]
+        },
+        {
+            "version": "1.1.78",
+            "text": [
+                "#1780 - Reposition eye on mobile"
+            ]
+        },
+        {
+            "version": "1.1.77",
+            "text": [
+                "#1760 - Disable scroll on impressum for iOS devices"
+            ]
+        },
+        {
+            "version": "1.1.76",
+            "text": [
+                "#1780 - Changes on mix-view icon and detail flag"
+            ]
+        },
+        {
+            "version": "1.1.75",
+            "text": [
+                "#1775 - Merkliste only show email icon on those who really are advertisements"
+            ]
+        },
+        {
+            "version": "1.1.74",
+            "text": [
+                "#1769 - Show spinner when loading Google OAuth libraries, Change Facebook locale to de-DE"
+            ]
+        },
+        {
+            "version": "1.1.73",
+            "text": [
+                "#1742 - Fix banners in Termine"
+            ]
+        },
+        {
+            "version": "1.1.72",
+            "text": [
+                "#1748 - Remove Paypal text on free Aufgeben"
+            ]
+        },
+        {
+            "version": "1.1.65",
+            "text": [
+                "Hotfix for Aufgeben Termine Paypal"
+            ]
+        },
+        {
+            "version": "1.1.64",
+            "text": [
+                "#1735 - Aufgeben Termine error when selecting Austellungen"
+            ]
+        },
+        {
+            "version": "1.1.63",
+            "text": [
+                "#1739 - Pre-open new tab links to prevent popup blockers"
+            ]
+        },
+        {
+            "version": "1.1.62",
+            "text": [
+                "#1725 - Change translation of titel in Aufgeben Termine"
+            ]
+        },
+        {
+            "version": "1.1.61",
+            "text": [
+                "#1727 - Implemented search by specific date"
+            ]
+        },
+        {
+            "version": "1.1.60",
+            "text": [
+                "#1714 - Reset Word correctly on click on Logo"
+            ]
+        },
+        {
+            "version": "1.1.59",
+            "text": [
+                "Log errors with Sentry"
+            ]
+        },
+        {
+            "version": "1.1.58",
+            "text": [
+                "#1722 - Spinner Mainlanding"
+            ]
+        },
+        {
+            "version": "1.1.57",
+            "text": [
+                "#1714 - Search Word"
+            ]
+        },
+        {
+            "version": "1.1.56",
+            "text": [
+                "#1726 - Termineingabe \"Kurze Beschreibung\""
+            ]
+        },
+        {
+            "version": "1.1.55",
+            "text": [
+                "#1726 - Termineingabe Kurze Beschreibung"
+            ]
+        },
+        {
+            "version": "1.1.54",
+            "text": [
+                "#171X - FIx msg with 100 chars limit"
+            ]
+        },
+        {
+            "version": "1.1.53",
+            "text": [
+                "#1717 - Fix trailer in fullscreen"
+            ]
+        },
+        {
+            "version": "1.1.52",
+            "text": [
+                "#1672 - Hide Messenger share button in Desktop devices"
+            ]
+        },
+        {
+            "version": "1.1.51",
+            "text": [
+                "#1644 - Hide loading spinner of termine when an event is not found"
+            ]
+        },
+        {
+            "version": "1.1.50",
+            "text": [
+                "#1672 - Facebook and Messenger POP FIXED"
+            ]
+        },
+        {
+            "version": "1.1.49",
+            "text": [
+                "#1694 - re-added user email again to login form",
+                "#1692 - using the m-picture for merkliste, re-fix as image comes from pipe"
+            ]
+        },
+        {
+            "version": "1.1.48",
+            "text": [
+                "#1694 - removed eMail from username-field when registering new user"
+            ]
+        },
+        {
+            "version": "1.1.47",
+            "text": [
+                "#1692 - using the m-picture for merkliste",
+                "#1686 - added timer to detect daychange and fire reload"
+            ]
+        },
+        {
+            "version": "1.1.46",
+            "text": [
+                "#1667 - Don't reset termine view on menus, except when click MIX-Logo"
+            ]
+        },
+        {
+            "version": "1.1.45",
+            "text": [
+                "#1668 - Fix detail view zoom problem"
+            ]
+        },
+        {
+            "version": "1.1.44",
+            "text": [
+                "#1689 - Second try of fixing the overflow issue on iOS"
+            ]
+        },
+        {
+            "version": "1.1.43",
+            "text": [
+                "#1672 - Facebook crawler share icon"
+            ]
+        },
+        {
+            "version": "1.1.42",
+            "text": [
+                "#1684 - Change COOKIES & LOCALSTORAGE in User Login",
+                "#1685 - Merkliste Image Roundness",
+                "#1646 - removed animation on merkliste",
+                "#1642 - Begleieter to Teilnehmer, fixed missing social icons"
+            ]
+        },
+        {
+            "version": "1.1.41",
+            "text": [
+                "#1682 - User Login COOKIES & LOCALSTORAGE"
+            ]
+        },
+        {
+            "version": "1.1.40",
+            "text": [
+                "#1657 - remove overflow-x on all devices for .container"
+            ]
+        },
+        {
+            "version": "1.1.39",
+            "text": [
+                "#1657 - window of the eye on iOS, white block",
+                "#1662 - FireFox auf Galaxy S 9+ mit Android 9"
+            ]
+        },
+        {
+            "version": "1.1.38",
+            "text": [
+                "#1659 - reading and updateing rubriks from get_events",
+                "#1641 - click on mix icon now resets the searchbar to Alle Kategorien + heute",
+                "#1642 - removed username in front of I-attend-button",
+                "#1643 - added hint that user attend list is available only to users that attend",
+                "#1650 - print changed large image to ipad for better quality",
+                "#1562 - removed console.logs and fixed minor error when focussing on searchbar"
+            ]
+        },
+        {
+            "version": "1.1.37",
+            "text": [
+                "#1637 - Disable Pictures Swipe Function",
+                "#1636 - Properly implement compatibility schema"
+            ]
+        },
+        {
+            "version": "1.1.36",
+            "text": [
+                "#1631 - kino trailer icon does not resize correctly",
+                "#1608 - Added icons for 256px and 512px"
+            ]
+        },
+        {
+            "version": "1.1.35",
+            "text": [
+                "#1549 - Link in appointment Text"
+            ]
+        },
+        {
+            "version": "1.1.34",
+            "text": [
+                "#1627 - resizes images of events with two pcitures",
+                "#1628 - Kontoeinstellungen"
+            ]
+        },
+        {
+            "version": "1.1.33",
+            "text": [
+                "#1627 - resizes images of events with two pcitures"
+            ]
+        },
+        {
+            "version": "1.1.32",
+            "text": [
+                "#1626 - Fix unordered months on Aufgeben Marktplatz XHR"
+            ]
+        },
+        {
+            "version": "1.1.31",
+            "text": [
+                "#1624 - Fix background image on events of Merkliste",
+                "#1624 - Use InjectionToken for API URL"
+            ]
+        },
+        {
+            "version": "1.1.30",
+            "text": [
+                "#1603 - Remove text dialog when tickets are no more available"
+            ]
+        },
+        {
+            "version": "1.1.29",
+            "text": [
+                "#1606 - Fix scroll in Marktplatz"
+            ]
+        },
+        {
+            "version": "1.1.28",
+            "text": [
+                "Hide detail flag on Login Page",
+                "#1604 - Merkliste, no image on empty",
+                "#1602 - White Page Mainlanding",
+                "#1605 - Merkliste more ..."
+            ]
+        },
+        {
+            "version": "1.1.27",
+            "text": [
+                "#1590 - Fix search icon on special testcases",
+                "#1589 - Hide detail arrows if there is only 1 preview",
+                "#1589 - Disable select dropdown of regions when there is only 1 option and hide the arrow"
+            ]
+        },
+        {
+            "version": "1.1.26",
+            "text": [
+                "#1540 - Page User Login Text"
+            ]
+        },
+        {
+            "version": "1.1.25",
+            "text": [
+                "Red ticket when available on Share Dialog",
+                "Fix pixelated 1rst image on detail",
+                "Changed thumbnails format to s"
+            ]
+        },
+        {
+            "version": "1.1.24",
+            "text": ["Fix event detail erro caused by 1.1.23"]
+        },
+        {
+            "version": "1.1.23",
+            "text": [
+                "#1555 - Click on mix icon. hide kein ergebnis",
+                "#1554 - Shopping cart red and fix translation",
+                "#1421 - Better message when browser is not compatible or too old"
+            ]
+        },
+        {
+            "version": "1.1.22",
+            "text": [
+                "#1550 - [Kaz/Kontakte] Fix magnifying glass on Desktop & Tablet"
+            ]
+        },
+        {
+            "version": "1.1.21",
+            "text": [
+                "#1553 - [AttenDialog] Hide attend counter if is 0",
+                "#1551 - [EventDetail] Fix error in console",
+                "#1546 - Fix translation of 'Du erhältst'",
+                "#1525 - Scrolling on left side of place and date dialog",
+                "#1473 - New PROD icons",
+                "#1506 - [Termine] Make carousel and expand view the same amount of items",
+                "#1492 - [KontaktFormular] Remove opacity of form when success",
+                "#1500 - [EventDetail] Fix when previews are 5"
+            ]
+        },
+        {
+            "version": "1.1.20",
+            "text": [
+                "#1500 - Event Detail preview format",
+                "#1537 - Event Detail hide arrows, only in first view"
+            ]
+        },
+        {
+            "version": "1.1.19",
+            "text": [
+                "#1526 - Red infobox",
+                "#1525 - Fix dates dialog"
+            ]
+        },
+        {
+            "version": "1.1.18",
+            "text": ["#1516 - Termin Text"]
+        },
+        {
+            "version": "1.1.17",
+            "text": ["Show alert when the ticket is clicked but there are no more tickets available"]
+        },
+        {
+            "version": "1.1.15",
+            "text": ["#1520 - Make search box visible at startup"]
+        },
+        {
+            "version": "1.1.14",
+            "text": ["#1515 - Change placeholder of search box"]
+        },
+        {
+            "version": "1.1.13",
+            "text": [
+                "Implement the same lazy loading in 1rst termine detail as in fullscreen",
+                "Make termine detail preview boxes same width as height when they are less than 5 items"
+            ]
+        },
+        {
+            "version": "1.1.12",
+            "text": ["Added spinner on Impressum & Datenschutz, for slow connections"]
+        },
+        {
+            "version": "1.1.11",
+            "text": ["#1506 - Safari 10.1.2 Fix"]
+        },
+        {
+            "version": "1.1.10",
+            "text": ["#1507 - Fix translation of Anzeigentext"]
+        },
+        {
+            "version": "1.1.9",
+            "text": ["#1509 - Fix bad camelcase translation in Aufgeben Termine"]
+        },
+        {
+            "version": "1.1.8",
+            "text": ["#1497 - Implement links to buy tickets from Kinoheld"]
+        },
+        {
+            "version": "1.1.5",
+            "text": ["#1427 - Aligned copied link to the bottom center"]
+        },
+        {
+            "version": "1.1.4",
+            "text": ["#1494 - Fix fat spinner on Termine"]
+        },
+        {
+            "version": "1.1.3",
+            "text": ["#1504 - Change translation for group_notice"]
+        },
+        {
+            "version": "1.1.2",
+            "text": ["#1500 - Use flex in termine detail images"]
+        },
+        {
+            "version": "1.1.1",
+            "text": ["#1501 - Change detail images s to m"]
+        },
+        {
+            "version": "1.1.0",
+            "text": ["#1473 - Copied v2 prod favicons"]
+        },
+        {
+            "version": "1.0.7",
+            "text": ["#1416 - Solved Straße translation string"]
+        },
+        {
+            "version": "1.0.6",
+            "text": ["#1482 - Fix Aufgeben Marktplatz Pay Calculation"]
+        },
+        {
+            "version": "1.0.5",
+            "text": ["#1480 - Fix translation of Lastschrift."]
+        },
+        {
+            "version": "1.0.4",
+            "text": ["#1477 - Adjust banner quantity on some Tablet resolutions."]
+        },
+        {
+            "version": "1.0.0",
+            "text": ["Create config.json with Changelog and versioning."]
+        }
+    ]
+}

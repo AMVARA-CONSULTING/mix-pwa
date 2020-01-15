@@ -1,0 +1,64 @@
+
+@import '../../../other/colors';
+@import '../../../other/breakpoints';
+
+@-webkit-keyframes slideshow {
+  0%    { left: 0; }
+  100%  { left: -100%; }
+}
+
+@keyframes slideshow {
+  0%    { left: 0; }
+  100%  { left: -100%; }
+}
+
+:host {
+	display: block;
+	margin-top: 20vh;
+	@include for-phone-only {
+		margin-top: 20vh;
+
+	}
+	position: fixed;
+	width: 100%;
+    text-align: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+
+.title {
+	font-size: 24px;
+	color: $red-global;
+	font-weight: 500;
+}
+
+.animated-bg {
+	display: block;
+	height: 30vh;
+	width: 30vh;
+	max-width: 200px;
+	max-height: 200px;
+	margin: 0 auto;
+	border-radius: 50%;
+	position: relative;
+	overflow: hidden;
+	-webkit-mask-image: -webkit-radial-gradient(white, black);
+	-webkit-backface-visibility: hidden;
+	 -moz-backface-visibility: hidden;
+	 -webkit-transform: translate3d(0, 0, 0);
+	 -moz-transform: translate3d(0, 0, 0);
+	.bg {
+		position: absolute;
+		width: 300%;
+		height: 103%;
+		top: -3px;
+		-webkit-transform: translate3d(0, 0, 0);
+		        transform: translate3d(0, 0, 0);
+		background-image: url(^assets/shutterstock/stock_not_found2.jpg);
+		background-repeat: no-repeat;
+		background-size: contain;
+		-webkit-animation: slideshow 4s linear infinite alternate;
+		        animation: slideshow 4s linear infinite alternate;
+	}
+}
+

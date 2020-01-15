@@ -1,0 +1,19 @@
+
+@import '../../other/colors.scss';
+@import '../../other/breakpoints';
+
+:host * {
+  font-family: "Open Sans" !important;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+:host::ng-deep .mat-raised-button.mat-primary {
+  background-color: $red-global !important;
+}
+
+:host::ng-deep .mat-button.mat-primary {
+  color: $red-global !important;
+}

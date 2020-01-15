@@ -1,0 +1,135 @@
+
+@import '../../other/colors.scss';
+@import '../../other/breakpoints';
+
+:host * {
+  font-family: "Open Sans" !important;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+:host::ng-deep .mat-raised-button.mat-primary {
+  background-color: $red-global !important;
+  &:disabled {
+    background-color: rgba(black, .1) !important;
+  }
+}
+
+.form_terms {
+  height: 70px;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $red-global;
+  }
+}
+
+:host::ng-deep .mat-dialog-title {
+  margin: 0 !important;
+}
+
+label[for="contact"] {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+:host::ng-deep .mat-button.mat-primary {
+  color: $red-global !important;
+}
+
+:host::ng-deep .google-recaptcha > div > div > div {
+  margin: 0 !important;
+}
+
+:host::ng-deep .mat-dialog-content {
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba($red-global, .8); 
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: lighten($red-global, 10);
+  }
+}
+
+:host::ng-deep .mat-spinner {
+  margin: 0 auto;
+  circle {
+    stroke: white;
+  }
+}
+
+.send {
+  width: 106px;
+  height: 36px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 15px;
+  @include for-desktop-up {
+    &.three-columns .form-field {
+      flex: 0 33.33333333%;
+      &:nth-child(2n + 1) {
+        padding-right: 20px;
+        box-sizing: border-box;
+      }
+      &:nth-child(2n + 2) {
+        padding-left: 20px;
+        padding-right: 20px;
+        box-sizing: border-box;
+      }
+      &:nth-child(2n + 3) {
+        padding-left: 20px;
+        box-sizing: border-box;
+      }
+    }
+  }
+  .form-field {
+    @include for-desktop-up {
+      &:nth-child(2n + 1) {
+        padding-right: 20px;
+        box-sizing: border-box;
+      }
+      &:nth-child(2n + 2) {
+        padding-left: 20px;
+        box-sizing: border-box;
+      }
+    }
+    flex: 1 100%;
+    @include for-desktop-up {
+      flex: 0 50%;
+    }
+    label {
+      color: $red-global;
+      font-weight: 500;
+      margin-bottom: 5px;
+      display: block;
+    }
+    input[type="text"], input[type="email"] {
+      display: block;
+      width: 100%;
+      background-color: $lightgray;
+      border-radius: 3px;
+      padding: 10px;
+      font-size: 16px;
+      outline: 0;
+      box-sizing: border-box;
+      border: 0;
+      margin-bottom: 20px;
+    }
+  }
+}

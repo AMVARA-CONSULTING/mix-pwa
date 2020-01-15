@@ -1,0 +1,59 @@
+
+@import '../../other/colors.scss';
+
+:host {
+  display: inline-block;
+  height: 90px;
+  width: 80px;
+  border: 2px solid $red-global;
+  position: relative;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+.remove {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 20px;
+  width: 20px;
+  background-color: $red-global;
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+  line-height: 18px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.icon {
+  position: absolute;
+  height: 50px;
+  width: 40px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  &.pdf {
+    background-image: url(^assets/images/pdf-icon-symbol-5.png);
+  }
+  &.txt {
+    background-image: url(^assets/images/txt.svg);
+  }
+  &:not(.text):not(.pdf) {
+    background-image: url(^assets/images/paper.svg);
+  }
+}
+
+.name {
+  width: 100%;
+  position: absolute;
+  top: 95px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

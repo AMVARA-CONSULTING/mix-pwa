@@ -1,0 +1,15 @@
+<div mat-dialog-content>
+  <button *ngIf="google | async" (click)="signIn()" [disabled]="!(loaded | async)" class="google s-btn"><i></i>Mit Google</button>
+  <button *ngIf="facebook | async" (click)="signIn()" [disabled]="!(loaded | async)" class="facebook s-btn"><i></i>Mit Facebook</button>
+  <br>
+  <mat-spinner color="primary" diameter="25" *ngIf="loading | async"></mat-spinner>
+  <br>
+  <mat-checkbox (change)="handleChange($event)" color="primary">
+    Mit dem Klick erteile ich meine Einwilligung und erkenne die Datenschutzerklärung an:
+    Ich stimme hiermit den Nutzungsbedingungen zu und willige in die Erhebung, Verarbeitung und Nutzung meiner personenbezogenen Daten (Benutzername und eMail-Adresse) ein.
+  </mat-checkbox>
+  <br>
+</div>
+<div mat-dialog-actions>
+  <button color="primary" mat-button mat-dialog-close>Zurück</button>
+</div>

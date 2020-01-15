@@ -1,0 +1,14 @@
+<div mat-dialog-content>
+  <h4>Tickets bei:</h4>
+  <!-- Hyperlinks for when urls are already comming from data -->
+  <ng-container *ngIf="data.urls as urls; else requestLinks">
+    <a target="_blank" [href]="provider.data.url" *ngFor="let provider of data.urls">{{ provider.provider }}</a>
+  </ng-container>
+  <!-- Hyperlinks for when urls are not comming from data -->
+  <ng-template #requestLinks>
+    <a target="_blank" [href]="getLink(provider)" *ngFor="let provider of data.providers">{{ provider.provider }}</a>
+  </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" mat-dialog-close>Zurück</button>
+</div>

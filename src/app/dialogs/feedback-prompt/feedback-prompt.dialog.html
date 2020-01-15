@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+  {{ 'feedback.text_prompt' | translate }}
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" [mat-dialog-close]="false">{{ 'feedback.deny_prompt' | translate | uppercase }}</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">{{ 'feedback.accept_prompt' | translate | uppercase }}</button>
+</div>

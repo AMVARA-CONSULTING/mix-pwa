@@ -1,0 +1,46 @@
+<div class="logo" (click)="clickOnLogo();">
+  <img src="assets/images/logo.svg" alt="title">
+</div>
+<div class="menu" [ngClass]="{'absorb': globals.menu | async}" (click)="clickOnMenu()">
+  <p class="menu_link" routerLinkActive="selected" (click)="clickOnTermine()" routerLink="/termine/main">{{"header.termine" | translate }}</p>
+  <p class="menu_link" routerLinkActive="selected" routerLink="/kontakte">{{"header.kontakte" | translate }}</p>
+  <p class="menu_link" routerLinkActive="selected" routerLink="/marktplatz">{{"header.markplatz" | translate }}</p>
+  <p class="menu_link" routerLinkActive="selected" routerLink="/aufgeben">{{"header.aufgeben" | translate }}</p>
+  <p class="menu_link hide_special" routerLinkActive="selected" routerLink="/print">{{"header.print" | translate }}</p>
+</div>
+<div class="icons" [ngClass]="{'icons_menu_on': globals.menu | async}">
+  <!--<div (click)="searchBar()" class="search_icon" [ngClass]="{'searching': globals.search, 'disabling': !(showSearchIcon | async)}"></div>-->
+  <div (click)="searchBar()" [class.hide]="(globals.login_page | async) || (globals.settings_page | async) || (globals.merkliste_page | async)" class="search_icon" [ngClass]="{'search_other': isIconOutside | async, 'search_termine': globals.isIconTermine | async}"></div>
+  <div class="head_icon merkliste_icon" (click)="checkMerkliste()" [ngClass]="{'logged_in': user.loggedIn | async, 'merkliste_page_open': globals.merkliste_page | async}">
+    <div class="merkliste_total" *ngIf="user.loggedIn.value && user.merkliste_total | async as total">{{ total }}</div>
+  </div>
+  <div [matTooltip]="user.name" matTooltipPosition="below" class="head_icon user_container" (click)="checkLoginPage();account();" [ngClass]="{'logged_in': (user.loggedIn | async), 'login_page_open': (globals.login_page | async), 'settings_page_open': globals.settings_page | async}">
+    <div class="hello" *ngIf="user.loggedIn | async">{{"header.welcome" | translate }} {{ user.name | cutText:5 }}</div>
+  </div>
+  <div class="head_icon menu_icon" (click)="toggleMenu()"></div>
+</div>
+<div (click)="closeSidebar()" *ngIf="globals.menu | async" class="menu_backdrop"></div>
+<div class="menu_folder" [ngClass]="{'menu_show': (globals.menu | async)}">
+  <div class="menu_title" (click)="globals.menu.next(false)">{{"header.menu_title" | translate }}</div>
+  <div class="close"></div>
+  <ul>
+    <li routerLink="/termine/main" (click)="clickOnTermine(); closeSidebar()" routerLinkActive="selected">{{"header.termine" | translate }}</li>
+    <li routerLink="/kontakte" (click)="closeSidebar()" routerLinkActive="selected">{{"header.kontakte" | translate }}</li>
+    <li routerLink="/marktplatz" (click)="closeSidebar()" routerLinkActive="selected">{{"header.markplatz" | translate }}</li>
+    <li routerLink="/aufgeben" (click)="closeSidebar()" routerLinkActive="selected">{{"header.aufgeben" | translate }}</li>
+    <li routerLink="/print" (click)="closeSidebar()" routerLinkActive="selected">{{"header.print" | translate }}</li>
+    <li routerLink="/impressum" (click)="closeSidebar()" routerLinkActive="selected">Impressum</li>
+    <li routerLink="/datenschutz" (click)="closeSidebar()" routerLinkActive="selected">Datenschutz</li>
+    <li routerLink="/mediadaten" (click)="closeSidebar()" routerLinkActive="selected">Mediadaten</li>
+    <li (click)="clickOnAnsichtItem(); closeSidebar()" routerLinkActive="selected">Ansicht wählen
+      <i class="ansicht-eye"></i>
+    </li>
+  </ul>
+</div>
+<div class="alert" *ngIf="alert | async">
+    <div class="alert_message">
+      <div>{{ pre_alert_message | async }}</div>
+      <div class="message_texte" [innerHTML]="message_alert | async | safeHtml"></div>
+    </div>
+    <p class="ok" (click)="removeAlert()">OK</p>
+</div>

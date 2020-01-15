@@ -1,0 +1,438 @@
+@import "../../other/colors.scss";
+
+@import "../../other/breakpoints";
+
+li.selected:focus {
+  background-color: $red-global;
+}
+
+.selected {
+  color:$red-global;
+}
+
+:host{
+  position: fixed;
+  z-index: 101;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color:$mainColor;
+  width: 100%;
+  height: 70px;
+  top: 0;
+}
+
+.hide_special {
+  @media (min-width: 600px ) and (max-width: 750px) {
+    display: none;
+  }
+}
+
+.logo {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 50%;
+          flex: 1 50%;
+
+  @include for-tablet-portrait-up {
+      -webkit-box-flex: 1;
+          -ms-flex: 1 17%;
+              flex: 1 17%;
+  }
+
+  img {
+    position: absolute;
+    bottom: 4px;
+    left: 12px;
+    width: 90px;
+    height: 60px;
+    outline: none;
+    cursor: pointer;
+    @include for-tablet-portrait-up {
+      left:3.0vw;
+    }
+  }
+}
+
+.menu {
+  -webkit-box-flex: 0;
+      -ms-flex: 0;
+          flex: 0;
+  display: none;
+  @include for-phone-landscape-only {
+    display: none !important;
+  }
+  @include for-tablet-portrait-up  {
+    margin-top: 32px;
+    display: inline-flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 70%;
+        flex: 1 70%;
+        font-size: 14px;
+    p {
+      margin:7px;
+      margin-right:20px;
+      margin-left:15px;
+      @include for-tablet-portrait-only {
+        margin-right:5px;
+      }
+      @include for-desktop-up {
+        margin-right: 30px;
+      }
+    }
+    p:focus {
+      outline: none;
+    }
+    
+    p:hover{
+      cursor: pointer;
+      color: $grayish;
+    }
+  }
+}
+
+.icons {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+          
+  @include for-phone-landscape-only {
+    max-width: 70vw !important;
+  }
+  @include for-tablet-portrait-up  {
+      margin-right: 3.5vw;
+      max-width:23vw;
+      margin-right: 18px;
+      -ms-flex: 1 70%;
+          flex: 1 70%;
+  }
+  
+  img {
+    margin-top:28px;
+    width: 25px;
+    height: 28px;
+    outline:none;
+  }
+
+  img:hover{
+    cursor: pointer;
+    opacity: 0.70;
+  }
+
+}
+
+
+.container.safari {
+  width: 100%;
+  height: $header_height;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  .logo{
+    display: inline-block;
+    width: 30vw;
+  }
+  .menu{
+    display: none;
+    width: 0;
+  }
+  .icons{
+    width: 300px;
+  }
+}
+
+.merkliste_icon {
+  width:25px;
+  flex: 1;
+  .merkliste_total {
+    color: white;
+  }
+  background-image: url(^assets/images/header/merkliste/mix-icon-heart_outline_black_not_logged.svg);
+  &.logged_in {
+    background-image: url(^assets/images/header/merkliste/mix-icon-heart_outline_black_logged.svg);
+  }
+  &.merkliste_page_open {
+    background-image: url(^assets/images/header/merkliste/mix-icon-heart_outline_black_in_page.svg);
+  }
+  .merkliste_total {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    @include for-tablet-portrait-up {
+      top: 9px;
+    }
+  }
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position: center 30px;
+  @include for-tablet-portrait-up {
+    background-position: center 33px;
+  }
+
+  /* .merkliste_total {
+    position: absolute;
+    top: 8px;
+    margin-left: 7px;
+  } */
+}
+.search_icon {
+  flex: 1;
+  background-image: url(^assets/images/mix_icon_search_F.svg);
+  background-repeat: no-repeat;
+  background-size: 40px;
+  background-position: center 22px;
+  // Hide by default, will show depending on the component, example: Termine , marktplatz
+  // Plase look for .search_icon in termine component, etc
+  opacity: 0;
+  cursor: pointer;
+  &.hide {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+  pointer-events: none;
+  @include for-tablet-portrait-only {
+    background-position-y: 25px;
+  }
+  @include for-tablet-landscape-only {
+    background-position-y: 25px;
+  }
+}
+
+.search_other {
+  opacity: 1;
+  pointer-events: initial;
+}
+
+.search_termine {
+  @include for-phone-landscape-only {
+    opacity: 1 !important;
+    pointer-events: initial !important;
+  }
+  @include for-phone-only {
+    opacity: 1;
+    pointer-events: initial;
+  }
+  @include for-tablet-portrait-up {
+      opacity: 0;
+      pointer-events: none;
+  }
+}
+
+.menu_close{
+  margin-right:5vw !important;
+}
+
+.menu_icon {
+  flex: 1;
+  background-image: url(^assets/images/MIXICON_Sandwich.svg);
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position: center 30px;
+  @include for-tablet-portrait-up {
+    background-position: center 33px;
+  }
+}
+
+.menu_backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(black, .2);
+}
+
+.menu_link{
+  text-transform:uppercase;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+.menu_folder.menu_show{
+  transform: translateX(0%);
+}
+.menu_folder{
+  transition: .3s transform ease-in-out;
+  //text-transform: capitalize;
+  color: $darkBlueish;
+  background-color: $whiteishGray;
+  width: 100%;
+  top: 70px;
+  right: 0;
+  transform: translateX(110%);
+  height: 85%;
+  overflow: auto;
+  position: fixed;
+  z-index: 4;
+  font-size: 19px;
+  -webkit-box-shadow: 0 20px 20px 1px;
+          box-shadow: 0 20px 20px 1px;
+
+  @include for-tablet-portrait-only {
+    width:45vw;
+  }
+  @include for-tablet-landscape-up {
+    width:30vw;
+  }
+
+
+  .menu_title{
+    font-weight: bold;
+    border-bottom: $gray solid 1px;
+    line-height: 70px;
+    padding-left: 20px;
+    cursor: pointer;
+  }
+  ul {
+    color: $blackish;
+    margin: 0;
+      padding: 0;
+    list-style: none;
+    padding-left: 0;
+    li {
+      transition: background-color 0.5s, color 0.5s;
+      //text-transform: capitalize;
+      margin: 0;
+      position: relative;
+      padding-top: 20px;
+      margin-left: 30px;
+      margin-bottom: 10px;
+      padding-left: 10px;
+      border-bottom: solid 1px $gray;
+      .ansicht-eye {
+        position: absolute;
+        bottom: 0;
+        left: -25px;
+        height: 25px;
+        width: 25px;
+        // background-color: $red-global;
+        background-image: url(^assets/images/MIXICON_Ansicht.svg?a);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+      }
+    }
+    li:hover{
+      cursor: pointer;
+      @include for-tablet-portrait-up {
+        background-color: $mainColor;
+        color:$white;
+      }
+    }
+    li:focus{
+      outline: none;
+    }
+  }
+  .selected{
+    color: $mainColor;
+    border-bottom: $mainColor solid 1px !important;
+  }
+}
+
+.disabled{
+  pointer-events: none;
+}
+.icons .search{
+  -webkit-filter: brightness(100%);
+          filter: brightness(100%);
+}
+.selected{
+  color:$whiteish;
+}
+.disabling{
+  opacity: 0;
+  pointer-events: none;
+}
+.absorb{
+  pointer-events: none;
+}
+.no_pointer{
+  pointer-events: none;
+}
+.searching{
+  -webkit-filter: grayscale(1) invert(1) !important;
+          filter: grayscale(1) invert(1) !important;
+}
+.close{
+  background-image: url(^assets/images/MIXICON_Close.svg);
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 3.8vw;
+  top: 24px;
+  cursor: pointer;
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+.close:hover{
+  opacity: 0.8;
+  cursor: pointer;
+}
+.user_container{
+  position: relative;
+  flex: 1;
+  background-image: url(^assets/images/header/user/mix_icon_user_F_not_logged.svg);
+  background-repeat: no-repeat;
+  background-size: 39px;
+  background-position: center 20px;
+  .hello {
+    color: white;
+  }
+  &.logged_in {
+    background-image: url(^assets/images/header/user/mix_icon_user_F_logged.svg);
+  }
+  &.login_page_open {
+    background-image: url(^assets/images/header/user/mix_icon_user_F_logging.svg);
+  }
+  &.settings_page_open {
+    background-image: url(^assets/images/header/user/mix_icon_user_F_in_page.svg);
+  }
+  @include for-tablet-portrait-up {
+    background-position: center 24px;
+  }
+}
+.head_icon {
+  cursor: pointer;
+  position: relative;
+}
+.hello{
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
+  @include for-tablet-portrait-up {
+    top: 9px;
+  }
+}
+
+
+.waiting{
+pointer-events: none;
+cursor: default;
+}
+
+// XXX to be fixed ... .search_termine is not part of header
+/* @media (min-width:576px){
+  .search_termine {
+    display: none;
+  }
+} */
+
+.message_texte {
+  color: $red-global;
+  text-align: center
+}

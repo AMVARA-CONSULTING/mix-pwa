@@ -1,0 +1,92 @@
+
+@import '../../other/colors.scss';
+
+:host {
+  display: inline-block;
+  height: 150px;
+  width: 150px;
+  border: 2px solid $red-global;
+  position: relative;
+  margin-right: 20px;
+  border-radius: 5px;
+  margin-bottom: 40px;
+}
+
+.name {
+  width: 100%;
+  position: absolute;
+  top: 160px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.remove {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 20px;
+  z-index: 1;
+  width: 20px;
+  background-color: $red-global;
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+  line-height: 18px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.icon {
+  position: absolute;
+  height: 60%;
+  width: 70%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  &.tif, &.tiff, &.eps, &.postscript {
+    background-image: url(^assets/images/picture.svg);
+  }
+  &.pdf {
+    background-image: url(^assets/images/pdf-icon-symbol-5.png);
+  }
+  &.txt {
+    background-image: url(^assets/images/txt.svg);
+  }
+  &:not(.text):not(.pdf):not(.tif):not(.tiff):not(.eps):not(.postscript) {
+    background-image: url(^assets/images/paper.svg);
+  }
+}
+
+:host ::ng-deep .loading {
+  position: absolute !important;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

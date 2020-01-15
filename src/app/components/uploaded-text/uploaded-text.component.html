@@ -1,0 +1,3 @@
+<div *ngIf="enableRemove" class="remove" (click)="Remove()">x</div>
+<div class="icon" [ngClass]="extension | async"></div>
+<div class="name" [matTooltip]="file.name">{{ file.name }}</div>

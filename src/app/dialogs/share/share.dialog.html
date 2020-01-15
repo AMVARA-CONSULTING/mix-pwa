@@ -1,0 +1,51 @@
+<div mat-dialog-content>
+  <ng-container *ngIf="!data?.disableOptions">
+    <h5 class="category">{{ 'share_dialog.functions' | translate }}</h5>
+    <div (click)="favourite()" [class.setted]="favourited | async" class="share-item" matRipple
+      [matRippleColor]="myColor">
+      <i class="merkliste" [class.favourited]="favourited | async"></i>
+      <span>{{ 'share_dialog.add_merkliste' | translate }}</span>
+    </div>
+    <div (click)="openAttend()" [matTooltip]="assistants | async" [matTooltipDisabled]="!(assistants | async)" matTooltipPosition="before"
+      [class.setted]="attended | async" class="share-item" [class.loading]="sending_attend | async" matRipple
+      [matRippleColor]="myColor">
+      <div *ngIf="assistants | async" class="counter">{{ assistants | async }}</div>
+      <i class="attend" [class.attended]="attended | async"></i>
+      <span>{{ 'share_dialog.attend' | translate }}</span>
+    </div>
+    <a *ngIf="ticketLink as link; else multiLinks" [href]="link" target="_blank" class="share-item" matRipple [matRippleColor]="myColor">
+      <i class="ticket available"></i>
+      <span>Ticket</span>
+    </a>
+    <ng-template #multiLinks>
+      <div (click)="openBuyCart()" class="share-item" matRipple [matRippleColor]="myColor">
+        <i class="ticket" [class.available]="ticketAvailable"></i>
+        <span>Ticket</span>
+      </div>
+    </ng-template>
+  </ng-container>
+  <h5 class="category">{{ 'share_dialog.share_on' | translate }}</h5>
+  <a [href]="whatsappUrl" target="_blank" class="share-item" matRipple [matRippleColor]="myColor">
+    <i class="whatsapp"></i>
+    <span>WhatsApp</span>
+  </a>
+  <div class="share-item" (click)="shareOnFacebook()" matRipple [matRippleColor]="myColor">
+    <i class="facebook"></i>
+    <span>Facebook</span>
+  </div>
+  <a (click)="openMessenger()" *ngIf="showMessenger" class="share-item share-messenger" matRipple [matRippleColor]="myColor">
+    <i class="facebook-msn"></i>
+    <span>Messenger</span>
+  </a>
+  <a [href]="mailUrl" class="share-item" matRipple [matRippleColor]="myColor">
+    <i class="email"></i>
+    <span>{{ 'share_dialog.mail' | translate }}</span>
+  </a>
+  <div (click)="copyUrl()" class="share-item" matRipple [matRippleColor]="myColor">
+    <i class="link"></i>
+    <span>{{ 'share_dialog.copy_link' | translate }}</span>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" mat-dialog-close>Zurück</button>
+</div>

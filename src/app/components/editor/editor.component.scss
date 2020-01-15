@@ -1,0 +1,26 @@
+@import "../../other/colors";
+
+.container{
+    position: fixed;
+    top:35%;
+    background-color:$mainColor;
+    padding-bottom:200px;
+    width: 70px;
+    left:-50px;
+    transition: left 1s;
+    text-align: center;
+}
+.container:hover{
+    left:0px;
+    font-size: 14px;
+
+}
+p{
+    color:$whiteish;
+    font-size: 15px;
+    font-weight: bold;
+}
+p:hover{
+    opacity: 0.9;
+    cursor: pointer;
+}

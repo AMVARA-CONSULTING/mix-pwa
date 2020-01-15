@@ -1,0 +1,566 @@
+<div *ngIf="!(showAufgebenDisabled | async) && (page | async) as page" class="container"
+  [ngClass]="{waiting: (waiting | async), disable_form: (disable_form | async)}">
+  <form [formGroup]="form">
+    <div style="display: none;">
+      <input type="text" id="PreventChromeAutocomplete" name="PreventChromeAutocomplete"
+        autocomplete="address-level4" />
+    </div>
+    <div class="main_title">Aufgeben Termine</div>
+    <div class="page_no" *ngIf="!(vielen_dank | async) && page<=5">
+      <div class="page_button" [class.page_select]="page==1" (click)="changePage(1)">1</div>
+      <div class="page_button" [class.page_select]="page==2" (click)="changePage(2)">2</div>
+      <div class="page_button" [class.page_select]="page==3" (click)="changePage(3)">3</div>
+      <div class="page_button" [class.page_select]="page==4" (click)="changePage(4)">4</div>
+      <div class="page_button" [class.page_select]="page==5" (click)="changePage(5)">5</div>
+    </div>
+    <div class="page page1" [class.show_page]="page==1 && !(vielen_dank | async)">
+      <div *ngIf="_info.serverInfo.show_termin_coupon_hinweis_alert" class="text textblack fontbold">{{ final_date$ | async }}</div>
+      <div class="title">{{'aufgeben.personal_data' | translate}}</div>
+      <div class="form_group">
+        <div class="text_group" [class.not_valid]="vorname_error">
+          <label for="vorname">Vorname*</label>
+          <input type="text" maxlength="250" [class.error]="vorname_error" formControlName="vorname"
+            (focus)="vorname_error=false">
+          <div class="reference" [class.error_reference]="vorname_error"></div>
+        </div>
+        <div class="text_group" [class.not_valid]="nachname_error">
+          <label for="nachname">Nachname*</label>
+          <input type="text" maxlength="250" [class.error]="nachname_error" (click)="nachname_error=false"
+            (focus)="nachname_error=false" formControlName="nachname">
+          <div class="reference" [class.error_reference]="nachname_error"></div>
+        </div>
+        <div class="text_group">
+          <label for="firma">Firma (bei Bedarf)</label>
+          <input type="text" maxlength="250" formControlName="firma">
+          <div class="reference"></div>
+        </div>
+        <div class="text_group" [class.not_valid]="email_error">
+          <label for="email">eMail*</label>
+          <input type="text" maxlength="250" class="tolowercase" [class.error]="email_error" (click)="email_error=false"
+            (focus)="email_error=false" formControlName="email">
+          <div class="reference" [class.error_reference]="email_error"></div>
+        </div>
+        <div class="text_group" [class.not_valid]="vorwahl_error">
+          <label for="vorwahl">Vorwahl*</label>
+          <input type="text" onlyNumbers="true" maxlength="250" [class.error]="vorwahl_error"
+            (click)="vorwahl_error=false" (focus)="vorwahl_error=false" formControlName="vorwahl">
+          <div class="reference" [class.error_reference]="vorwahl_error"></div>
+        </div>
+        <div class="text_group" [class.not_valid]="telefonnummer_error">
+          <label for="telefonnummer">Telefonnummer*</label>
+          <input type="text" onlyNumbers="true" maxlength="250" [class.error]="telefonnummer_error"
+            (click)="telefonnummer_error=false" (focus)="telefonnummer_error=false" formControlName="telefonnummer">
+          <div class="reference" [class.error_reference]="telefonnummer_error"></div>
+        </div>
+      </div>
+      <div class="text bold red">Ich selbst bin* </div>
+      <div class="radio_group" [class.not_valid]="kunde_typ_error">
+        <div class="reference" [class.error_reference]="kunde_typ_error"></div>
+        <div class="radio">
+          <div class="p1_checkbox"><input type="radio" formControlName="kunde_typ" name="kunde_typ" id="veranstalter"
+              value="Veranstalter" (change)="kunde_typ_error=false">
+            <label for="veranstalter">
+              <span class="p1_check"></span>
+              <div class="p1_radio_text">Veranstalter des Termins/Events</div>
+            </label>
+          </div>
+          <div class="p1_checkbox"><input type="radio" formControlName="kunde_typ" name="kunde_typ" id="nutzer"
+              value="MIX-Leser" (change)="kunde_typ_error=false">
+            <label for="nutzer">
+              <span class="p1_check"></span>
+              <div class="p1_radio_text">Ein Nutzer dieser Seite und MIX-Leser</div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page page2" [class.show_page]="page==2 && !(vielen_dank | async)">
+      <div class="title">Infos zum Termin</div>
+      <div class="text_group">
+        <label for="rubrik">Rubrik</label>
+        <div class="reference" [class.error_reference]="rubrik_error"></div>
+        <div class="rubrik_close" [class.not_valid]="rubrik_error" id="rubrik_bar" [class.error]="rubrik_error"
+          [class.rubrik_list_open]="rubrik_list_open" (click)="rubrik_list_open=rubrik_list_open==false ? true : false">
+          <div class="value" id="rubrik_open">{{rubrik_list_string | async}}<span class="rubrik-euro"
+              *ngIf="!(free | async)">(€)</span></div>
+          <div id="rubrik_arrow" class="arrow"></div>
+        </div>
+        <div class="rubrik_list" id="rubrik_list" *ngIf="rubrik_list_open">
+          <div class="option_title">Kostenfreie Rubriken</div>
+          <div class="option" (click)="rubrik_list_string.next('Kino');checkFree()">Kino</div>
+          <div class="option" (click)="rubrik_list_string.next('Partys');checkFree()">Partys</div>
+          <div class="option" (click)="rubrik_list_string.next('Bühne');checkFree()">Bühne</div>
+          <div class="option" (click)="rubrik_list_string.next('Musik');checkFree()">Musik</div>
+          <div class="option" (click)="rubrik_list_string.next('Ausstellungen');checkFree()">Ausstellungen</div>
+          <div class="option" (click)="rubrik_list_string.next('Feste');checkFree()">Feste</div>
+          <div class="option" (click)="rubrik_list_string.next('Literatur');checkFree()">Literatur</div>
+          <div class="option" (click)="rubrik_list_string.next('Sport');checkFree()">Sport</div>
+          <div class="option" (click)="rubrik_list_string.next('Vorträge');checkFree()">Vorträge</div>
+          <div class="option_title">Kostenpflichtige Rubriken (&euro;)</div>
+          <div class="option" (click)="rubrik_list_string.next('Führungen');checkFree()">Führungen (&euro;)</div>
+          <div class="option" (click)="rubrik_list_string.next('Gleich und Gleich');checkFree()">Gleich und Gleich
+            (&euro;)</div>
+          <div class="option" (click)="rubrik_list_string.next('Hits für Kids');checkFree()">Hits für Kids (&euro;)
+          </div>
+          <div class="option" (click)="rubrik_list_string.next('Mädchen und Frauen');checkFree()">Mädchen und Frauen
+            (&euro;)</div>
+          <div class="option" (click)="rubrik_list_string.next('Männer');checkFree()">Männer (&euro;)</div>
+          <div class="option" (click)="rubrik_list_string.next('Ständige Treffs');checkFree()">Ständige Treffs (&euro;)
+          </div>
+          <div class="option" (click)="rubrik_list_string.next('Treffpunkte');checkFree()">Treffpunkte (&euro;)</div>
+        </div>
+      </div>
+      <div class="text_group titel" [class.not_valid]="titel_error">
+        <label for="titel">Titel der Veranstaltung*</label>
+        <div class="subtext">(ohne Nennung des Veranstaltungsortes - max. 50 Zeichen)</div>
+        <input type="text" maxlength="100" [class.error]="titel_error" (click)="titel_error=false"
+          (focus)="titel_error=false" formControlName="titel">
+        <div class="reference" [class.error_reference]="titel_error"></div>
+      </div>
+      <div class="text_group">
+        <label for="kurzebeschreibung">Kurze Beschreibung</label>
+        <div class="subtext">(ohne Nennung des Veranstaltungsortes - max. 500 Zeichen)</div>
+        <textarea type="textarea" maxlength="500" rows="3" cols="40" [class.error]="kurzebeschreibung_error"
+          (click)="kurzebeschreibung_error=false" (focus)="kurzebeschreibung_error=false"
+          formControlName="kurzebeschreibung"></textarea>
+        <div class="reference" [class.error_reference]="kurzebeschreibung_error"></div>
+      </div>
+
+      <!-- If RUBRIK=Austellungen ... show Textarea ... otherwise show DATUM DatePicker -->
+      <ng-container *ngIf="(rubrik_list_string | async) == 'Ausstellungen'; else onlyDate">
+        <div class="text_group datum" [class.not_valid]="datum_error" [class.error_reference]="datum_error">
+          <label for="titel">{{ 'aufgeben.termine.ausstellungsdauer' | translate }}*</label>
+          <div class="subtext">{{'aufgeben.termine.page2_austellungen_textarea' | translate}}</div>
+          <textarea style="margin-bottom: 65px" formControlName="ausstellungen_opening_hours" placeholder=""
+            maxlength="500" rows="3" cols="40" id="austellungen_textarea" type="textarea"></textarea>
+
+        </div>
+      </ng-container>
+      <!-- Datepicker for Datum -->
+      <ng-template #onlyDate>
+        <div class="text_group" [class.not_valid]="beginn_error">
+          <label for="beginn">Beginn*</label>
+          <div class="subtext">(Stunde Doppelpunkt Minuten / HH:MM)</div>
+          <input type="text" [textMask]="{mask: beginnMask, placeholderChar: ' '}" [class.error]="beginn_error"
+            (click)="beginn_error=false" (focus)="beginn_error=false" formControlName="beginn">
+          <div class="reference" [class.error_reference]="beginn_error"></div>
+        </div>
+        <div class="text_group datum">
+          <div class="reference"></div>
+          <label for="beginn">Datum*</label>
+        </div>
+        <div [class.not_valid]="datum_error" [class.error_reference]="datum_error">
+          <input [min]="minDate" (click)="openPicker()" readonly id="datum" [matDatepicker]="picker" type="text"
+            class="calendar transparentfontcolor" [class.error]="datum_error" (focus)="beginn_error=false"
+            (dateChange)="addDate($event)" />
+          <mat-datepicker-toggle class="calendar-toggle" matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+        <div class="show_datum">
+          <div class="red bold">Ausgewählte Tage</div>
+          <div class="date_show_container">
+            <div class="date_show" *ngFor="let date of date_array | async; index as i" (click)="removeDate(i)">
+              <div class="date_show-wrapper">
+                <div>{{date}}</div>
+                <div class="remove_datum"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pay_calculation" *ngIf="!(free | async) && form.value.titel">
+          <div
+            [innerHTML]="'aufgeben.termine.pay_desc' | translate | replacePayCalc:titel.value:kurzebeschreibung.value:beginn.value">
+          </div>
+          <div>({{ titel.value | terminePayCalculation:kurzebeschreibung.value:date_array | async }})</div>
+        </div>
+      </ng-template>
+
+      <!-- Veranstaltungsort-->
+      <div class="title">Infos zum Veranstaltungsort</div>
+      <div class="text_group" [class.not_valid]="veranstaltungsort_error">
+        <label for="veranstaltungsort">Veranstaltungsort*</label>
+        <div class="subtext">({{ 'aufgeben.termine.veranstaltungsort_desc' | translate }})</div>
+        <!-- <div class="orte_list" [class.orte_hide]="!(orte_list_show | async)"> -->
+        <cdk-virtual-scroll-viewport [class.orte_hide]="!(orte_list_show | async)" itemSize="25" class="orte_list">
+          <div *cdkVirtualFor="let orte of orte_list | orteFilter | async" class="orte" (click)="fillOrte(orte.adressid, orte.adressname)">{{orte.adressname}}</div>
+        </cdk-virtual-scroll-viewport>
+          <!-- <div class="orte"
+            *ngFor="let orte of orte_list | orteFilter | async"
+            (click)="fillOrte(orte.adressid, orte.adressname)">
+            {{orte.adressname}}
+          </div> -->
+        <!-- </div> -->
+        <input type="text" autocomplete="off" (keyup)="getOrte($event)" id="orte" class="veranst" maxlength="250"
+          [class.error]="veranstaltungsort_error" (click)="veranstaltungsort_error=false"
+          formControlName="veranstaltungsort" (focus)="orte_list_show.next(true)">
+        <div class="reference" [class.error_reference]="veranstaltungsort_error"></div>
+      </div>
+      <div class="form_group">
+        <!--<div class="text_group" [class.not_valid]="region_error">
+          <label for="region">Region*</label>
+          <input type="text" maxlength="250" id="region" [class.error]="region_error" (click)="region_error=false"
+            (focus)="region_error=false" formControlName="region">
+          <div class="reference" [class.error_reference]="region_error"></div>
+        </div>-->
+        <div class="text_group" [class.not_valid]="strasse_error">
+          <label for="strasse">Straße/Nr.*</label>
+          <input type="text" minlength="3" id="strasse" [class.error]="strasse_error" (click)="strasse_error=false"
+            (focus)="strasse_error=false" formControlName="strasse">
+          <div class="reference" [class.error_reference]="strasse_error"></div>
+        </div>
+        <div class="text_group" [class.not_valid]="plz_error">
+          <label for="plz">PLZ*</label>
+          <input type="text" onlyNumbers maxlength="5" minlength="5" id="plz" [class.error]="plz_error"
+            (click)="plz_error=false" (focus)="plz_error=false" formControlName="plz">
+          <div class="reference" [class.error_reference]="plz_error"></div>
+        </div>
+        <div class="text_group" [class.not_valid]="ort_error">
+          <label for="ort">Ort*</label>
+          <input type="text" maxlength="250" id="ort" [class.error]="ort_error" (click)="ort_error=false"
+            (focus)="ort_error=false" formControlName="ort">
+          <div class="reference" [class.error_reference]="ort_error"></div>
+        </div>
+        <div class="text_group" [class.not_valid]="ver_vorwahl_error">
+          <label for="ver_vorwahl">Vorwahl</label>
+          <input type="text" onlyNumbers maxlength="250" id="vorwahl" [class.error]="ver_vorwahl_error"
+            (click)="ver_vorwahl_error=false" (focus)="ver_vorwahl_error=false" formControlName="ver_vorwahl">
+          <div class="reference" [class.error_reference]="ver_vorwahl_error"></div>
+        </div>
+        <div class="text_group" [class.not_valid]="ver_telefonnummer_error" id="telefonnummer">
+          <label for="ver_telefonnummer">Telefonnummer</label>
+          <input type="text" onlyNumbers maxlength="250" [class.error]="ver_telefonnummer_error"
+            (click)="ver_telefonnummer_error=false" (focus)="ver_telefonnummer_error=false"
+            formControlName="ver_telefonnummer">
+          <div class="reference" [class.error_reference]="ver_telefonnummer_error"></div>
+        </div>
+        <div class="text_group" [class.not_valid]="homepage_error" id="homepage">
+          <label for="homepage">Homepage</label>
+          <input type="text" maxlength="250" [class.error]="homepage_error" (click)="homepage_error=false"
+            formControlName="homepage">
+          <div class="reference" [class.error_reference]="homepage_error"></div>
+        </div>
+        <div class="text_group" [class.not_valid]="ver_email_error" id="email">
+          <label for="ver_email">eMail</label>
+          <input type="text" maxlength="250" [class.error]="ver_email_error" (click)="ver_email_error=false"
+            (focus)="ver_email_error=false" formControlName="ver_email">
+          <div class="reference" [class.error_reference]="ver_email_error"></div>
+        </div>
+      </div>
+    </div>
+    <div class="page page3" *ngIf="page==3 && !(vielen_dank | async)" [class.show_page]="page==3 && !(vielen_dank | async)">
+      <div class="title" translate="aufgeben.termine.page3_title"></div>
+      <div class="fertig_title">{{'aufgeben.termine.fertig_title' | translate}}</div>
+      <span class="text" translate="aufgeben.termine.page3_part1_sentences1"></span>&nbsp;<strong><span class="text" 
+      translate="aufgeben.termine.page3_part1_sentences5"></span></strong>&nbsp;<span class="text"
+        translate="aufgeben.termine.page3_part1_sentences2"></span>
+      <div class="text" translate="aufgeben.termine.page3_part1_sentences3"></div>
+      <button *ngIf="(file_images | async)?.length < 5; else uploadImagesNotAvailable"
+        [disabled]="loadingImages | async" class="upload-textes" (click)="imageUpload()">
+        <ng-container *ngIf="loadingImages | async; else uploadImage">
+          <mat-spinner diameter="15" class="file-loading"></mat-spinner>
+        </ng-container>
+        <ng-template #uploadImage>
+          <i class="icon-upload"></i>{{ 'aufgeben.termine.upload_file' | translate }}
+        </ng-template>
+      </button>
+      <ng-template #uploadImagesNotAvailable>
+        <div class="max-limit">{{ 'aufgeben.termine.toomanyimages' | translate }}</div>
+      </ng-template>
+      <input style="display:none;" type="file" id="image_upload" accept=".jpeg,.jpg,.png,.tif,.tiff,.gif"
+        (change)="onImageChange($event)" multiple>
+      <div class="uploaded-textes">
+        <mix-uploaded-image [index]="i" (remove)="RemoveImage($event)" [file]="file"
+          *ngFor="let file of file_images | async; index as i; trackBy:getIndex">
+        </mix-uploaded-image>
+      </div>
+
+      <div class="title" translate="aufgeben.termine.weitere_text"></div>
+      <div class="fertig_title" translate="aufgeben.termine.texte_desc_title"></div>
+      <span class="text" translate="aufgeben.termine.page3_part2_sentences1"></span>&nbsp;<span class="text"
+        translate="aufgeben.termine.page3_part2_sentences3"></span>
+      <div class="text" translate="aufgeben.termine.page3_part2_sentences4"></div>
+      <button *ngIf="(file_text | async)?.length < 5; else uploadTextsNotAvailable" [disabled]="loadingTexts | async"
+        class="upload-textes" (click)="fileUpload()">
+        <ng-container *ngIf="loadingTexts | async; else uploadText">
+          <mat-spinner diameter="15" class="file-loading"></mat-spinner>
+        </ng-container>
+        <ng-template #uploadText>
+          <i class="icon-upload"></i>{{ 'aufgeben.termine.upload_file' | translate }}
+        </ng-template>
+      </button>
+      <ng-template #uploadTextsNotAvailable>
+        <div class="max-limit">{{ 'aufgeben.termine.toomanytextes' | translate }}</div>
+      </ng-template>
+      <input style="display:none;" type="file" id="file_upload" accept=".txt,.pdf,.rtf,.doc,.docx"
+        (change)="onTextChange($event)" multiple>
+      <div class="uploaded-textes">
+        <mix-uploaded-text [index]="i" (remove)="RemoveFile($event)" [file]="file"
+          *ngFor="let file of file_text | async; index as i; trackBy:getIndex">
+        </mix-uploaded-text>
+      </div>
+      <div class="title">Copyright</div>
+      <div class="radio_group" [class.not_valid]="copyright_error">
+        <div class="reference" [class.error_reference]="copyright_error"></div>
+        <div><input type="checkbox" formControlName="copyright" name="copyright" id="copyright_yes" value="ja"
+            (change)="copyright_error=false"><label for="copyright_yes"><span></span>
+            {{ 'aufgeben.termine.copyright_confirm' | translate }}
+          </label></div>
+      </div>
+    </div>
+    <div class="page page4" [class.show_page]="page==5 && !(vielen_dank | async)">
+      <div class="title">Zusammenfassung</div>
+      <div class="text" translate="aufgeben.termine.fertig_desc"></div>
+      <div class="terms"><input id="privacy_form" type="checkbox" formControlName="form_privacy"><label
+          for="privacy_form"><span></span>Mit dem Klick erteile ich meine Einwilligung und erkenne die
+          Datenschutzerklärung an:</label>
+        <p>{{'aufgeben.form_privacy' | translate}}</p>
+      </div>
+      <div class="terms" *ngIf="!(free | async)"><input id="terms_form" type="checkbox"
+          formControlName="form_terms"><label for="terms_form"><span></span>Mit dem Klick akzeptiere ich die allgemeinen
+          Geschäftsbedingungen:</label>
+        <p [innerHtml]="'aufgeben.form_terms' | translate"></p>
+      </div>
+      <div class="align-text-right">
+        <div class="button absenden_top no_mobile" (click)="goBackFromPage5()"><i
+            class="aufgeben-icon back"></i>{{ 'aufgeben.termine.return' | translate }}</div>
+        <div class="button absenden_top" [class.payment]="!(free | async)" (click)="sendForm()">
+          <ng-container *ngIf="sending_form | async; else sendFormTmpl">
+            <mat-spinner class="sending_form_spinner" diameter="25"></mat-spinner>
+          </ng-container>
+          <ng-template #sendFormTmpl>
+            <ng-container *ngIf="!(free | async)">
+              {{ 'aufgeben.send' | translate }}
+            </ng-container>
+            <ng-container *ngIf="free | async">
+              Ok - Absenden
+            </ng-container>
+          </ng-template>
+        </div>
+      </div>
+      <div class="fertig_title">1. {{ 'aufgeben.personal_data' | translate }}</div>
+      <div class="fertig_table">
+        <div class="fertig_info"><span>Name: </span>{{form.value.vorname}} {{form.value.nachname}}</div>
+        <div class="fertig_info"><span>Firma: </span>{{form.value.firma}}</div>
+        <div class="fertig_info"><span>Vorwahl: </span>{{form.value.vorwahl}}</div>
+        <div class="fertig_info"><span>Telefonnummer: </span>{{form.value.telefonnummer}}</div>
+        <div class="fertig_info"><span>eMail: </span>{{form.value.email}}</div>
+        <div class="fertig_info"><span>{{'aufgeben.termine.kunde_type'|translate}}: </span>{{form.value.kunde_typ}}
+        </div>
+      </div>
+      <div class="fertig_title">2. {{ 'aufgeben.termine.infos' | translate }}</div>
+      <div class="fertig_subtitle">Infos zum Veranstaltung</div>
+      <div class="fertig_table">
+        <div class="fertig_info"><span>Rubrik: </span>{{rubrik_list_string | async}}</div>
+        <div class="fertig_info"><span>Titel: </span>{{form.value.titel}}</div>
+        <div class="fertig_info"><span>Kurze Beschreibung: </span>{{form.value.kurzebeschreibung}}</div>
+        <ng-container *ngIf="(rubrik_list_string | async) != 'Ausstellungen'; else notAusstellungen">
+          <div class="fertig_info"><span>Beginn: </span>{{form.value.beginn}}</div>
+          <div class="fertig_info"><span>Datum: </span>
+            {{ (date_array | async).join(', ') }}
+          </div>
+        </ng-container>
+        <ng-template #notAusstellungen>
+          <div class="fertig_info"><span>Ausstellungsdauer: </span>{{ form.value.ausstellungen_opening_hours }}</div>
+        </ng-template>
+      </div>
+      <div class="fertig_subtitle">Infos zum Veranstaltungsort</div>
+      <div class="fertig_table">
+        <div class="fertig_info"><span>Veranstaltungsort: </span>{{form.value.veranstaltungsort}}</div>
+        <div class="fertig_info"><span>Straße: </span>{{form.value.strasse}}</div>
+        <div class="fertig_info"><span>PLZ: </span>{{form.value.plz}}</div>
+        <div class="fertig_info"><span>Ort: </span>{{form.value.ort}}</div>
+        <div class="fertig_info"><span>Vorwahl: </span>{{form.value.ver_vorwahl}}</div>
+        <div class="fertig_info"><span>Telefonnummer: </span>{{form.value.ver_telefonnummer}}</div>
+        <div class="fertig_info"><span>Homepage: </span>{{form.value.homepage}}</div>
+        <div class="fertig_info"><span>eMail: </span>{{form.value.ver_email}}</div>
+      </div>
+      <ng-container *ngIf="(file_images | async).length > 0 || (file_text | async).length > 0">
+        <div class="fertig_title">3. Fotos & Texte</div>
+        <mix-uploaded-image [enableRemove]="false" [file]="file" *ngFor="let file of file_images | async"></mix-uploaded-image>
+        <br />
+        <br />
+        <br />
+        <mix-uploaded-text [enableRemove]="false" [file]="file" *ngFor="let file of file_text | async"></mix-uploaded-text>
+        <br />
+        <br />
+      </ng-container>
+      <ng-container *ngIf="!(free | async)">
+        <div class="fertig_title">4. Bezahlung & Rechnungsanschrift</div>
+        <div class="fertig_table">
+          <ng-container *ngIf="!(free | async)">
+            <div class="fertig_info"><span>Rechnung: </span>{{ form.value.rechnung | titlecase }}</div>
+            <div class="fertig_info"><span>Vorname: </span>{{form.value.kunde_kto_inhaber}}</div>
+            <div class="fertig_info"><span>Nachname: </span>{{form.value.kunde_kto_inhaber2}}</div>
+            <div class="fertig_info"><span>Firma: </span>{{form.value.kunde_kto_firma}}</div>
+            <div class="fertig_info"><span>Straße: </span>{{form.value.kunde_kto_strasse}}</div>
+            <div class="fertig_info"><span>PLZ: </span>{{form.value.kunde_kto_plz}}</div>
+            <div class="fertig_info"><span>Ort: </span>{{form.value.kunde_kto_ort}}</div>
+            <div class="fertig_info"><span>Betrag:
+              </span>{{ titel.value | terminePayCalculation:kurzebeschreibung.value:date_array | async }}</div>
+            <div class="fertig_info"><span>Zahlung per: </span>{{ form.value.zahlung_per | titlecase }}</div>
+            <ng-container *ngIf="form.value.zahlung_per=='lastschrift'">
+              <div class="fertig_info"><span>{{'aufgeben.iban'|translate}}: </span>{{form.value.kontoinhaber}}</div>
+              <div class="fertig_info"><span>IBAN: </span>{{form.value.iban}}</div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="form.value.nachricht">
+        <div class="fertig_title">4. Nachricht ans MIX</div>
+        <div class="fertig_table">
+          <div class="fertig_info"><span>Nachricht: </span>{{ form.value.nachricht }}</div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="page page5" [class.show_page]="page==4 && !(vielen_dank | async)">
+      <ng-container *ngIf="!(free | async)">
+        <div class="kunde_subtitle">{{ 'aufgeben.termine.zahlung' | translate | replaceDate | async }}:</div>
+        <div class="radio_group" [class.not_valid]="zahlung_per_error">
+          <div class="reference" [class.error_reference]="zahlung_per_error"></div>
+          <div class="radio" [class.more_space]="form.value.zahlung_per==''">
+            <div><input type="radio" formControlName="zahlung_per" name="zahlung_per" id="zahlung_per_yes"
+                value="lastschrift" (change)="zahlung_per_error=false"><label
+                for="zahlung_per_yes"><span></span>Lastschrift</label></div>
+            <div><input type="radio" formControlName="zahlung_per" name="zahlung_per" id="zahlung_per_no" value="PayPal"
+                (change)="zahlung_per_error=false"><label for="zahlung_per_no"><span></span>PayPal</label></div>
+          </div>
+        </div>
+        <div class="form_group" *ngIf="form.value.zahlung_per=='lastschrift'">
+          <div class="text_group" [class.not_valid]="kontoinhaber_error">
+            <label for="kontoinhaber">Kontoinhaber*</label>
+            <input type="text" maxlength="250" id="kontoinhaber" [class.error]="kontoinhaber_error"
+              (click)="kontoinhaber_error=false" formControlName="kontoinhaber">
+            <div class="reference" [class.error_reference]="kontoinhaber_error"></div>
+          </div>
+          <div class="text_group" [class.not_valid]="iban_error">
+            <label for="iban">IBAN*</label>
+            <input type="text" maxlength="250" id="iban" [class.error]="iban_error" (click)="iban_error=false"
+              formControlName="iban">
+            <div class="reference" [class.error_reference]="iban_error"></div>
+          </div>
+        </div>
+        <p class="abbuchung_text" *ngIf="form.value.zahlung_per=='lastschrift'">
+          {{ 'aufgeben.result_desc' | translate | replaceDate | async | termineFinalPrice:final_price }}</p>
+        <p class="abbuchung_text" *ngIf="form.value.zahlung_per=='PayPal' && !(free | async)">
+          {{ 'aufgeben.termine.paypal' | translate }}</p>
+        <div class="kunde_subtitle">Rechnung:</div>
+        <div class="radio_group" [class.not_valid]="rechnung_error">
+          <div class="reference" [class.error_reference]="rechnung_error"></div>
+          <div class="radio">
+            <div><input type="radio" formControlName="rechnung" name="rechnung" id="rechnung_yes" value="Ja"
+                (change)="rechnung_error=false"><label for="rechnung_yes"><span></span>Ja</label></div>
+            <div><input type="radio" formControlName="rechnung" name="rechnung" id="rechnung_no" value="Nein"
+                (change)="rechnung_error=false"><label for="rechnung_no"><span></span>Nein</label></div>
+          </div>
+        </div>
+        <div class="form_group">
+          <div class="text_group" [class.not_valid]="kunde_kto_inhaber_error">
+            <label for="kunde_kto_inhaber">Vorname*</label>
+            <input type="text" maxlength="250" id="kunde_kto_inhaber" [class.error]="kunde_kto_inhaber_error"
+              (click)="kunde_kto_inhaber_error=false" (focus)="kunde_kto_inhaber_error=false"
+              formControlName="kunde_kto_inhaber">
+            <div class="reference" [class.error_reference]="kunde_kto_inhaber_error"></div>
+          </div>
+          <div class="text_group" [class.not_valid]="kunde_kto_inhaber2_error">
+            <label for="kunde_kto_inhaber2">Nachname*</label>
+            <input type="text" maxlength="250" id="kunde_kto_inhaber2" [class.error]="kunde_kto_inhaber2_error"
+              (click)="kunde_kto_inhaber2_error=false" (focus)="kunde_kto_inhaber2_error=false"
+              formControlName="kunde_kto_inhaber2">
+            <div class="reference" [class.error_reference]="kunde_kto_inhaber2_error"></div>
+          </div>
+          <div class="text_group" [class.not_valid]="kunde_kto_firma_error">
+            <label for="kunde_kto_firma">Firma</label>
+            <input type="text" maxlength="250" id="kunde_kto_firma" [class.error]="kunde_kto_firma_error"
+              (click)="kunde_kto_firma_error=false" (focus)="kunde_kto_firma_error=false"
+              formControlName="kunde_kto_firma">
+            <div class="reference" [class.error_reference]="kunde_kto_firma_error"></div>
+          </div>
+          <div class="text_group" [class.not_valid]="kunde_kto_strasse_error">
+            <label for="kunde_kto_strasse">Straße*</label>
+            <input type="text" maxlength="250" id="kunde_kto_strasse" [class.error]="kunde_kto_strasse_error"
+              (click)="kunde_kto_strasse_error=false" (focus)="kunde_kto_strasse_error=false"
+              formControlName="kunde_kto_strasse">
+            <div class="reference" [class.error_reference]="kunde_kto_strasse_error"></div>
+          </div>
+          <div class="text_group" [class.not_valid]="kunde_kto_plz_error">
+            <label for="kunde_kto_plz">PLZ*</label>
+            <input type="text" onlyNumbers maxlength="5" id="kunde_kto_plz" [class.error]="kunde_kto_plz_error"
+              (click)="kunde_kto_plz_error=false" (focus)="kunde_kto_plz_error=false" formControlName="kunde_kto_plz">
+            <div class="reference" [class.error_reference]="kunde_kto_plz_error"></div>
+          </div>
+          <div class="text_group" [class.not_valid]="kunde_kto_ort_error">
+            <label for="kunde_kto_ort">Ort*</label>
+            <input type="text" maxlength="250" id="kunde_kto_ort" [class.error]="kunde_kto_ort_error"
+              (click)="kunde_kto_ort_error=false" (focus)="kunde_kto_ort_error=false" formControlName="kunde_kto_ort">
+            <div class="reference" [class.error_reference]="kunde_kto_ort_error"></div>
+          </div>
+        </div>
+      </ng-container>
+      <div class="title">Nachricht ans Mix</div>
+      <div class="text">{{'aufgeben.termine.page4_title_desc' | translate}}</div>
+      <div class="text_group">
+        <textarea type="textarea" maxlength="500" rows="6" cols="40" [class.error]="nachricht_error"
+          (click)="nachricht_error=false" formControlName="nachricht"></textarea>
+        <div class="reference" [class.error_reference]="nachricht_error"></div>
+      </div>
+    </div>
+    <div class="text" *ngIf="(page==5)" [class.hide_content]="vielen_dank | async">
+      {{'aufgeben.termine.advertise'|translate | replaceAbsenden | async}}
+    </div>
+  </form>
+  <div class="buttons" [class.hide_content]="vielen_dank | async">
+    <div class="button" *ngIf="page!=1" (click)="changePage(page-1)"><i class="aufgeben-icon back"></i>zurück</div>
+    <div class="button" *ngIf="(page<5)" (click)="changePage(page+1)">weiter<i class="aufgeben-icon next"></i></div>
+    <div class="button no_mobile" *ngIf="page==5" [class.payment]="!(free | async)" (click)="sendForm()">
+      <ng-container *ngIf="sending_form | async; else sendFormTmpl">
+        <mat-spinner class="sending_form_spinner" diameter="25"></mat-spinner>
+      </ng-container>
+      <ng-template #sendFormTmpl>
+        <ng-container *ngIf="!(free | async)">
+          {{ 'aufgeben.send' | translate }}
+        </ng-container>
+        <ng-container *ngIf="free | async">
+          Ok - Absenden
+        </ng-container>
+      </ng-template>
+    </div>
+  </div>
+  <div class="vielen_dank" *ngIf="vielen_dank | async">
+    <div class="vielen_dank_sub">
+      <div class="title">{{ 'aufgeben.termine.result_title' | translate }}</div>
+      <ng-container *ngIf="!(free | async)">
+        <p *ngIf="form.value.zahlung_per=='lastschrift'" [innerHTML]="'aufgeben.termine.paid_final_advice' | translate | replaceMandat:mandat_id | async | replacePaymentDate:abbuchung$ | async">
+        </p>
+        <p class="paypal_final_advice" *ngIf="form.value.zahlung_per=='PayPal'"
+          [innerHTML]="'aufgeben.termine.paypal_final_advice' | translate | replaceMandat:mandat_id | async | replacePaypal:(paypalUrl | async) | safeHtml"></p>
+      </ng-container>
+      <div class="text">{{'aufgeben.termine.result_sentences1'|translate}}</div>
+      <div class="text">{{'aufgeben.termine.result_sentences2'|translate}}</div>
+      <div *ngIf="form.value.zahlung_per=='PayPal' && !(free | async)" class="text">{{'aufgeben.termine.paypal_sentence'|translate}}</div>
+      <span class="text">{{'aufgeben.termine.result_sentences3'|translate}}</span>
+      <span class="id bold">{{ sessionid | async }}</span>
+      <div class="text bold red more-space">{{'aufgeben.termine.weitere'|translate}}</div>
+      <!-- <button *ngIf="!(free | async) && form.value.zahlung_per=='paypal'" (click)="openPaypal()" class="pay-with-paypal"></button> -->
+      <div class="buttons mobile-lines">
+        <div class="button" (click)="renew()">{{'aufgeben.termine.complete_new'|translate}}</div>
+        <div class="button" (click)="clickedSimiliarNewAufgeben()">{{'aufgeben.termine.similar'|translate}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert" *ngIf="alert | async">
+  <div class="alert_message">
+    <div>{{ pre_alert_message | async }}</div>
+    <div [innerHTML]="message_alert | async | safeHtml" class="error_item"></div>
+  </div>
+  <p class="ok" *ngIf="!(simple_alert | async) && !(exit_alert | async) && !(confirm_alert | async)"
+    (click)="removeAlert()">OK
+  </p>
+  <p class="ok" *ngIf="!(simple_alert | async) && !(exit_alert | async) && (confirm_alert | async)"
+    (click)="removeAlert(); sendForm(); confirm_alert.next(false)">Ich bin einverstanden.</p>
+  <p class="ok" *ngIf="!(simple_alert | async) && !(exit_alert | async) && (confirm_alert | async)"
+    (click)="removeAlert(); confirm_alert=false">Cancel</p>
+  <p class="ok" *ngIf="(exit_alert | async) && !(confirm_alert | async)" routerLink="/termine">OK</p>
+</div>
+<mix-aufgeben-disabled *ngIf="showAufgebenDisabled | async"></mix-aufgeben-disabled>

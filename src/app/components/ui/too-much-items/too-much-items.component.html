@@ -1,0 +1,11 @@
+<div class="animated-bg">
+	<div class="bg" [style.backgroundImage]="notFoundImage | async"></div>
+</div>
+<ng-container *ngIf="!more else withSearch">
+	<p [innerHTML]="'termine.search_on_backend_msg1' | translate" class="title"></p>
+	<p [innerHTML]="'termine.search_on_backend_msg2' | translate"></p>
+</ng-container>
+<ng-template #withSearch>
+	<p [innerHTML]="'termine.search_on_backend_msg_search' | translate" class="title"></p>
+	<p [innerHTML]="'termine.search_on_backend_msg2' | translate"></p>
+</ng-template>

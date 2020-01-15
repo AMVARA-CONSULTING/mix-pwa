@@ -1,0 +1,4 @@
+<div class="container">
+  <p *ngIf="globals.editing!=true" (click)="globals.editing=true">edit</p>
+  <p *ngIf="globals.editing" (click)="globals.editing='normal'">normal</p>
+</div>

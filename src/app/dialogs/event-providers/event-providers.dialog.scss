@@ -1,0 +1,44 @@
+
+@import '../../other/colors.scss';
+@import '../../other/breakpoints';
+
+:host * {
+  font-family: "Open Sans" !important;
+}
+
+:host::ng-deep .mat-dialog-content {
+  overflow: hidden;
+}
+
+:host::ng-deep .mat-spinner {
+  display: block;
+  margin: 0 auto;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+ul {
+  padding-left: 0;
+}
+
+a {
+  color: $red-global;
+  font-weight: 500;
+  line-height: 40px;
+  display: block;
+  padding-left: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    background-color: rgba($red-global, .05);
+    border-radius: 5px;
+  }
+  &:before {
+    content: "•";
+    color: $red-global;
+    margin-right: 10px;
+  }
+}

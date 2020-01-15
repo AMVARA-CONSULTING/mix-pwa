@@ -1,0 +1,444 @@
+@import "../../other/colors.scss";
+@import "../../other/breakpoints";
+
+.content{
+    margin-top:$header_height;
+    top:0px;
+    bottom: 0px;
+    width: 100%;
+    position: fixed;
+    z-index: 2;
+    overflow-x: hidden;
+    background-color: $whiteishGray;
+}
+.waiting{
+	pointer-events: none;
+	cursor: default;
+}
+.close{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.close img{
+    width:20px;
+    height:20px;
+}
+.close img:hover{
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.invalid {
+    position: relative;
+    input, textarea {
+        border: 2px solid $red-global !important;
+    }
+    &:after {
+        content: "*";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: 15px;
+        left: -25px;
+        font-size: 25px;
+        margin: auto;
+    }
+}
+
+.upload-textes {
+    background-color: $red-global;
+    padding: 10px 20px;
+    color: white;
+    margin-top: 40px;
+    font-weight: bold;
+    font-family: "Open Sans";
+    font-size: 15px;
+    font-weight: normal;
+    border-radius: 5px;
+    border: 0;
+    outline: 0;
+    margin-bottom: 30px;
+    &:active {
+        -webkit-transform: scale(.95);
+            -ms-transform: scale(.95);
+                transform: scale(.95);
+    }
+    cursor: pointer;
+    .icon-upload {
+        display: inline-block;
+        vertical-align: sub;
+        height: 20px;
+        width: 20px;
+        margin-right: 10px;
+        background-image: url(^assets/images/upload.svg);
+        -webkit-filter: brightness(2000%);
+                filter: brightness(2000%);
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+}
+
+.fotos {
+    text-align: center;
+    @include for-phone-only {
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+}
+
+.text-for-chiffres {
+    font-size: 14px;
+    margin-top: 40px;
+    margin-bottom: -20px;
+}
+
+:host ::ng-deep .sending {
+    margin: 10px auto;
+    circle {
+        stroke: white !important;
+    }
+}
+
+form{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 35px;
+    @include for-desktop-only {
+        padding-right: 3.5vw;
+        padding-left: 3.5vw;
+    }
+    box-sizing: border-box;
+    @include for-phone-only {
+        padding: 25px;
+    }
+    .form_plus, .photoupload {
+        flex: 1 100%;
+        @include for-tablet-landscape-up {
+            flex: 1 42% !important;
+        }
+    }
+}
+textarea {
+    margin-top: 10px;
+    font-family: "Open Sans";
+    font-size:16px;
+    height:300px;
+    border: 0;
+    transition:1s;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.info {
+    margin-top: 50px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+p, label, .hint {
+    font-size: 16px;
+}
+
+.info p {
+    margin-top: 10px;
+}
+
+.form_plus{
+    @include for-tablet-landscape-up {
+        border-right: $mainColor_transparent 1.25px solid;
+    }
+    @include for-tablet-portrait-only {
+        padding-right: 0;
+    }
+    padding-right: 35px;
+    box-sizing: border-box;
+    .text_form{
+        color:$mainColor;
+        font-weight: 600;
+        margin-top: 40px;
+        .zone {
+            input {
+                border: 0;
+                margin-top:10px;
+                display: block;
+                font-size:16px;
+            }
+            label {
+                text-align: left;
+                margin-top:10px;
+                display: block;
+            }
+            
+        }
+    }
+}
+.one_col{
+    font-size: 13px;
+    .form_plus{
+        border-right: none;
+        padding-right: 0;
+        box-sizing: border-box;
+    }
+    textarea {
+        font-size:16px;
+        height:50px;
+        transition:1s;
+    }
+    textarea:focus, textarea.big {
+        height:200px;
+    }
+    .photoupload{
+        padding-left: 0 !important;
+        padding-bottom: 30px !important;
+    box-sizing: border-box;
+    }
+    .extra_info{
+        padding:0 !important;
+    }
+}
+.textarea_one{
+    width: 100%;
+}
+.textarea_more{
+    width: 100%;
+}
+
+input[type=text], input[type=email] {
+    width: 100%;
+}
+h2 {
+    font-size:20px;
+    color: $mainColor;
+    margin-bottom: 15px;
+}
+h5 {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size:18px;
+    margin-bottom: 0;
+}
+
+span{
+    color:$mainColor;
+}
+
+
+//image upload
+::ng-deep .customClass {
+    border: none !important;
+    margin:5px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+:host ::ng-deep .file-loading {
+    display: inline-block !important;
+    margin-right: 15px;
+    vertical-align: middle;
+    circle {
+        stroke: white !important;
+    }
+}
+
+//the upload text
+::ng-deep .customClass:before {
+    content: " ";
+    background-image:url(^assets/images/MIXICON_AddFile_Red.svg);
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    padding: 20px;
+    top:53px;
+    opacity: 1;
+}
+::ng-deep .done .customClass:before {
+    content: " ";
+    background-image:url(^assets/images/upload_icon.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding:20px;
+    position: relative;
+    top:45px;
+    opacity: 0.3 ;
+}
+
+
+::ng-deep .customClass span{
+    text-transform: capitalize;
+    color: $mainColor !important;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+::ng-deep  .customClass .img-ul-clear {
+    background-color: $whiteishGray !important;
+    color:$mainColor !important;
+    font-weight: bold !important;
+    text-transform: capitalize !important;
+    border: 1px $mainColor dotted !important;
+    display: none !important;
+}
+
+::ng-deep  .customClass .img-ul-drag-box-msg {
+    color:  $whiteishGray  !important;
+}
+
+::ng-deep  .customClass .img-ul-container {
+    background-color: $whiteishGray!important;
+}
+
+::ng-deep .img-ul-button, .img-ul-disabled{
+    background-color: $whiteishGray!important;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+    margin-left: 20px;
+}
+::ng-deep .img-ul-image{
+    width:180px !important;
+    height: 180px !important;
+    border: 2px $mainColor solid !important;
+    -webkit-box-shadow: 5px 5px 5px $white;
+            box-shadow: 5px 5px 5px $white;
+}
+
+::ng-deep .img-ul-x-mark{
+    background-color: $blackish !important;
+}
+.extra_info{
+    margin-left: 0;
+    @include for-tablet-landscape-up {
+        margin-left: 20px;
+    }
+}
+.photoupload{
+    padding-left: 30px;
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+}
+.captcha {
+    position: relative;
+    margin-bottom: 20px;
+    .abschicken{
+        display: block;
+        margin: 30px auto 0;
+        cursor: pointer;
+        border: 0;
+        font-family: "Open Sans";
+        font-size: 16px;
+        font-weight: normal;
+    }
+    .button{
+        background-color: $red-global;
+        width: 200px;
+        line-height: 40px;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+    button:hover{
+        cursor: pointer;
+        opacity: 0.85;
+    
+    }
+    button:disabled{
+        opacity: 0.5;
+    }
+    button:disabled:hover{
+        opacity: 0.5;
+    }
+    .form_edit{
+        width: 30%;
+        font-size: 16px;
+        height:30px;
+    }
+}
+input {
+    transition: 1s;
+}
+.missing{
+    background-color:$mainColor;
+}
+
+.alert{
+    z-index: 4;
+	font-size: 15px;
+	position: fixed;
+	width: 90vw;
+    top: 50%; 
+    left: 50%; 
+    -webkit-transform: translate(-50%, -50%); 
+        -ms-transform: translate(-50%, -50%); 
+            transform: translate(-50%, -50%); 
+    background-color: $white;
+    font-weight: bold;
+    -webkit-box-shadow: 2px 2px 30px $darkBlueish;
+            box-shadow: 2px 2px 30px $darkBlueish;
+    text-align: center;
+	.alert_message{
+		padding:20px;
+		font-size: 14px;
+	}
+    .ok {
+		margin-top:20px;
+		padding:10px;
+		margin-top:2px;
+		background-color: $mainColor;
+		color:$whiteish;
+		margin-bottom:0px;
+		margin-top:1px;
+		padding: 0;
+		padding-top:5px;
+		padding-bottom: 5px;
+    }
+    .ok:hover {
+        opacity: 0.80;
+        cursor: pointer;
+	}
+}
+.final_form{
+    font-weight: normal;
+    color:$black;
+}
+
+.max-limit {
+    margin-top: 20px;
+    color: $red-global;
+    font-weight: 500;
+}
+
+.captcha p input{
+    position: absolute;
+    transition:1s;
+}
+
+input[type="text"], input[type="search"], textarea, .rubrik_close, input[type="time"]{
+    background-color: $lightgray;
+    outline: none;
+}
+
+.hint {
+    color: #333;
+    font-weight: normal;
+}
+
+.anzeige-text {
+    font-size: 14px !important;
+}

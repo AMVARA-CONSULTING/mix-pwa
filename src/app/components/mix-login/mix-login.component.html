@@ -1,0 +1,79 @@
+<div class="login_container" [class.animate_bg]="animation">
+  <div class="close" (click)="globals.login_page.next(false); backHistory()"></div>
+  <div class="login_body" [class.waiting]="waiting">
+    <p>Das MIX möchte Dir die Möglichkeit der Registrierung mittels Sozialer Netzwerke, wie <span class="red">Google</span> oder <span class="blue">Facebook</span>, anbieten.</p>
+    <p>Damit kann das MIX Dir und anderen Nutzern zusätzliche Informationen zu den Veranstaltungen liefern und die Navigation mit Deinen persönlichen Voreinstellungen erleichtern.</p>
+    <p>Wenn Du Dich registrierst, erfährst Du zum Beispiel, wer noch zur Veranstaltung geht und andere registrierte MIX-Nutzer können sehen, welche Veranstaltung Dich interessiert.</p>
+    <p>Das Mix respektiert den <span class="red hover" routerLink="/datenschutz" (click)="globals.login_page.next(false)">Datenschutz</span> auf maximalem Niveau.</p>
+    <h3 class="red">Wie möchtest Du Dich beim MIX anmelden?</h3>
+    <div class="social_buttons" [class.login_mix]="mix_login">
+      <span class="reference"></span>
+      <div class="hover mix button social_icon" [class.mix_button_open]="mix_login" (click)="mix_login=mix_login ? false : true; scrollToMix('reference');mix_register_form=false;mix_forgot_form=false; error_message=''"><span class="icon"></span><div class="icon_title">{{"login.mix_button" | translate}}</div></div>
+      <form class="mix_form" [class.mix_hide]="!mix_login" [class.mix_form_register]="mix_register_form">
+        <div class="input_container" *ngIf="!mix_register_form && !mix_forgot_form && !mix_forgot_pass_form && !mix_forgot_digit_form">
+          <input type="text" maxlength="30" id="name" [formControl]="name" [placeholder]="'login.username_email' | translate" (click)="scrollToMix('name')">
+          <input type="password" maxlength="30" id="pass" placeholder='{{"login.password" | translate}}'>
+          
+          <div class="log_button" (click)="logInMix()">{{"login.login_button" | translate}}</div>
+          <span class="new_account" (click)="mix_register_form=true">{{"login.create" | translate}}</span>
+          <span class="forgot" (click)="mix_forgot_form=true">{{"login.forgot" | translate}}</span>
+        </div>
+        <div class="input_container" *ngIf="mix_register_form">
+            <input type="text" maxlength="30" id="r_name" placeholder='{{"login.username" | translate}}*'>
+            <div class="hint">{{'user_errors.min_user' | translate}}</div>
+            <input type="password" maxlength="30" id="r_pass" placeholder='{{"login.password" | translate}}*'>
+            <div class="password-hint">{{ 'user_errors.password_hint' | translate}}</div>
+            <input type="password" maxlength="30" id="r_repeat_pass" placeholder='{{"login.repeat_password" | translate}}*'>
+            <input type="text" maxlength="200" id="r_email" placeholder='{{"login.email" | translate}}*'>
+            <mat-checkbox class="accept_terms_signup" [formControl]="terms_signup" color="primary">
+              Mit dem Klick erteile ich meine Einwilligung und erkenne die Datenschutzklärung an: Ich stimme hiermit den Nutzungbedingungen zu und willige in die Erhebung, Verarbeitung und Nutzung meiner personenbezogenen Daten (Benutzername und eMail-Adresse) ein.
+            </mat-checkbox>
+            <button class="join_button" [disabled]="!terms_signup.value" (click)="createMix()">{{"login.create_account" | translate}}</button>
+            <span class="error_message">{{error_message}}</span>
+            <span class="new_account" (click)="mix_register_form=false">{{"login.cancel" | translate}}</span>
+        </div>
+        <div class="input_container" *ngIf="mix_forgot_form && !mix_forgot_digit_form">
+            <div class="forgot_subtitle">{{"login.enter_email" | translate}}</div>
+            <input type="text" maxlength="200" id="f_email" placeholder='{{"login.email" | translate}}'>
+            <span class="error_message">{{error_message}}</span>
+            <span class="email_button" (click)="forgotEmail()">{{"login.send_email" | translate}}</span>
+            <div class="new_account" (click)="mix_forgot_form=false">{{"login.return" | translate}}</div>
+        </div>
+        <div class="input_container" *ngIf="mix_forgot_digit_form && !mix_forgot_pass_form">
+            <div class="forgot_subtitle">{{"login.enter_code" | translate}}</div>
+            <input type="text" maxlength="200" id="f_code" placeholder='{{"login.code" | translate}}'>
+            <span class="error_message">{{error_message}}</span>
+            <span class="email_button" (click)="forgotSendDigits()">{{"login.send_code" | translate}}</span>
+            <div class="new_account" (click)="mix_forgot_form=false;mix_forgot_digit_form=false;">{{"login.return" | translate}}</div>
+        </div>
+        <div class="input_container" *ngIf="mix_forgot_pass_form">
+            <div class="forgot_subtitle">{{"login.enter_new_password" | translate}}</div>
+            <input type="password" maxlength="30" id="f_pass" placeholder='{{"login.password" | translate}}*'>
+            <input type="password" maxlength="30" id="f_repeat_pass" placeholder='{{"login.repeat_password" | translate}}'>
+            <span class="new_account" (click)="changePass()">{{"login.change_password" | translate}}</span>
+            <div class="new_account" (click)="mix_forgot_pass_form=false;">{{"login.return" | translate}}</div>
+        </div>
+      </form>
+      <div class="hover google button social_icon" [class.loading]="loadingGoogle | async" (click)="mix_login=false;signInWithGoogle()" *ngIf="mix_register_form==false">
+        <span class="icon"></span>
+        <mat-spinner class="google-loader" diameter="30" strokeWidth="3.5" *ngIf="loadingGoogle | async"></mat-spinner>
+      </div>
+      <div class="hover facebook button social_icon" (click)="mix_login=false;signInWithFB()" *ngIf="mix_register_form==false">
+        <ng-template #faceB>
+          <span class="icon"></span>
+          <div class="icon_title">Mit Facebook</div>
+        </ng-template>
+        <mat-spinner *ngIf="(loadingFacebook | async) else faceB" class="facebook-loader" diameter="30" strokeWidth="3.5"></mat-spinner>
+      </div>
+    </div>
+    
+  </div>
+  <div class="alert" *ngIf="alert">
+      <div class="alert_message">
+        <div>{{pre_alert_message}}</div>
+        <div [innerHTML]="message_alert | safeHtml" style=" color: rgba(191, 16, 49, 1); text-align: center"></div>
+      </div>
+      <p class="ok" *ngIf="!simple_alert && !created_account" (click)="removeAlert()">OK</p>
+      <p class="ok" *ngIf="!simple_alert && created_account" (click)="removeAlert();login_new();">OK</p>
+  </div>
+</div>

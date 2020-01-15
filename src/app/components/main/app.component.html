@@ -1,0 +1,30 @@
+<mix-header *ngIf="!globals.fullscreen_print"></mix-header>
+<div class="main_container">
+    <div *ngIf="globals.checkTouchDevice()">
+        <router-outlet></router-outlet>
+    </div>
+    <div [class.absorb]="globals.menu | async" (click)="closeMenu()" *ngIf="!globals.checkTouchDevice()">
+        <router-outlet></router-outlet>
+    </div>
+    <mix-login *ngIf="globals.login_page | async"></mix-login>
+    <mix-merkliste *ngIf="globals.merkliste_page | async"></mix-merkliste>
+    <mix-settings *ngIf="globals.settings_page | async"></mix-settings>
+    <mix-footer [class.absorb]="globals.menu | async" *ngIf="!globals.mobile_keyboard && !globals.fullscreen_print">
+    </mix-footer>
+    <mix-editor *ngIf="globals.edit_mode"></mix-editor>
+    <mix-cookies
+        [ngClass]="{'hide_cookies': ( globals.cookiesObserver | async ) || ( globals.cookieObserverClickedNotAgree | async )}">
+    </mix-cookies>
+</div>
+
+<!-- <mix-app-install-prompt *ngIf="iosAppInstall | async" [@appPromptAnimation]></mix-app-install-prompt> -->
+
+<!-- Standard Alert Box, use it from ToolsService .alert() -->
+<div class="alert-box">
+    <div class="alert_message">
+        <div class="cm-custom-alert"></div>
+        <div class="cm-custom-text"></div>
+    </div>
+    <p class="ok yes cm-custom-accept" (click)="removeAlert()"></p>
+    <p class="ok cm-custom-cancel" (click)="removeAlert()"></p>
+</div>

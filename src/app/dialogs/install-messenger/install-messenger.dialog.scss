@@ -1,0 +1,39 @@
+
+@import '../../other/colors.scss';
+@import '../../other/breakpoints';
+
+:host * {
+  font-family: "Open Sans" !important;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+.messenger-icon {
+  margin: 0 auto;
+  display: block;
+  width: 200px;
+  height: 200px;
+  background-image: url(^assets/images/messenger.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+}
+
+.mat-dialog-content::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.mat-dialog-content::-webkit-scrollbar-thumb {
+  background-color: $red-global;
+}
+
+:host::ng-deep .mat-dialog-content{
+  text-align: center;
+}
+
+:host::ng-deep .download{
+  background-color: #007FFF !important;
+}

@@ -1,0 +1,62 @@
+
+@import '../../other/colors.scss';
+@import '../../other/breakpoints';
+
+:host * {
+  font-family: "Open Sans" !important;
+}
+
+:host {
+  width: 95vw;
+  font-size: 14px;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+.mat-dialog-content {
+  position: relative;
+  font-size: 16px;
+}
+
+.location {
+  font-weight: 500;
+  color: $red-global;
+  text-transform: uppercase;
+}
+
+.maps {
+  flex: 0 50%;
+  height: 30px;
+  background-image: url(^assets/images/detail/MIXICON_Location_Black.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  cursor: pointer;
+  filter: brightness(300%);
+  &:hover {
+    filter: brightness(330%);
+  }
+}
+
+.metadata {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.call {
+  flex: 0 50%;
+  width: 30px;
+  background-image: url(^assets/images/detail/MIXICON_Telephone_Grey.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  cursor: pointer;
+  filter: brightness(110%);
+  &:hover {
+    filter: brightness(140%);
+  }
+}

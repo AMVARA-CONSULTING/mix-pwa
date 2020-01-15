@@ -1,0 +1,173 @@
+
+@import '../../other/colors.scss';
+@import '../../other/breakpoints';
+
+:host * {
+  font-family: "Open Sans" !important;
+}
+
+:host {
+  width: 95vw;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+.no-scroll {
+  overflow: hidden !important;
+}
+
+.selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .places {
+    flex: 1;
+    &::ng-deep mat-label {
+      color: black;
+    }
+    &::ng-deep .mat-select-value-text span {
+      font-weight: 500;
+      font-size: 18px;
+      color: $red-global;
+    }
+  }
+  .info {
+    margin-left: 30px;
+    flex: 0 40px;
+    height: 35px !important;
+    line-height: 35px !important;
+    position: relative;
+    bottom: 10px;
+    animation-delay: 1s !important;
+  }
+}
+
+:host::ng-deep .mat-select.mat-select-disabled .mat-select-arrow {
+  opacity: 0;
+}
+
+.times {
+  display: flex;
+  margin-top: 15px;
+  .days {
+    flex: 0 150px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    position: relative;
+    max-height: 270px;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $red-global;
+    }
+    .day {
+      line-height: 50px;
+      color: rgba(black, .5);
+      font-weight: 500;
+      padding-left: 10px;
+      box-sizing: border-box;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(black, .04);
+        &.activated {
+          background-color: rgba($red-global, .04);
+        }
+      }
+      &::ng-deep .mat-ripple-element {
+        background-color: rgba($red-global, .1) !important;
+      }
+      &.activated {
+        color: $red-global;
+      }
+    }
+    &:after {
+      // content: "";
+      height: 100%;
+      width: 3px;
+      background-color: rgba(lighten($red-global, 5), .7);
+      top: 0;
+      right: 0;
+      display: block;
+      position: absolute;
+    }
+  }
+  .hours {
+    padding-left: 15px;
+    box-sizing: border-box;
+    flex: 1;
+    .hour {
+      line-height: 60px;
+      color: $red-global;
+      font-weight: 500;
+      padding-left: 10px;
+      box-sizing: border-box;
+      position: relative;
+      &:not(:last-child):after {
+        content: "";
+        width: 90%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        background-color: rgba(black, .1);
+        height: 1px;
+        bottom: 0;
+        margin: auto;
+      }
+      display: flex;
+      .label {
+        flex: 1;
+        box-sizing: border-box;
+        .time {
+          display: inline-block;
+          padding: 10px;
+          height: 40px;
+          line-height: 20px;
+          box-sizing: border-box;
+          cursor: pointer;
+          border: 1px solid rgba($red-global, .4);
+          &.actual {
+            background-color: rgba($red-global, .14) !important;
+            border-color: rgba($red-global, .7);
+          }
+          border-radius: 3px;
+          background-color: rgba($red-global, .04);
+          &:hover {
+            background-color: rgba($red-global, .1);
+          }
+        }
+      }
+      .buy {
+        flex: 0 40px;
+        .cart {
+          display: inline-block;
+          background-image: url(^assets/images/termine/more_grey.svg);
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          height: 25px;
+          width: 25px;
+          position: relative;
+          top: 5px;
+          cursor: pointer;
+          transform: rotate(90deg);
+        }
+      }
+    }
+  }
+}
+
+:host::ng-deep .mat-select .mat-select-value-text span {
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+:host::ng-deep .mat-select .mat-select-arrow {
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 10px solid;
+}

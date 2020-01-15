@@ -1,0 +1,24 @@
+# Delay spam or bad reputation Crawlers for 10 hours
+
+User-agent: MJ12bot
+Crawl-delay: 43200
+
+User-agent: SemrushBot
+Crawl-delay: 43200
+
+User-agent: Nagios
+Crawl-delay: 43200
+
+User-agent: AhrefsBot
+Crawl-delay: 43200
+
+User-agent: CFNetwork
+Crawl-delay: 43200
+
+User-agent: BaiDuSpider
+Crawl-delay: 43200
+
+# Allow all URLs
+User-agent: *
+Disallow:
+Sitemap: https://mix.amvara.de/sitemap.xml

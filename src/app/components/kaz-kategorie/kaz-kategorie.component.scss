@@ -1,0 +1,164 @@
+@import "../../other/colors";
+@import "../../other/breakpoints";
+
+:host::ng-deep mix-banner-wrapper {
+    height: 100%;
+    max-height: 75px;
+}
+
+:host::ng-deep .banner_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner_kategorie {
+    mix-banner-wrapper {
+        max-height: 100px !important;
+    }
+    .banner_box {
+        padding: 0 !important;
+    }
+    padding: 0 20px !important;
+    @include for-tablet-portrait-only {
+        padding: 0 50px !important;
+    }
+}
+
+.all {
+    padding-right:15px;
+    padding-left:15px;
+    padding-top:15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    border-bottom: $gray 1px solid;
+    background-color: $whiteishGray;
+    position: relative;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+
+}
+.none{
+    display: none;
+}
+.kaz_text{
+    padding:20px;
+    padding-bottom: 45px;
+    box-sizing: border-box;
+    @include for-phone-only {
+        padding: 10px;
+    }
+    font-size: 14px;
+  white-space: wrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+  //word-break: break-word;
+  @include for-desktop-up {
+    font-size: 16px;
+  }
+}
+
+.icons{
+    padding-top:15px; 
+    padding-bottom: 15px;
+}
+.mail_icon{
+    background-image: url(^assets/images/mail_on.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 15px;
+    width: 10px;
+    float: right;
+    margin-top:3px;
+    margin-right: 25px;
+    padding:10px;
+    transition: all 0.25s;
+}
+.mail_icon:hover{
+    transition: all 0.25s;
+    cursor: pointer;
+    opacity: .75;
+}
+.clip_icon{
+    background-image: url(^assets/images/MIX_ICON_Heart.svg);
+    background-size: 24px 26px;
+    background-repeat: no-repeat;
+    background-position: center top;
+    float: right;
+    height: 10px;
+    width: 15px;
+    cursor: pointer;
+    padding:10px;
+
+}
+.clip_icon:hover{
+    background-image: url(^assets/images/mix-icon-heart_red.svg);
+}
+
+.fett{
+    font-weight: bold;
+}
+.farbig{
+    background-color: rgba(0,0,0,.1);
+}
+.sent{
+    background-image: url('/assets/images/mail_on.png');
+}
+.banner_box{
+    position: relative;
+    height: 100%;
+    min-height: 150px;
+    .banner{
+        height: 75px;
+        width: 250px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+.pin_on{
+    background-image: url(^assets/images/mix-icon-heart_red.svg) !important;
+    -webkit-filter:unset;
+            filter:unset;
+}
+
+.icons{
+    padding:0;
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    height: 30px;
+}
+@media (max-width: 900px) {
+    
+    .all{
+        padding-top: 5px;
+        width: 100%;
+    }
+    .kaz_text{
+        padding-bottom: 55px;
+    }
+}
+.kazen{
+    .text{
+        span{
+            font-weight: bold;
+        }
+    }
+}

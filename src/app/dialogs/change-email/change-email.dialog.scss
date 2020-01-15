@@ -1,0 +1,65 @@
+
+@import '../../other/colors.scss';
+
+:host * {
+  font-family: "Open Sans" !important;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+.input-group {
+  display: block;
+  margin: 15px;
+  label {
+    color: $red-global;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: block;
+  }
+  input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: rgba(0,0,0,.05);
+    outline: 0;
+    border: 0;
+    font-size: 16px;
+    border-radius: 3px;
+  }
+}
+
+.accept {
+  background-color: $red-global;
+  color: white;
+  border-radius: 5px;
+}
+
+.hint {
+  b {
+    color: $red-global;
+  }
+}
+
+button:disabled {
+  color: rgba(white, .7) !important;
+}
+
+.password-hint {
+  text-align: center;
+}
+
+.mat-dialog-actions button {
+  height: 36px;
+}
+
+:host ::ng-deep .mat-spinner circle {
+  stroke: white !important;
+}
+
+:host ::ng-deep .mat-spinner {
+  margin: 0 auto !important;
+}

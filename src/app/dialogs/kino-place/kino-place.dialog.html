@@ -1,0 +1,18 @@
+<div mat-dialog-content>
+  <p class="location">{{ data.adressname }}</p>
+  <p>{{ data.strasse }}</p>
+  <p>{{ data.plzort }}</p>
+  <p class="red bold" *ngIf="data.telefon && data.telefon != '-'">
+    <a [href]="'tel:'+(data.telefon | callNumber)" target="_blank">Tel: {{ data.telefon }}</a>
+  </p>
+  <p class="red bold">
+    <a [href]="data.homepage" target="_blank">{{ data.homepage }}</a>
+  </p>
+  <div class="metadata">
+    <div (click)="openMaps()" [matTooltip]="'detail_dates.go_google_maps' | translate" matTooltipPosition="below" class="maps"></div>
+    <a *ngIf="data.telefon && data.telefon != '-'" [href]="'tel:'+(data.telefon | callNumber)" [matTooltip]="'detail_dates.call' | translate" matTooltipPosition="below" target="_blank" class="call"></a>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button color="primary" mat-button mat-dialog-close>Zurück</button>
+</div>

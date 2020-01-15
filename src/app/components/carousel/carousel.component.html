@@ -1,0 +1,33 @@
+<div class="owl-wrapper">
+  <div class="owl-element owl-carousel" [class.show]="ready | async" #owlElement>
+    <div #list class="item" (click)="emitEvent(event)" [style.background-image]="event | toTermineBackgroundImage"
+      *ngFor="let event of items | slicer:0:100; index as i">
+      <div class="bottom_info">
+        <div class="rubrik_info">{{ event.rubrik }}</div>
+        <div class="titel">{{ event.titel | cutText:30 }}</div>
+        <div class="datum">
+          <div>
+            <div class="rubrik_format" *ngIf="filter=='rubrik'">{{ event.datum | checkDatum }}{{ event.datum | differentYear }}</div>
+          </div>
+          <div class="datum_format">{{ event.uhrzeit }}
+            <span *ngIf="event.assistants>5">| {{ event.assistants }} assistants</span>
+          </div>
+          <div class="adress adress_tablet">
+            <ng-container *ngIf="event.events_count > 1 || event.rubrik === 'Ausstellungen'; else oneOrte">
+              <div class="adress_format">{{ 'termine.multiple_places' | translate }}</div>
+            </ng-container>
+            <ng-template #oneOrte>
+              <div class="adress_format">{{event.adressname}}</div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="share" (click)="openShare($event, event)"></div>
+    </div>
+  </div>
+  <!--<div class="pagination" *ngIf="(totalPages | async) > 1">Seite: {{ (currentPage | async) + 1 }} /
+    {{ totalPages | async }}</div>-->
+</div>
+<div class="previous" *ngIf="(currentPage | async) > 0" (click)="previous()"></div>
+<div class="next" *ngIf="(totalPages | async) > 1 && (currentPage | async) < (totalPages | async ) - 1"
+  (click)="next()"></div>

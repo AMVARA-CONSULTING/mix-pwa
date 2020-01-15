@@ -1,0 +1,21 @@
+<iframe class="video-player" *ngIf="showTrailer | async else image" [width]="trailerWidth | async"
+  [height]="trailerHeight | async" [src]="trailer_url | async" frameborder="0" allowfullscreen></iframe>
+<ng-template #image>
+  <div (click)="close()" class="background" [ngStyle]="image_url | async">
+    <ng-template #lazy>
+      <img [defaultImage]="src | async" [lazyLoad]="srcset | async" [useSrcset]="true">
+    </ng-template>
+    <!-- Fallback image for IE -->
+    <img *ngIf="isIE | async else lazy" [src]="IEImage | async">
+  </div>
+</ng-template>
+<div (click)="toggleFullscreen()" class="fullscreen" [class.exit]="fullscreen | async"></div>
+<div (click)="close()" class="close">
+  <div class="icon"></div>
+</div>
+<div (click)="next($event)" *ngIf="(currentIndex | async) < ((items | async).length - 1)" class="next nav-control">
+  <div class="control"></div>
+</div>
+<div (click)="previous($event)" *ngIf="(currentIndex | async) > 0" class="previous nav-control">
+  <div class="control"></div>
+</div>

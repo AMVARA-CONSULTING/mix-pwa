@@ -1,0 +1,22 @@
+
+@import '../../../other/colors';
+@import '../../../other/breakpoints';
+
+:host {
+	display: block;
+	margin-top: 7vh;
+	img {
+		margin: 0 auto;
+	}
+	position: fixed;
+	width: 100%;
+    text-align: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+
+.title {
+	font-size: 24px;
+	color: $red-global;
+	font-weight: 500;
+}

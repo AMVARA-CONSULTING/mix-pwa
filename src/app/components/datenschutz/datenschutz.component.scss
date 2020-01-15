@@ -1,0 +1,22 @@
+@import "../../other/colors";
+
+.contain {
+    background-color:$white;
+    width: 85%;
+    padding-top: 50px;
+    word-break: break-word;
+    margin: auto;
+}
+
+.block {
+    margin-top: -20px;
+    margin-bottom: 80px;
+    .red {
+        margin-bottom: 5px;
+    }
+}
+
+.red {
+    font-weight: 500;
+    color: $red-global;
+}

@@ -1,0 +1,57 @@
+
+<!-- <div class="black-bar" (click)="globals.settings_page.next(false);backHistory()">
+  <div class="close"></div>
+</div> -->
+<div class="container">
+  <div class="settings_body" [class.waiting]="waiting">
+    <h3>{{"settings.account" | translate}}</h3>
+    <div class="user">
+      <div class="profile">
+        <div class="user_icon" [style.background-image]="getUserIcon(user.origin)"></div>
+        <div class="name">{{user.name}}</div>
+      </div>
+      <div class="log_out" (click)="user.signOut(); globals.settings_page.next(false);">{{"settings.log_out" | translate}}</div>
+    </div>
+    <h4>{{"settings.details" | translate}}</h4>
+    <div class="details">
+      <div class="options_section">
+        <div class="column">
+          <span class="bold">{{"login.username" | translate}}:</span>
+          <div class="user_info">{{user.name}}</div>
+        </div>
+        <div class="column">
+          <span class="bold">{{"login.email" | translate}}:</span>
+          <div class="user_info">{{user.mail}}</div>
+        </div>
+        <div class="details_options column">
+          <span class="bold">{{"settings.functions" | translate}}:</span>
+          <div class="user_option" [class.bold]="change_pass" (click)="openChangePassword()" *ngIf="user.origin=='mix'">{{"login.change_password" | translate}}</div>
+          <div class="user_option" [class.bold]="change_email" (click)="openChangeEmail()" *ngIf="user.origin=='mix'">{{"settings.change_email" | translate}}</div>
+          <div class="user_option" (click)="simple_alert=true;waiting_remove_assistance=true;showAlert('MIX für ungut!', 'Möchtest Du wirklich alle Cookies löschen?')">{{"settings.reset_assistance" | translate}}</div>
+          <div class="user_option" (click)="simple_alert=true;waiting_remove_merkliste=true;showAlert('MIX für ungut!', 'Möchtest Du wirklich alle Einträge Deiner Merkliste löschen?')">{{"settings.reset_merkliste" | translate}}</div>
+          <div class="user_option" (click)="simple_alert=true;waiting_remove_account=true;showAlert('MIX für ungut!', 'Möchtest Du wirklich Dein Konto löschen?')">{{"settings.delete_account" | translate}}</div>
+        </div>
+      </div>
+    </div>
+    <h4>{{"settings.cookies" | translate}}</h4>
+    <div class="cookies_section">
+      <p [innerHtml]='"cookies"|translate'></p>
+      <div class="cookies_container">
+        <div><input type="radio" name="localstorage" id="ask" value="U" (click)="localStorageSettings('U', 'set')" [checked]="user.localstorage_setting=='U'"><label for="ask"><span></span>{{"settings.cookies_everytime" | translate}}</label></div>
+        <div><input type="radio" name="localstorage" id="disable" value="N" (click)="localStorageSettings('N', 'set')" [checked]="user.localstorage_setting=='N'"><label for="disable"><span></span>{{"settings.cookies_disable" | translate}}</label></div>
+        <div><input type="radio" name="localstorage" id="enable" value="Y" (click)="localStorageSettings('Y', 'set')" [checked]="user.localstorage_setting=='Y'"><label for="enable"><span></span>{{"settings.cookies_enable" | translate}}</label></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alert" *ngIf="alert">
+    <div class="alert_message">
+      <div>{{pre_alert_message}}</div>
+      <div [innerHTML]="message_alert | safeHtml" style=" color: rgba(191, 16, 49, 1); text-align: center"></div>
+    </div>
+    <p class="ok" *ngIf="simple_alert==false" (click)="removeAlert()">OK</p>
+    <p class="ok yes" *ngIf="simple_alert && waiting_remove_merkliste" (click)="removeAlert();resetMerkliste()">Ja</p>
+    <p class="ok yes" *ngIf="simple_alert && waiting_remove_assistance" (click)="removeAlert();resetAssistance()">Ja</p>
+    <p class="ok yes" *ngIf="simple_alert && waiting_remove_account" (click)="removeAlert();deleteAccount()">Ja</p>
+    <p class="ok" *ngIf="simple_alert" (click)="removeAlert();">Nein</p>
+</div>

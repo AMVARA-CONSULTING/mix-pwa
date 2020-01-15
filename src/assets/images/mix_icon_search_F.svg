@@ -1,0 +1,8 @@
+<svg id="mix_icon_search_black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42">
+  <defs>
+    <style>.cls-1{fill:none;}.cls-2{fill:white;stroke:#eeeeee;stroke-miterlimit:10;stroke-width:0.1px;}</style>
+  </defs>
+  <title>mix_icon_search_margin_F</title>
+  <circle class="cls-1" cx="16.81" cy="17.88" r="7.12"/>
+  <path class="cls-2" d="M34.19,31.44,24,22.77a9.19,9.19,0,1,0-1.54,1.72l10.29,8.66ZM16.52,24.75a7.12,7.12,0,1,1,7.12-7.12h0A7.1,7.1,0,0,1,16.52,24.75Z" transform="translate(0.29 0.26)"/>
+  <rect class="cls-1" width="42" height="42"/></svg>

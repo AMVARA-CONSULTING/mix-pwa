@@ -1,0 +1,41 @@
+{
+  "configVersion": 1.1,
+  "index": "/index.html",
+  "appData": [{
+    "mixversion": "2.0"
+  }],
+  "assetGroups": [{
+    "name": "app",
+    "installMode": "prefetch",
+    "updateMode": "prefetch",
+    "resources": {
+      "files": [
+        "/favicon.ico",
+        "/index.html",
+        "/*.css",
+        "/*.js"
+      ],
+      "urls": [
+        "https://ssl.gstatic.com/**"
+      ]
+    }
+  }, {
+    "name": "assets",
+    "installMode": "lazy",
+    "updateMode": "prefetch",
+    "resources": {
+      "files": [
+        "/assets/**"
+      ]
+    }
+  }],
+  "dataGroups": [{
+    "name": "api",
+    "urls": ["/v1"],
+    "cacheConfig": {
+      "maxSize": 0,
+      "maxAge": "0u",
+      "strategy": "freshness"
+    }
+  }]
+}

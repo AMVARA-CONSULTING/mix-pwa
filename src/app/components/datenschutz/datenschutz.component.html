@@ -1,0 +1,11 @@
+<div class="contain">
+  <ng-template #loader>
+    <mix-loader></mix-loader>
+  </ng-template>
+  <div *ngIf="daten | async as dat; else loader" [innerHTML]="dat | safeHtml" style="font-size: 12px; margin: 0;padding: 0;"></div>
+  <div class="block">
+    <p class="red">Local Storage | Cookies</p>
+    <p style="margin:0;font-size:12px;" class="no_bold"><b class="pointer" (click)="clear()">Bitte hier klicken</b>, wenn Du Deinen
+      Local Storage und Deine Cookies für mix-online.de löschen möchtest.</p>
+  </div>
+</div>

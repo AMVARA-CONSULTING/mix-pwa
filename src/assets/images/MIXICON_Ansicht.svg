@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="mix-icon-view" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 42.1 42.1" style="enable-background:new 0 0 42.1 42.1;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:0.9;fill:#BF1031;}
+	.st1{fill:#1A1A1A;}
+</style>
+<title>Ansicht Button</title>
+<g>
+	<g>
+		<!-- <circle class="st0" cx="20.9" cy="20.9" r="20.5"/> -->
+		<circle class="st1" cx="20.9" cy="20.9" r="3.2"/>
+		<path class="st1" d="M21.2,13.2c-8.3,0-13.8,7.6-13.8,7.6s5.4,7.7,13.8,7.7c8.5,0,13.5-7.8,13.5-7.8S29.5,13.3,21.2,13.2z
+			 M21.1,26.9c-7,0-11.5-6-11.5-6s4.6-6,11.5-5.9c7,0,11.2,5.9,11.2,5.9S28.2,26.9,21.1,26.9z"/>
+	</g>
+</g>
+</svg>

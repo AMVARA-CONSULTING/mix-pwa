@@ -1,0 +1,21 @@
+<div mat-dialog-content>
+  <ng-container *ngIf="!offline; else noConnection">
+    <div class="oops"></div>
+    <p>Es wurde ein Fehler in der Verarbeitung Deiner Anforderung festgestellt.</p>
+    <p>Dieser Fehler hängt in der Regel mit dem Netzwerk oder dem Browser zusammen.</p>
+    <p>Bitte probiere es in ein paar Sekunden einfach noch einmal.</p>
+    <p>Technische Details:</p>
+    <ul>
+      <li><b>URL:</b> {{ error.url }}</li>
+      <li><b>StatusCode:</b> {{ error.status }}</li>
+      <li><b>StatusText:</b> {{ error.statusText }}</li>
+      <li><b>Error:</b> {{ error.error | json }}</li>
+    </ul>
+  </ng-container>
+  <ng-template #noConnection>
+    <p>Die MIX-Seite kann nicht geöffnet werden, weil Dein Gerät nicht mit dem Internet verbunden ist.</p>
+  </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" mat-dialog-close>Zurück</button>
+</div>

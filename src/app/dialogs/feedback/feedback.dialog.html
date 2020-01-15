@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>{{ 'feedback.title' | translate }}</h2>
+<div mat-dialog-content>
+  <p>{{ 'feedback.intro' | translate }}</p>
+  <form [formGroup]="feedbackForm">
+    <div class="row">
+      <div class="form-field">
+        <label for="liked">{{ 'feedback.liked' | translate }}</label>
+        <input type="text" formControlName="liked" id="liked" name="liked" />
+      </div>
+      <div class="form-field">
+        <label for="different">{{ 'feedback.different' | translate }}</label>
+        <input type="text" formControlName="different" id="different" name="different" />
+      </div>
+      <div class="form-field">
+        <label for="what">{{ 'feedback.what' | translate }}</label>
+        <input type="text" formControlName="what" id="what" name="what" />
+      </div>
+      <div class="form-field">
+        <label for="suggestion">{{ 'feedback.suggestion' | translate }}</label>
+        <input type="text" formControlName="suggestion" id="suggestion" name="suggestion" />
+      </div>
+    </div>
+    <div class="row three-columns">
+      <div class="form-field">
+        <label for="name">{{ 'feedback.name' | translate }}</label>
+        <input type="text" id="name" formControlName="name" name="name" />
+      </div>
+      <div class="form-field">
+        <label for="telefon">{{ 'feedback.telefon' | translate }}*</label>
+        <input type="text" onlyNumbers id="telefon" formControlName="telefon" name="telefon" />
+      </div>
+      <div class="form-field">
+        <label for="email">{{ 'feedback.email' | translate }}*</label>
+        <input type="email" id="email" formControlName="email" name="email" />
+      </div>
+    </div>
+    <ngx-recaptcha2 *ngIf="captcha_required | async" class="google-recaptcha" #captchaElem
+      siteKey="6Ld3AaIUAAAAAO9WCYY-513nar3KL_iixsj6M_q4"
+      [useGlobalDomain]="false"
+      size="normal"
+      theme="light"
+      (success)="handleCaptcha($event)"
+      formControlName="captcha"
+      type="image">
+    </ngx-recaptcha2>
+    <div class="row">
+      <div>
+        <input type="checkbox" required formControlName="contact" name="contact" id="contact">
+        <label for="contact">
+          <span></span>Mit dem Klick erteile ich meine Einwilligung und erkenne die Datenschutzerklärung an:
+        </label>
+      </div>
+      <div class="form_terms">
+        Hiermit willige ich ein, dass mich das MIX mittels Telefon, E-Mail oder Post kontaktieren darf.
+        Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular
+        inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von
+        Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.
+        Die Verarbeitung der in das Kontaktformular eingegebenen Daten erfolgt somit ausschließlich auf Grundlage
+        Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können diese Einwilligung jederzeit widerrufen. Dazu
+        reicht eine formlose Mitteilung per E-Mail an verlag@mix-online.de. Die Rechtmäßigkeit der bis zum
+        Widerruf erfolgten Datenverarbeitungsvorgänge bleibt vom Widerruf unberührt.
+        Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung
+        auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt.
+        Zwingende gesetzliche Bestimmungen - insbesondere Aufbewahrungsfristen - bleiben unberührt.
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" [mat-dialog-close]="false">{{ 'feedback.deny_prompt' | translate | uppercase }}</button>
+  <button mat-raised-button class="send" color="primary" [disabled]="feedbackForm.invalid" (click)="send()">
+    <mat-spinner *ngIf="sending | async else text" diameter="20"></mat-spinner>
+    <ng-template #text>{{ 'aufgeben.termine.absenden' | translate | uppercase }}</ng-template>
+  </button>
+</div>

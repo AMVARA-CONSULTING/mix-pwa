@@ -1,0 +1,165 @@
+@import "../../other/colors";
+@import "../../other/breakpoints";
+
+.waiting{
+	pointer-events: none;
+	cursor: default;
+}
+
+.black-bar {
+    display: block;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    z-index: 3;
+    background-color: black;
+}
+
+h3 {
+    width: 100%;
+    margin-top: 40px;
+    font-size: 20px;
+    color: $red-global;
+    text-transform: uppercase;
+    padding: 0 7.5%;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+    border-bottom: 2px solid $red-global;
+    margin-bottom: 0;
+}
+
+h4 {
+    width: 100%;
+    margin-top: 40px;
+    font-size: 18px;
+    color: $red-global;
+    text-transform: uppercase;
+    padding: 0 7.5%;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+    border-bottom: 2px solid $red-global;
+    margin-bottom: 0;
+}
+
+.container{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    top:0;
+    z-index: 2;
+    background-color:$whiteishGray;
+}
+.settings_body{
+    margin:auto;
+    margin-top:150px;
+    padding-bottom: 100px;
+}
+.close{
+    background-image: url(^assets/images/MIXICON_Close.svg);
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 5vw;
+    top: 10px;
+    pointer-events: none;
+    background-size: 20px 20px;
+    -webkit-filter: brightness(200%);
+            filter: brightness(200%)
+
+}
+.close:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.user {
+    background-color: rgba($grayish, .2);
+    width: 100%;
+    padding: 25px 7.5%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .profile {
+        flex: initial;
+        display: flex;
+        align-items: center;
+        .user_icon, .name {
+            flex: initial;
+        }
+        .user_icon {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            height: 30px;
+            width: 30px;
+            margin-right: 20px;
+        }
+    }
+    .log_out {
+        flex: initial;
+        color: $red-global;
+        font-weight: 500;
+        cursor: pointer;
+    }
+}
+
+.options_section {
+    width: 100%;
+    padding: 25px 7.5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: rgba($grayish, .2);
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    .column {
+        flex: 1 100%;
+        margin-bottom: 35px;
+        @include for-tablet-landscape-up {
+            flex: 0 33.3333333%;
+            margin-bottom: 0;
+        }
+        span {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0;
+            @include for-tablet-landscape-up {
+                margin-bottom: 10px;
+            }
+        }
+        .user_info {
+            color: $red-global;
+            font-weight: 500;
+        }
+        .user_option {
+            cursor: pointer;
+            line-height: 40px;
+            color: $red-global;
+            font-weight: 500;
+        }
+    }
+}
+
+.cookies_section {
+    display: block;
+    width: 100%;
+    padding: 25px 7.5%;
+    box-sizing: border-box;
+    background-color: rgba($grayish, .2);
+    .cookies_container > div {
+        margin: 5px 0 20px;
+    }
+    input[type="radio"] + label span {
+        margin-right: 20px;
+        position: relative;
+        top: 1px;
+        background-color: transparent;
+    }
+    input[type="radio"]:checked + label span {
+        margin-right: 20px;
+        background-color: $red-global;
+    }
+}

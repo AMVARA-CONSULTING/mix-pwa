@@ -1,0 +1,209 @@
+<div class="grey-bg" (click)="closeId()"></div>
+<div class="container" [class.mobileAnimation]="mobile | async" [class.mac]="mac" [class.half-width]="(preview_array | async).length === 0" [class.dark]="globals.dark"
+  [class.safari]="safari" [class.mobile]="mobile | async" [class.kino]="kino"
+  *ngIf="display_event && (selected_event_array | async) as selected_event_array"
+  [class.full_view_container]="full_view" [class.mac]="globals.mac">
+  <div class="mobile_header" (click)="closeId()" *ngIf="(mobile | async) && !full_view">
+    <div class="mix_back"></div>
+    <div class="header_title">{{rubrik}}</div>
+  </div>
+  <span class="x" (click)="closeId()"></span>
+  <div class="inner_container" [class.recommended_active]="recommended" [class.extend_for_fullscreen]="full_view && (mobile | async)">
+    <div class="photo" [class.loaded]="loaded" [class.single_photo]="(preview_array | async)<=1"
+      [class.not_available]="!(preview_array | async).length && !selected_event_array.images.length"
+      [class.full_view]="full_view && !(mobile | async)" [class.mobile_full_view]="full_view && (mobile | async)"
+      *ngIf="(preview_array | async).length > 0">
+      <ng-container *ngIf="!((image | async)==(trailer_pos | async) && trailer_ready)">
+        <ng-template #lazy>
+          <!-- <picture>
+            <source media='(min-width: 1024px)' [srcset]="largeSrc | async">
+            <source media='(min-width: 600px)' [srcset]="mediumSrc | async">
+            <img [src]="src | async" class="big-image" alt="Big Image" />
+          </picture> -->
+          <img [defaultImage]="src | async" class="big-image" [lazyLoad]="srcset | async">
+          <!--<img *ngIf="bigImage | async as img" [src]="img" class="big-image">-->
+        </ng-template>
+        <!-- Fallback image for IE -->
+        <img *ngIf="isIE; else lazy" [src]="IEImage | async">
+      </ng-container>
+      <div [class.full]="(image | async) !== 1 || !trailer_ready || !kino" [class.pointer]="!full_view"
+        (click)="openFullscreen()"></div>
+      <div class="arrow photo_next" (click)="next()" *ngIf="!recommended && (image | async)<image_max && !no_images && (preview_array | async).length > 1"></div>
+      <div class="arrow photo_back" (click)="previous()" *ngIf="!recommended && (image | async)>0 && !no_images && !no_images && (preview_array | async).length > 1"></div>
+      <div *ngIf="copyright | async as copy" #copyright="matTooltip" (click)="showCopyright()"
+        class="copyright animated zoomIn faster" [matTooltipHideDelay]="10000" [matTooltip]="copy"></div>
+      <iframe id="iframeEl" class="video_player" [class.show]="(image | async)==(trailer_pos | async) && trailer_ready"
+        width="560" height="315"
+        [src]="(image | async)==(trailer_pos | async) && trailer_ready && (trailer_url | async) ? (trailer_url | async) : emptySafeStyle"
+        frameborder="0" allowfullscreen></iframe>
+      <div class="preview" [class.photos_fixed_width]="(preview_array | async).length < 5 || ((preview_array | async).length === 5 && no_trailer)" *ngIf="(preview_array | async).length>=1 && !full_view">
+
+        <div class="preview_photo pointer" *ngFor="let photoIndex of preview_array | async | slicer:0:6; let i = index"
+          [class.hide]="no_trailer && photoIndex == -1" [class.preview_select]="checkPreviewSelect(photoIndex)"
+          [style.backgroundImage]="selected_event_array | toThumbnailBackgroundImage:photoIndex"
+          (click)="changePhoto(i)">
+          <div [class.show]="photoIndex === -1" class="trailer_preview"
+            [class.trailer_preview_selected]="(image | async)==(trailer_pos | async)">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info" [class.hide]="full_view" [class.no_preview]="(mobile | async) && (preview_array | async).length<=0">
+      <h2 class="red" [class.darkred]="(mobile | async)">{{ selected_event_array.titel | formatTitle }}</h2>
+      <div class="wrap">
+        <div class="text">
+          <div class="title">
+            <h3>
+              <span *ngIf="selected_event_array.related_events.length > 1 && selected_event_array.rubrik !== 'Ausstellungen'">NÄCHSTER TERMIN: </span>
+              <span>{{ selected_event_array.datum | checkDatum }}{{ selected_event_array.datum | differentYear }}
+                <span class="bar">|</span>{{ selected_event_array.uhrzeit }}
+                <ng-container *ngIf="selected_event_array.zeitbis"> - {{ selected_event_array.zeitbis }}
+                </ng-container>
+              </span>
+            </h3>
+            <span class="place">{{ address | async }}{{ selected_event_array.missing_verort }}</span>
+            <i (click)="openMaps(selected_event_array)" class="location-behind"></i>
+            <div (click)="goSeeOtherOrtes()" class="detail-multiple-places" *ngIf="selected_event_array.related_events.length > 1 && selected_event_array.rubrik !== 'Ausstellungen'">{{ 'termine_details.multiple_places_click' | translate }}</div>
+          </div>
+          <div class="details">
+            <div class="text_info">
+              <div class="cut_text" [class.expanded_text]="expand_text">
+                <p *ngIf="!expand_text" [innerHTML]="beschreibung | async | link | safeHtml"></p>
+                <p *ngIf="expand_text" [innerHTML]="beschreibung | async | link | safeHtml"></p>
+                <!--<div class="expand_button" *ngIf="!expand_text && (beschreibung | async).length>150" style="display: none"
+                  (click)="expand_text=!expand_text">+</div>-->
+              </div>
+            </div>
+          </div>
+          <div class="kino_actors" *ngIf="kino && (mobile | async)">
+            <p *ngIf="selected_event_array.darsteller!='' && selected_event_array.darsteller!=null"><span
+                class="greyed">{{"termine_details.darstellers" | translate}}:</span><br>{{selected_event_array.darsteller}}
+            </p>
+            <p *ngIf="selected_event_array.genre!=''"><span
+                class="greyed">{{"termine_details.genre" | translate}}:</span><br>{{selected_event_array.genre | detailBuchSpaces}}
+            </p>
+            <div *ngIf="kino" class="kino_details">
+              <p *ngIf="selected_event_array.filmlaenge"><span
+                  class="greyed">{{"termine_details.filmlaenge" | translate}}:</span>
+                {{selected_event_array.filmlaenge}} {{"termine_details.min" | translate}}</p>
+              <p *ngIf="selected_event_array.land!=''"><span
+                  class="greyed">{{"termine_details.land" | translate}}:</span> {{selected_event_array.land}}</p>
+              <p *ngIf="selected_event_array.sprachfassung!=''"><span
+                  class="greyed">{{"termine_details.language" | translate}}:</span>
+                {{selected_event_array.sprachfassung}}</p>
+              <p *ngIf="selected_event_array.bildfassung!=''"><span
+                  class="greyed">{{"termine_details.fassung" | translate}}:</span>
+                {{selected_event_array.bildfassung}}</p>
+              <p *ngIf="selected_event_array.fsk"><span class="greyed">{{"termine_details.fsk" | translate}}:</span>
+                {{selected_event_array.fsk}}</p>
+              <p *ngIf="selected_event_array.regie!=''"><span
+                  class="greyed">{{"termine_details.regie" | translate}}:</span>
+                {{selected_event_array.regie | detailBuchSpaces }}</p>
+              <p *ngIf="selected_event_array.buch!=''"><span
+                  class="greyed">{{"termine_details.buch" | translate}}:</span> {{selected_event_array.buch}}</p>
+              <p *ngIf="selected_event_array.produzent!=''"><span
+                  class="greyed">{{"termine_details.produzent" | translate}}:</span>
+                {{selected_event_array.produzent}}</p>
+              <p *ngIf="selected_event_array.kamera!=''"><span
+                  class="greyed">{{"termine_details.kamera" | translate}}:</span> {{selected_event_array.kamera}}</p>
+            </div>
+          </div>
+          <div>
+            <div class="url_container" *ngIf="display_url">{{url}}</div>
+          </div>
+        </div>
+        <div class="options">
+          <div class="bottom_info" [class.bottom_orte]="assistance_bar && kino==false">
+            <div class="kino_actors" *ngIf="kino && !(mobile | async) && (assistance_bar==false || kino)">
+              <p *ngIf="selected_event_array.darsteller!='' && selected_event_array.darsteller!=null"><span
+                  class="greyed">{{"termine_details.darstellers" | translate}}:</span><br>{{selected_event_array.darsteller }}
+              </p>
+              <p *ngIf="selected_event_array.genre!=''"><span
+                  class="greyed">{{"termine_details.genre" | translate}}:</span><br>{{selected_event_array.genre | detailBuchSpaces}}
+              </p>
+              <div *ngIf="kino" class="kino_details">
+                <p *ngIf="selected_event_array.filmlaenge"><span
+                    class="greyed">{{"termine_details.filmlaenge" | translate}}:</span>
+                  {{selected_event_array.filmlaenge}} {{"termine_details.min" | translate}}</p>
+                <p *ngIf="selected_event_array.land!=''"><span
+                    class="greyed">{{"termine_details.land" | translate}}:</span> {{selected_event_array.land}}</p>
+                <p *ngIf="selected_event_array.sprachfassung!=''"><span
+                    class="greyed">{{"termine_details.language" | translate}}:</span>
+                  {{selected_event_array.sprachfassung}}</p>
+                <p *ngIf="selected_event_array.bildfassung!=''"><span
+                    class="greyed">{{"termine_details.fassung" | translate}}:</span>
+                  {{selected_event_array.bildfassung}}</p>
+                <p *ngIf="selected_event_array.fsk"><span
+                    class="greyed">{{"termine_details.fsk" | translate}}:</span> {{selected_event_array.fsk}}</p>
+                <p *ngIf="selected_event_array.regie!=''"><span
+                    class="greyed">{{"termine_details.regie" | translate}}:</span>
+                  {{selected_event_array.regie | detailBuchSpaces}}</p>
+                <p *ngIf="selected_event_array.buch!=''"><span
+                    class="greyed">{{"termine_details.buch" | translate}}:</span> {{selected_event_array.buch}}</p>
+                <p *ngIf="selected_event_array.produzent!=''"><span
+                    class="greyed">{{"termine_details.produzent" | translate}}:</span>
+                  {{selected_event_array.produzent}}</p>
+                <p *ngIf="selected_event_array.kamera!=''"><span
+                    class="greyed">{{"termine_details.kamera" | translate}}:</span> {{selected_event_array.kamera}}
+                </p>
+              </div>
+            </div>
+            <div class="icon_group" *ngIf="!assistance_bar">
+              <div class="icon assistant" [class.assistance_select]="assistance | async" (click)="openAttend()">
+                <div class="total_num">{{total_assistance}}</div>
+              </div>
+              <a class="icon share share_mobile" (click)="openShare($event, selected_event_array)">
+                <div class="icon"></div>
+              </a>
+              <a class="icon share share_desktop" (click)="openShare($event, selected_event_array)">
+                <div class="icon"></div>
+              </a>
+              <a target="_blank" *ngIf="ticketLink | async as link; else multiLinks" [href]="link" class="icon cart ticket-available"></a>
+              <ng-template #multiLinks>
+                <div class="icon cart" [class.ticket-available]="ticketsAvailable | async" (click)="buyCart()"></div>
+              </ng-template>
+              <div class="icon pin" [class.pin_select]="pinned | async"
+                [class.deleted_pin]="globals.termine_pin_deleted==selected_event_array.eventid" (click)="pinIt('set')">
+              </div>
+            </div>
+            <div class="orte" *ngIf="assistance_bar==false || kino">
+              <p class="orte_title"><span class="bold">{{ address | async }}{{ selected_event_array.missing_verort }}</span>
+              </p>
+              <p>{{selected_event_array.strasse}}</p>
+              <p>{{selected_event_array.plzort}}</p>
+              <div class="location" (click)="openMaps(selected_event_array)"></div>
+              <a class="phone" *ngIf="selected_event_array.telefon" [href]="'tel:'+(selected_event_array.telefon | callNumber)"></a>
+              <span class="red" *ngIf="selected_event_array.telefon && selected_event_array.telefon.trim() != '-'">
+                <p class="bold tel-wrapper">Tel: <a class="bold"
+                    [href]="'tel:'+(selected_event_array.telefon | callNumber)">{{selected_event_array.telefon}}</a></p>
+                <p class="orte_url" (click)="redirect(selected_event_array)"><a
+                    class="bold">{{ selected_event_array.homepage }}</a></p>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="recommended_title" *ngIf="mobile | async" style="display:none">recommended</div>
+      <div class="recommended" *ngIf="recommended || (mobile | async)" style="display:none">
+
+      </div>
+    </div>
+  </div>
+
+  <div [class.hide]="full_view" style="display: none" class="arrow next" (click)="recommended=true"
+    *ngIf="!recommended && !(mobile | async)"></div>
+  <div [class.hide]="full_view" class="arrow back" (click)="recommended=false" *ngIf="recommended && !(mobile | async)">
+  </div>
+
+</div>
+<!-- <ng-template #loading>
+  <mat-spinner class="loading-event-detail" diameter="50"></mat-spinner>
+</ng-template> -->
+<div class="alert" *ngIf="alert">
+  <div class="alert_message">
+    <div>{{pre_alert_message}}</div>
+    <div [innerHTML]="message_alert | safeHtml" style=" color: rgba(191, 16, 49, 1); text-align: center"></div>
+  </div>
+  <p class="ok" *ngIf="simple_alert==false" (click)="removeAlert()">{{"termine_details.ok" | translate}}</p>
+</div>

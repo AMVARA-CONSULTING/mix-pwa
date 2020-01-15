@@ -1,0 +1,77 @@
+@import "../../other/colors.scss";
+@import '../../other/breakpoints';
+
+:host {
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+    width: 100%;
+    background-color: $darkBlueish;
+    color:$white;
+    border-top:$mainColor 2px solid;
+    opacity: 0.9;
+    @include for-tablet-portrait-up {
+        bottom: 20px;
+    }
+}
+
+
+
+
+.text{
+    margin-left:20px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+    margin-top:10px;
+    font-size: .7rem;
+    @include for-tablet-portrait-up {
+        font-size: 1rem;
+    }
+    .cookies_text div {
+        display: inline;
+        &.nicenDatenschutzLink {
+            cursor:pointer;
+            text-decoration: underline;
+        }
+    }
+}
+
+/* @media (max-width: 575px) {
+    :host {
+        bottom: 0;
+    }
+    .text {
+        font-size: .7rem;
+    }
+    .button {
+        font-size: .9rem;
+    }
+} */
+.button_container{
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    margin-bottom: 10px;
+}
+.button{
+    margin-right: 40px;
+    font-size: .9rem;
+    @include for-tablet-portrait-up {
+        font-size: 1rem;
+    }
+}
+.button:hover{
+    cursor: pointer;
+    color:$mainColor;
+}
+
+span {
+    cursor: pointer;
+    &:hover {
+        color:$mainColor;
+    }
+    text-decoration: underline;
+}

@@ -1,0 +1,73 @@
+
+@import '../../other/colors.scss';
+@import '../../other/breakpoints';
+
+:host * {
+  font-family: "Open Sans" !important;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+.header {
+  background-color: $red-global;
+  padding: 10px;
+  box-sizing: border-box;
+  color: white;
+  width: 100%;
+  border-radius: 3px;
+}
+
+.users-wrapper {
+  display: block;
+  margin-top: 20px;
+}
+
+.user {
+  padding: 15px;
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  border-radius: 3px;
+  &.me {
+    background-color: rgba(black, .05)
+  }
+  &:not(:first-child) {
+    border-top: 1px solid rgba(black, .1);
+  }
+  .icon {
+    flex: 0 22px;
+    height: 22px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin-right: 20px;
+    &.mix {
+      background-image: url(^assets/social/MIXICON_Mix_Imag.svg);
+    }
+    &.GOOGLE {
+      background-image: url(^assets/social/MIXICON_Google_Imag.svg);
+    }
+    &.FACEBOOK {
+      background-image: url(^assets/social/MIXICON_Facebook_Imag.svg);
+    }
+  }
+  .name {
+    flex: 1
+  }
+  .set {
+    background-color: $red-global;
+    color: white;
+    border-radius: 3px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    line-height: 20px;
+    position: absolute;
+    height: 30px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    right: 15px;
+  }
+}

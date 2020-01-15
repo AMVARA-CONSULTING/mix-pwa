@@ -1,0 +1,74 @@
+<div class="content" [class.waiting]="waiting | async">
+  <div class="close" (click)="passMail()"><img src="assets/images/close_detail.svg" /></div>
+  <div class="general">
+    <form [formGroup]="form" [class.one_col]="columns<2" (ngSubmit)="onSubmit()">
+      <div class="form_plus">
+        <h2>ONLINE-SERVICE</h2>
+        <div *ngIf="perPost" class="text-for-chiffres">{{ 'kontaktform.chiffre_post' | translate }}</div>
+        <div class="info">
+          <h5>Du antwortest auf diese Anzeige:</h5>
+          <p class="anzeige-text" [innerHTML]="kaz_text | safeHtml"></p>
+        </div>
+        <div class="text_form">
+          <div class="zone" [class.invalid]="email_error">
+            <label>eMail oder Telefon*</label>
+            <div class="hint">Zur Kontaktaufnahme für den Empfänger dieser Nachricht</div>
+            <input (focus)="email_error=false" maxlength="255" type="text" formControlName="email">
+          </div>
+          <br>
+          <div class="zone" [class.invalid]="text_error">
+            <label>Nachricht*</label>
+            <textarea (focus)="text_error=false" [class.big]="text" maxlength="6000" [class.textarea_more]="columns>1"
+              [class.textarea_one]="columns<2" rows="4" cols="40" formControlName="text"
+              style="overflow:auto;resize:none">
+                </textarea>
+          </div>
+        </div>
+      </div>
+      <div [class.done]="(images | async).length >= 5" class="photoupload">
+        <div class="fotos">
+          <div class="uploaded-textes">
+            <mix-uploaded-image [index]="i" (remove)="RemoveImage($event)" [file]="file"
+              *ngFor="let file of images | async; index as i;">
+            </mix-uploaded-image>
+          </div>
+          <button type="button" *ngIf="(images | async)?.length < 5; else uploadImagesNotAvailable"
+            [disabled]="loadingImages | async" class="upload-textes" (click)="imageUpload()">
+            <ng-container *ngIf="loadingImages | async else uploadImage">
+              <mat-spinner diameter="20" class="file-loading"></mat-spinner>
+              Hochladen.....
+            </ng-container>
+            <ng-template #uploadImage>
+              <i class="icon-upload"></i>{{ 'aufgeben.termine.upload_file' | translate }}
+            </ng-template>
+          </button>
+          <div class="">{{ 'kontaktform.imageshint' | translate }}</div>
+          <ng-template #uploadImagesNotAvailable>
+            <div class="max-limit">{{ 'aufgeben.termine.toomanyimages' | translate }}</div>
+          </ng-template>
+          <input style="display:none;" type="file" id="image_upload" accept=".jpeg,.jpg,.png,.tif,.tiff,.gif" (change)="
+            onImageChange($event)" multiple>
+        </div>
+        <div class="extra_info">
+          <div class="captcha">
+            <ngx-recaptcha2 *ngIf="captcha_required | async" class="google-recaptcha" #captchaElem
+              siteKey="6Ld3AaIUAAAAAO9WCYY-513nar3KL_iixsj6M_q4" [useGlobalDomain]="false" size="normal" [hl]="language"
+              theme="light" type="image" formControlName="captcha">
+            </ngx-recaptcha2>
+            <button class="abschicken button" type="submit" [class.disabled]="form.invalid">
+              <mat-spinner class="sending" diameter="20" *ngIf="sending | async else text"></mat-spinner>
+              <ng-template #text>abschicken</ng-template>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="alert" *ngIf="alert | async">
+  <div class="alert_message">
+    <div>{{ pre_alert_message | async }}</div>
+    <div [innerHTML]="message_alert | async | safeHtml" style=" color: rgba(191, 16, 49, 1); text-align: center"></div>
+  </div>
+  <p class="ok" (click)="alertFalse()">OK</p>
+</div>

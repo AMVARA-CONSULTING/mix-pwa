@@ -1,0 +1,7 @@
+<mat-spinner class="loading" *ngIf="loading | async else content" color="primary" diameter="30"></mat-spinner>
+<ng-template #content>
+  <div *ngIf="enableRemove" class="remove" (click)="Remove()">x</div>
+  <!-- <div class="icon" *ngIf="!(src | async) && !(loading | async)" [ngClass]="extension | async"></div> -->
+  <div class="image"></div>
+  <div class="name" [matTooltip]="file.name">{{ file.name }}</div>
+</ng-template>

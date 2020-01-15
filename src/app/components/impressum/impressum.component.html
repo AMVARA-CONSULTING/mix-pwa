@@ -1,0 +1,270 @@
+<div class="contain">
+  <ng-template #loader>
+    <br />
+    <br />
+    <mix-loader></mix-loader>
+  </ng-template>
+  <div class="index" *ngIf="impressum | async as impressum; else loader">
+    <h1 class="red">Impressum</h1>
+    <div class="verlag normal">
+      <h2 class="red">Verlag</h2>
+      <div class="block" *ngIf="globals.editing!=true">{{impressum[0].value}}</div>
+      <div class="block" *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+          (change)='sendEdit($event, impressum[0].name, impressum[0].groupe)'>{{impressum[0].value}}</textarea></div>
+      <div class="block" *ngIf="globals.editing!=true"><span class="black">Öffnungzeiten:</span> {{impressum[18].value}}
+      </div>
+      <div class="block" *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+          (change)='sendEdit($event, impressum[18].name, impressum[18].groupe)'>{{impressum[18].value}}</textarea></div>
+      <div class="block red swee" *ngIf="globals.editing!=true"><span class="black">eMail: </span>
+      <div class="pointer email" (click)="emailToContact.next('verlag@mix-online.de'); contactMix.next(true); pushHistory()">verlag - (ät) - mix-online.de</div>
+      </div>
+      <div class="block" *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+          (change)='sendEdit($event, impressum[4].name, impressum[4].groupe)'>{{impressum[4].value}}</textarea></div>
+      <p>Termine werden über diese eMail-Adresse nicht angenommen. Wenn Du dem Mix einen Termin mitteilen möchtest,
+        <b><a class="not-red" routerLink="/aufgeben/termine"> bitte hier klicken</a></b>.</p>
+      <div class="block contact">
+        <div>Telefon: <p *ngIf="globals.editing!=true" class="red">{{impressum[19].value}}</p>
+          <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+              (change)='sendEdit($event, impressum[19].name, impressum[19].groupe)'>{{impressum[19].value}}</textarea>
+          </p>
+        </div>
+        <div>Fax: <p *ngIf="globals.editing!=true" class="red">{{impressum[5].value}}</p>
+          <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+              (change)='sendEdit($event, impressum[5].name, impressum[5].groupe)'>{{impressum[5].value}}</textarea></p>
+        </div>
+      </div>
+      <div class="formular" (click)="emailToContact.next('verlag@mix-online.de'); contactMix.next(true); pushHistory()">Kontaktformular<div class="mail_icon"></div>
+      </div>
+    </div>
+    <div class="adsdf">
+      <h2 class="red">ANREGUNGEN & KRITIK</h2>
+      <p class="no_bold marginBottom">Wir haben lange an unserer neuen Webseite gearbeitet und freuen uns, dass nun
+        alles fertig ist.
+        Sollte etwas nicht richtig laufen, so freuen wir uns über eine Rückmeldung. Ebenso interessiert es uns, wenn Du
+        Verbesserungsvorschläge oder Wünsche hast. Schreibe einfach eine eMail. Danke!
+        <b><a (click)="emailToContact.next('app@mix-online.de'); contactMix.next(true); pushHistory()">app - (ät) - mix-online.de</a></b></p>
+      <div class="block">
+        <p class="red">Herausgeber/in</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[10].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[10].name, impressum[10].groupe)'>{{impressum[10].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Vertretungsberechtigte/r Geschäftsführer/in</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[23].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[23].name, impressum[23].groupe)'>{{impressum[23].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Registergericht</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[16].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[16].name, impressum[16].groupe)'>{{impressum[16].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Registernummer</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[17].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[17].name, impressum[17].groupe)'>{{impressum[17].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Umsatzsteuer-Identifikationsnummer gem. &sect; 27 a Umsatzsteuergesetz</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[20].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[20].name, impressum[20].groupe)'>{{impressum[20].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Inhaltlich Verantwortlicher gem. &sect; 10 Absatz 3 MDStV</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[11].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[11].name, impressum[11].groupe)'>{{impressum[11].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Redaktion</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[15].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[15].name, impressum[15].groupe)'>{{impressum[15].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Freie Mitarbeiter/innen</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[7].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[7].name, impressum[7].groupe)'>{{impressum[7].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Akquisition</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[1].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[1].name, impressum[1].groupe)'>{{impressum[1].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Grafik</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[26].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[26].name, impressum[26].groupe)'>{{impressum[26].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Fotos</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[6].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[6].name, impressum[6].groupe)'>{{impressum[6].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Print-MIX</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[14].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[14].name, impressum[14].groupe)'>{{impressum[14].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Online-Auftritt</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline" [innerHTML]="impressum[13].value"></p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[13].name, impressum[13].groupe)'>{{impressum[13].value}}</textarea></p>
+      </div>
+    </div>
+  </div>
+  <div class="reference rech" *ngIf="(folder | async)=='rech'">reference</div>
+  <div class="reference ver" *ngIf="(folder | async)=='ver'">reference</div>
+  <h2 class="title" (click)="setFolder('rech');">Rechtliches<div class="arrow" [class.open]="(folder | async)!='rech'"
+      [class.close]="(folder | async)=='rech'"></div>
+  </h2>
+  <div class="folder more-space" [class.hide]="(folder | async)!='rech'" [class.show]="(folder | async)=='rech'">
+    <h3>Haftungsausschluss (disclaimer)</h3>
+    <div class="normal" *ngIf="impressum | async as impressum">
+      <div class="block">
+        <p class="red list">Haftung für Inhalte</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[8].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[8].name, impressum[8].groupe)'>{{impressum[8].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Haftung für Links</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[9].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[9].name, impressum[9].groupe)'>{{impressum[9].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Urheberrecht</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[11].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[11].name, impressum[11].groupe)'>{{impressum[11].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Datenschutz</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[3].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[3].name, impressum[3].groupe)'>{{impressum[3].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Cookies</p>
+        <p class="no_bold" *ngIf="globals.editing!=true" style="display:inline">{{impressum[2].value}}</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[2].name, impressum[2].groupe)'>{{impressum[2].value}}</textarea></p>
+      </div>
+      <div class="block"> 
+        <p class="red">Plugins und Tools</p>
+        <p *ngIf="globals.editing!=true" style="display:inline">YouTube: Unsere Website nutzt Plugins der von Google betriebenen Seite YouTube. Betreiber der Seiten ist YouTube, LLC, 901 Cherry Ave., San Bruno, CA 94066, USA. Wenn Sie eine unserer mit einem YouTube-Plugin ausgestatteten Seiten besuchen, wird eine Verbindung zu den Servern von YouTube hergestellt. Dabei wird dem YouTube-Server mitgeteilt, welche unserer Seiten Sie besucht haben. Wenn Sie in Ihrem YouTube-Account eingeloggt sind, ermöglichen Sie YouTube, Ihr Surfverhalten direkt Ihrem persönlichen Profil zuzuordnen. Dies können Sie verhindern, indem Sie sich aus Ihrem YouTube-Account ausloggen. Die Nutzung von YouTube erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar. Weitere Informationen zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerklärung von YouTube unter: <a href="https://www.google.de/intl/de/policies/privacy" target="_blank">https://www.google.de/intl/de/policies/privacy</a>.
+        </p>
+        <p class="red">Google Web Fonts</p>
+        <p style="display:inline">Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten so genannte Web Fonts, die von Google bereitgestellt werden. Beim Aufruf einer Seite lädt Ihr Browser die benötigten Web Fonts in Ihren Browsercache, um Texte und Schriftarten korrekt anzuzeigen. Zu diesem Zweck muss der von Ihnen verwendete Browser Verbindung zu den Servern von Google aufnehmen. Hierdurch erlangt Google Kenntnis darüber, dass über Ihre IP-Adresse unsere Website aufgerufen wurde. Die Nutzung von Google Web Fonts erfolgt im Interesse einer einheitlichen und ansprechenden Darstellung unserer Online-Angebote. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar. Wenn Ihr Browser Web Fonts nicht unterstützt, wird eine Standardschrift von Ihrem Computer genutzt. Weitere Informationen zu Google Web Fonts finden Sie unter <a href="https://developers.google.com/fonts/faq" target="_blank">https://developers.google.com/fonts/faq</a> und in der Datenschutzerklärung von Google: <a href="https://www.google.com/policies/privacy/" target="_blank">https://www.google.com/policies/privacy/</a>.</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[2].name, impressum[2].groupe)'>{{impressum[2].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Zahlungsanbieter</p>
+        <p *ngIf="globals.editing!=true" style="display:inline">PayPal:
+            Auf unserer Website bieten wir u.a. die Bezahlung via PayPal an. Anbieter dieses Zahlungsdienstes ist PayPal (Europe) S.à.r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg (im Folgenden “PayPal”). Wenn Sie die Bezahlung via PayPal auswählen, werden die von Ihnen eingegebenen Zahlungsdaten an PayPal übermittelt. Die Übermittlung Ihrer Daten an PayPal erfolgt auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO (Einwilligung) und Art. 6 Abs. 1 lit. b DSGVO (Verarbeitung zur Erfüllung eines Vertrages). Sie haben die Möglichkeit, Ihre Einwilligung zur Datenverarbeitung jederzeit zu widerrufen. Ein Widerruf wirkt sich auf die Wirksamkeit von in der Vergangenheit liegenden Datenverarbeitungsvorgängen nicht aus.</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[2].name, impressum[2].groupe)'>{{impressum[2].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Eintrittskartenverkauf</p>
+        <p *ngIf="globals.editing!=true" style="display:inline">Eintrittskartenverkauf via Nordwest Ticket GmbH/Ticketmaster GmbH, CTS EVENTIM AG & Co. KGaA, DeinKinoticket GmbH, Kinoheld GmbH, sowie andere Anbieter von Online-Reservierungs- und Buchungssystemen für Tickets wie z. B. Kinohelden:
+          Sofern nicht ausdrücklich etwas anderes ausgewiesen wird, sind weder NWT, Ticketmaster, EVENTIM, DeinKinoticket, Kinoheld, noch andere Anbieter von Online-Reservierungs- und Buchungssystemen für Tickets wie z.B. Kinohelden selber Veranstalter der angebotenen Veranstaltungen. Diese werden durch den jeweiligen Veranstalter (z.B. Künstler, Spielstättenbetreiber, Sportverein oder Institution) durchgeführt, der auch Aussteller der Tickets ist („Veranstalter“). Genauere Informationen darüber sind an der Kasse des Veranstaltungsorts („Spielstätte“) oder auf den Webseiten der jeweiligen Veranstalter erhältlich.
+          Ebenso entsteht durch die Nutzung der Weiterleitungsfunktion auf www.mix-online.de zu den jeweiligen Online-Reservierungs- und Buchungssystemen für Tickets (von z. B. Nordwest Ticket GmbH/Ticketmaster GmbH, CTS EVENTIM AG & Co. KGaA, DeinKinoticket GmbH, Kinoheld GmbH) zwischen dem Endkunden/Kartenbesteller und der Mix Verlags-GmbH keinerlei Vertragsverhältnis.</p>
+        <p *ngIf="globals.editing"><textarea style='all:inherit; width: 100%' class='editing' type='text'
+            (change)='sendEdit($event, impressum[2].name, impressum[2].groupe)'>{{impressum[2].value}}</textarea></p>
+      </div>
+      <div class="block">
+        <p class="red">Open Source</p>
+        <div *ngIf="globals.editing!=true" style="display:inline">
+          <ul>
+            <li><span class="bold">Frontend (The visible part of a web page):</span>
+              <ul>
+                <li><b><a target="_blank" href="/3rdpartylicenses.txt">Download 3rd party licenses document</a></b></li>
+              </ul>
+            </li>
+            <li><span class="bold">Backend (The system / server that allows us to offer you services):</span>
+              <ul>
+                <li>
+                  <span class="bold">PHPMailer: </span>
+                  The classic eMail sending library for PHP https://github.com/PHPMailer/PHPMailer
+                </li>
+                <li>
+                  <span class="bold">ImageMagick®: </span>Copyright 2019 MIX-Verlags-GmbH
+                  <pre>Licensed under the ImageMagick License (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at
+
+  <a href="https://imagemagick.org/script/license.php" target="_blank">https://imagemagick.org/script/license.php</a>
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.</pre>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h2 class="title" (click)="setFolder('ver');scrollKat()">Version<div class="arrow" [class.open]="(folder | async)!='ver'"
+      [class.close]="(folder | async)=='ver'"></div>
+  </h2>
+  <div clas="folder" *ngIf="impressum | async as impressum" [class.hide]="(folder | async)!='ver'" [class.show]="(folder | async)=='ver'">
+    <div class="block">
+      <p class="red">Build Time</p>
+      <p style="margin:0" class="no_bold">·BuildVersionNº·</p>
+    </div>
+    <div class="block">
+      <p class="red">Front Version</p>
+      <p style="margin:0" class="no_bold">{{ _info.config.version }}</p>
+    </div>
+    <div class="block">
+      <p class="red">Backend Version</p>
+      <p style="margin:0" class="no_bold">{{ _info.serverInfo.version }}</p>
+    </div>
+    <div class="block">
+      <p class="red">Browser</p>
+      <p style="margin:0" class="no_bold"></p>
+      <ul>
+        <li><b>Browser Name:</b> {{ browserName | async }}</li>
+        <li><b>Browser Version:</b> {{ browserVersion | async }}</li>
+        <li><b>Browser userAgent:</b> {{ browser | async }}</li>
+      </ul>
+    </div>
+    <div class="block">
+      <p class="red">Termine</p>
+      <p style="margin:0" class="no_bold">Es gibt {{impressum['total_events']}} Termine in der
+        Mixtour.<br />{{ impressum['last_termin_update'] }}</p>
+    </div>
+    <div class="block">
+      <p class="red">Marktplatz | Kontakte</p>
+      <p style="margin:0" class="no_bold">Es gibt aktuell {{impressum['total_markplatz']}} Anzeigen.<br>Letzte Aktualisierung erfolgte am {{impressum['last_update_kazen']}}</p>
+    </div>
+    <div class="block">
+      <p class="red">Local Storage | Cookies</p>
+      <p style="margin:0" class="no_bold"><b class="pointer" (click)="clear()">Bitte hier klicken</b>, wenn Du Deinen
+        Local Storage und Deine Cookies für mix-online.de löschen möchtest.</p>
+    </div>
+    <div class="block">
+      <p class="red">Changelog</p>
+        <ul class="changelog">
+          <li *ngFor="let version of _info.config.changelog"><span class="red bold">{{ version.version }}</span>
+            <ul *ngIf="version.text.length > 0">
+              <li *ngFor="let t of version.text">{{ t }}</li>
+            </ul>
+          </li>
+        </ul>
+    </div>
+  </div>
+
+</div>
+<mix-kontaktformular [email]="emailToContact | async" (status)="contactMix.next(false)" *ngIf="contactMix | async"></mix-kontaktformular>

@@ -1,0 +1,512 @@
+<form *ngIf="('aufgeben.kazen.backend.zuruck' | translate)!=undefined && !(showAufgebenDisabled | async)" [formGroup]="form" class="auf_main"
+    (ngSubmit)="checkForm()">
+    <div class="title">
+        <h1 *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.title' | translate)}}</h1>
+        <h1 class="editable" *ngIf="globals.editing"><textarea style="all:inherit; width: 100%" class="editing"
+                type="text" (change)="saveEdit($event, 'title')">{{('aufgeben.kazen.backend.title' | translate)}}</textarea></h1>
+        <div class="page_no" *ngIf="page!=4">
+            <p [class.page_sel]="page==1" (click)="checkPage(page,1)">1</p>
+            <p [class.page_sel]="page==2" (click)="checkPage(page,2)">2</p>
+            <p [class.page_sel]="page==3" (click)="checkPage(page,3)">3</p>
+        </div>
+    </div>
+    <div class="page" [class.show]="page==1">
+        <p class="red advice_date" *ngIf="_info.serverInfo.show_kaz_coupon_hinweis_alert">{{ _info.serverInfo.kaz_coupon_hinweis_text }}</p>
+        <h5 class="subtitle" *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.subtitle' | translate)}}</h5>
+        <h5 class="editable" *ngIf="globals.editing">
+            <textarea style="all:inherit; width: 100%" class="editing" id="subtitle" type="text"
+                (change)="saveEdit($event, 'subtitle')">{{('aufgeben.kazen.backend.subtitle' | translate)}}</textarea>
+        </h5>
+        <h2 class="text_title" *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.text_title' | translate)}}*
+            <div class="reference" [class.error_reference]="reference_text"></div>
+        </h2>
+        <h2 class="editable" *ngIf="globals.editing">
+            <textarea style="all:inherit; width: 100%" class="editing" type="text"
+                (change)="saveEdit($event, 'text_title')">{{('aufgeben.kazen.backend.text_title' | translate)}}</textarea>
+        </h2>
+        <p class="text_subtitle noMarginBottom" *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.text_subtitle' | translate)}}</p>
+        <h5 class="editable" *ngIf="globals.editing">
+            <textarea style="all:inherit; width: 100%" class="editing" type="text"
+                (change)="saveEdit($event, 'text_subtitle')">{{('aufgeben.kazen.backend.text_subtitle' | translate)}}</textarea>
+        </h5>
+        <div [class.not_valid]="text_error">
+            <textarea maxlength="30000" formControlName="text" [class.not_valid_text]="text_error"
+                (click)="text_error=false;" style="overflow:auto;resize:none;min-height:300px;" rows="4" cols="40"></textarea>
+        </div>
+        <p>
+            <span class="mini">{{text.value.length}} Zeichen ({{ units | async}} Einheiten)</span>
+        </p>
+
+        <h2 *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.monat_title' | translate)}}*
+            <div class="reference" [class.error_reference]="reference_monat"></div>
+        </h2>
+        <h2 class="editable" *ngIf="globals.editing">
+            <textarea style="all:inherit; width: 100%" class="editing" type="text"
+                (change)="saveEdit($event, 'monat_title')">{{('aufgeben.kazen.backend.monat_title' | translate)}}</textarea>
+        </h2>
+        <h5 *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.monat_subtitle' | translate)}}</h5>
+        <h5 class="editable" *ngIf="globals.editing">
+            <textarea style="all:inherit; width: 100%" class="editing" type="text"
+                (change)="saveEdit($event, 'monat_subtitle')">{{('aufgeben.kazen.backend.monat_subtitle' | translate)}}</textarea>
+        </h5>
+        <div class="radio_group left" number="6" [class.not_valid]="monats_list=='.'">
+            <div><input type="checkbox" formControlName="monat" name="monat" value="Jan" id="monat_1"
+                    (click)="loadMonat($event)"><label for="monat_1"><span></span>Jan.</label></div>
+            <div><input type="checkbox" formControlName="monat" name="monat" value="Feb" id="monat_2"
+                    (click)="loadMonat($event)"><label for="monat_2"><span></span>Feb.</label></div>
+            <div><input type="checkbox" formControlName="monat" name="monat" value="Mrz" id="monat_3"
+                    (click)="loadMonat($event)"><label for="monat_3"><span></span>Mrz.</label></div>
+            <div><input type="checkbox" formControlName="monat" name="monat" value="Apr" id="monat_4"
+                    (click)="loadMonat($event)"><label for="monat_4"><span></span>Apr.</label></div>
+            <div><input type="checkbox" formControlName="monat" name="monat" value="Mai" id="monat_5"
+                    (click)="loadMonat($event)"><label for="monat_5"><span></span>Mai</label></div>
+            <div><input type="checkbox" formControlName="monat" name="monat" value="Jun" id="monat_6"
+                    (click)="loadMonat($event)"><label for="monat_6"><span></span>Jun.</label></div>
+            <div><input type="checkbox" formControlName="monat" name="monat" value="Jul" id="monat_7"
+                    (click)="loadMonat($event)"><label for="monat_7"><span></span>Jul.</label></div>
+            <div><input type="checkbox" formControlName="monat" name="monat" value="Aug" id="monat_8"
+                    (click)="loadMonat($event)"><label for="monat_8"><span></span>Aug.</label></div>
+            <div><input type="checkbox" formControlName="monat" name="monat" value="Sep" id="monat_9"
+                    (click)="loadMonat($event)"><label for="monat_9"><span></span>Sep.</label></div>
+            <div><input type="checkbox" formControlName="monat" name="monat" value="Okt" id="monat_10"
+                    (click)="loadMonat($event)"><label for="monat_10"><span></span>Okt.</label></div>
+            <div><input type="checkbox" formControlName="monat" name="monat" value="Nov" id="monat_11"
+                    (click)="loadMonat($event)"><label for="monat_11"><span></span>Nov.</label></div>
+            <div><input type="checkbox" formControlName="monat" name="monat" value="Dez" id="monat_12"
+                    (click)="loadMonat($event)"><label for="monat_12"><span></span>Dez.</label></div>
+        </div>
+
+        <h2 *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.rubrik_title' | translate)}}
+            <div class="reference" [class.error_reference]="reference_rubrik"></div>
+        </h2>
+        <h2 class='editable' *ngIf='globals.editing'>
+            <textarea style='all:inherit; width: 100%' class='editing' type='text'
+                (change)='saveEdit($event, "rubrik_title")'>{{('aufgeben.kazen.backend.rubrik_title' | translate)}}</textarea>
+        </h2>
+        <h5 *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.rubrik_subtitle' | translate)}}</h5>
+        <h5 class='editable' *ngIf='globals.editing'>
+            <textarea style='all:inherit; width: 100%' class='editing' type='text'
+                (change)='saveEdit($event, "rubrik_subtitle")'>{{('aufgeben.kazen.backend.rubrik_subtitle' | translate)}}</textarea>
+        </h5>
+        <div class="radio_group left" number="3" [class.not_valid]="rubriken_error" formArrayName="rubriken_kat">
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    id="rubrik_1" value="Fernweh"><label for="rubrik_1"><span></span>Fernweh</label></div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_2" value="Musik"><label for="rubrik_2"><span></span>Musik</label>
+            </div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_3" value="Kurse"><label for="rubrik_3"><span></span>Kurse</label>
+            </div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_4" value="Verkäufe"><label
+                    for="rubrik_4"><span></span>Verkäufe</label></div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_5" value="Neue Heimat"><label for="rubrik_5"><span></span>Neue
+                    Heimat</label></div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_6" value="Mix-Up"><label for="rubrik_6"><span></span>Mix Up</label>
+            </div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_7" value="Sport"><label for="rubrik_7"><span></span>Sport</label>
+            </div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_8" value="Kinder"><label for="rubrik_8"><span></span>Kinder</label>
+            </div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_9" value="Unterricht"><label
+                    for="rubrik_9"><span></span>Unterricht</label></div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_10" value="Jobs"><label for="rubrik_10"><span></span>Jobs</label>
+            </div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_11" value="Grüße"><label for="rubrik_11"><span></span>Grüße</label>
+            </div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_12" value="Gesuche"><label
+                    for="rubrik_12"><span></span>Gesuche</label></div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_13" value="Gesundheit"><label
+                    for="rubrik_13"><span></span>Gesundheit</label></div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_14" value="Sonstige Kontakte"><label
+                    for="rubrik_14"><span></span>Sonstige Kontakte</label></div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_15" value="Sie sucht Ihn"><label for="rubrik_15"><span></span>Sie
+                    sucht Ihn (nur mit Chiffre)</label></div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_16" value="Er sucht Sie"><label for="rubrik_16"><span></span>Er sucht
+                    Sie (nur mit Chiffre)</label></div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_17" value="Er sucht Ihn"><label for="rubrik_17"><span></span>Er sucht
+                    Ihn (nur mit Chiffre)</label></div>
+            <div><input type="checkbox"
+                    (change)="updateChkbxArray($event.target.value, $event.target.checked, 'rubriken_kat')"
+                    name="rubriken_kat" id="rubrik_18" value="Sie sucht Sie"><label for="rubrik_18"><span></span>Sie
+                    sucht Sie (nur mit Chiffre)</label></div>
+        </div>
+        <h5 class="separator" *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.chiffre_title' | translate)}}</h5>
+        <h5 class='editable' *ngIf='globals.editing'>
+            <textarea style='all:inherit; width: 100%' class='editing' type='text'
+                (change)='saveEdit($event, "chiffre_title")'>{{('aufgeben.kazen.backend.chiffre_title' | translate)}}</textarea>
+        </h5>
+        <p class='editable' *ngIf='globals.editing'>
+            <textarea style='all:inherit; width: 100%' class='editing' type='text'
+                (change)='saveEdit($event, "chiffre_subtitle")'>{{('aufgeben.kazen.backend.chiffre_subtitle' | translate)}}</textarea>
+        </p>
+        <div class="chiffre-box" [class.not_valid]="chiffre_error">
+            <input type="checkbox" formControlName="chiffre" name="chiffre" id="chiffre"
+                (change)="calculateTotal();checkRubrikAndChiffre()">
+            <label for="chiffre">
+                <span></span>Die Anzeige soll als Chiffreanzeige erscheinen
+            </label>
+        </div>
+        <p *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.chiffre_subtitle' | translate)}}</p>
+        <div *ngIf="chiffre.value" class="chiffre">
+            <p class="chiffre_subtitle2" *ngIf="globals.editing!=true">
+                <b>{{('aufgeben.kazen.backend.chiffre_subtitle2' | translate)}}*</b></p>
+            <p class='editable' *ngIf='globals.editing'>
+                <textarea style='all:inherit; width: 100%' class='editing' type='text'
+                    (change)='saveEdit($event, "chiffre_subtitle2")'>{{('aufgeben.kazen.backend.chiffre_subtitle2' | translate)}}</textarea>
+            </p>
+            <div class="radio_group" [class.not_valid]="chiffre_answer_error">
+                <div>
+                    <input type="radio" formControlName="chiffre_answer" name="chiffre_answer" id="chiffre_answer1"
+                        value="Per eMail und per Post" (change)="chiffre_answer_error=false"><label
+                        for="chiffre_answer1"><span></span>{{('aufgeben.kazen.backend.chiffre_per1' | translate)}}</label></div>
+                <div>
+                    <input type="radio" formControlName="chiffre_answer" name="chiffre_answer" id="chiffre_answer2"
+                        value="Per Post" (change)="chiffre_answer_error=false"><label
+                        for="chiffre_answer2"><span></span>{{('aufgeben.kazen.backend.chiffre_per2' | translate)}}</label></div>
+            </div>
+            <div *ngIf="form.value.chiffre_answer=='Per eMail und per Post'"
+                [class.not_valid]="chiffre_mail_error">
+                <p><span class="bold"
+                        *ngIf="globals.editing!=true"><b>{{('aufgeben.kazen.backend.chiffre_email' | translate)}}*</b></span> (bleibt
+                    anonym)</p>
+                <p class='editable' *ngIf='globals.editing'><textarea style='all:inherit; width: 100%'
+                        class='editing' type='text'
+                        (change)='saveEdit($event, "chiffre_email")'>{{('aufgeben.kazen.backend.chiffre_email' | translate)}}</textarea></p>
+                <label for="chiffre_mail">
+                    <input type="text" maxlength="150" formControlName="chiffre_mail"
+                        (click)="chiffre_mail_error=false">
+                </label>
+            </div>
+        </div>
+
+        <h2>TYP*
+            <div class="reference" [class.error_reference]="reference_typ"></div>
+        </h2>
+        <div class="radio_group left no-margin" [class.not_valid]="typ_general_error">
+            <div>
+                <input type="radio" formControlName="typ_general" name="typ_general" id="typ_1" value="Privat"
+                    (change)="calculateTotal(); typ_general_error=false">
+                <label for="typ_1">
+                    <span></span>Privat
+                </label>
+            </div>
+            <div>
+                <input type="radio" formControlName="typ_general" name="typ_general" id="typ_2" value="Gewerblich"
+                    (change)="calculateTotal(); typ_general_error=false">
+                <label for="typ_2">
+                    <span></span>Gewerblich
+                </label>
+            </div>
+        </div>
+        <p class="no-margi">
+            <span class="bold">Gewerbliche Anzeigen</span> sind Inserate, mit denen in irgendeiner Form Geld verdient
+            wird.
+        </p>
+        <p class="no-margin-top" *ngIf="globals.editing!=true" [innerHTML]="('aufgeben.kazen.backend.typ_general' | translate)"></p>
+        <p class='editable' *ngIf='globals.editing'>Private Anzeigen
+            <textarea style='all:inherit; width: 100%' class='editing' type='text'
+                (change)='saveEdit($event, "typ_privat")'>{{('aufgeben.kazen.backend.typ_privat' | translate)}}</textarea>
+        </p>
+        <h2>ART*
+            <div class="reference" [class.error_reference]="reference_art"></div>
+        </h2>
+        <div class="radio_group left" number="3" [class.not_valid]="typ_style_error">
+            <div><input type="radio" formControlName="typ_style" name="typ_style" value="Normal" id="style_1"
+                    (change)="calculateTotal();typ_style_error=false"><label for="style_1"><span></span>Normal</label>
+            </div>
+            <div><input type="radio" formControlName="typ_style" name="typ_style" value="Fett" id="style_2"
+                    (change)="calculateTotal();typ_style_error=false"><label for="style_2"><span></span>Fett</label>
+            </div>
+            <div><input type="radio" formControlName="typ_style" name="typ_style" value="Farbig" id="style_3"
+                    (change)="calculateTotal();typ_style_error=false"><label for="style_3"><span></span>Farbig</label>
+            </div>
+        </div>
+        <p *ngIf="globals.editing!=true" [innerHTML]="'aufgeben.kazen.typ_style2' | translate"></p>
+        <p class='editable' *ngIf='globals.editing'>Private Anzeigen
+            <textarea style='all:inherit; width: 100%' class='editing' type='text'
+                (change)='saveEdit($event, "typ_style2")'>{{ 'aufgeben.kazen.backend.typ_privat' | translate }}</textarea>
+        </p>
+        <h2></h2>
+        <div class="payment_calc">{{ textCalculation | async }}</div>
+    </div>
+    <div class="page" [class.show]="page==2">
+        <h2 *ngIf="globals.editing!=true">{{ 'aufgeben.kazen.backend.nachricht_title' | translate }}<div class="reference"
+                [class.error_reference]="reference_nachricht">The reference</div>
+        </h2>
+        <h2 class='editable' *ngIf='globals.editing'><textarea style='all:inherit; width: 100%'
+                class='editing' type='text'
+                (change)='saveEdit($event, "nachricht_title")'>{{ 'aufgeben.kazen.backend.nachricht_title' | translate }}</textarea></h2>
+        <p *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.nachricht_subtitle' | translate)}}</p>
+        <p class='editable' *ngIf='globals.editing'><textarea style='all:inherit; width: 100%'
+                class='editing' type='text'
+                (change)='saveEdit($event, "nachricht_subtitle")'>{{('aufgeben.kazen.backend.nachricht_subtitle' | translate)}}</textarea></p>
+        <textarea [class.not_valid_text]="nachricht_error" formControlName="nachricht"
+            style="overflow:auto;resize:none" maxlength="2000" rows="4" cols="40"></textarea>
+        <div class="personal">
+            <h2 *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.personal_title' | translate)}}<div class="reference"
+                    [class.error_reference]="reference_personal">The reference</div>
+            </h2>
+            <h2 class='editable' *ngIf='globals.editing'><textarea style='all:inherit; width: 100%'
+                    class='editing' type='text'
+                    (change)='saveEdit($event, "personal_title")'>{{('aufgeben.kazen.backend.personal_title' | translate)}}</textarea></h2>
+            <p class="red bold" *ngIf="globals.editing!=true">{{('aufgeben.kazen.backend.anrede_title' | translate)}}*</p>
+            <p class='editable' *ngIf='globals.editing'><textarea style='all:inherit; width: 100%'
+                    class='editing' type='text'
+                    (change)='saveEdit($event, "anrede_title")'>{{('aufgeben.kazen.backend.anrede_title' | translate)}}</textarea></p>
+            <div class="radio_group left sex" [class.not_valid]="anrede_error">
+                <div><input type="radio" formControlName="anrede" name="anrede" id="anrede1" value="Frau"
+                        (change)="anrede_error=false"><label
+                        for="anrede1"><span></span>{{('aufgeben.kazen.backend.anrede_frau' | translate)}}</label></div>
+                <div><input type="radio" formControlName="anrede" name="anrede" id="anrede2" value="Herr"
+                        (change)="anrede_error=false"><label
+                        for="anrede2"><span></span>{{('aufgeben.kazen.backend.anrede_herr' | translate)}}</label></div>
+                <div><input type="radio" formControlName="anrede" name="anrede" id="anrede3" value="Other"
+                        (change)="anrede_error=false"><label
+                        for="anrede2"><span></span>{{'aufgeben.kazen.other' | translate}}</label></div>
+            </div>
+            <div class="list">
+                <div [class.not_valid]="vorname_error">
+                    <div class="red bold">{{('aufgeben.kazen.backend.vorname' | translate)}}*</div><input type="text" maxlength="50"
+                        formControlName="vorname" [class.error]="vorname_error"
+                        (focus)="vorname_error=false">
+                </div>
+                <div [class.not_valid]="nachname_error">
+                    <div class="red bold">{{('aufgeben.kazen.backend.nachname' | translate)}}*</div><input type="text" maxlength="50"
+                        formControlName="nachname" [class.error]="nachname_error"
+                        (focus)="nachname_error=false">
+                </div>
+                <div [class.not_valid]="firma_error">
+                    <div class="red bold">{{('aufgeben.kazen.backend.firma' | translate)}}</div><input type="text" maxlength="100"
+                        formControlName="firma">
+                </div>
+                <div [class.not_valid]="email_error">
+                    <div class="red bold">{{('aufgeben.kazen.backend.email' | translate)}}*</div><input type="text" maxlength="100"
+                        formControlName="email" [class.error]="email_error" (focus)="email_error=false">
+                </div>
+                <div [class.not_valid]="vorwahl_error">
+                    <div class="red bold">Vorwahl*</div><input type="text" maxlength="45" onlyNumbers
+                        formControlName="vorwahl" [class.error]="vorwahl_error"
+                        (focus)="vorwahl_error=false">
+                </div>
+                <div [class.not_valid]="telefon_error">
+                    <div class="red bold">{{('aufgeben.kazen.backend.telefon' | translate)}}*</div><input type="text" maxlength="45"
+                        onlyNumbers formControlName="telefon" [class.error]="telefon_error"
+                        (focus)="telefon_error=false">
+                </div>
+                <div [class.not_valid]="strasse_error">
+                    <div class="red bold" [innerHTML]="(('aufgeben.kazen.backend.strasse' | translate )+'*') | safeHtml"></div><input type="text" maxlength="200"
+                        formControlName="strasse" [class.error]="strasse_error"
+                        (focus)="strasse_error=false">
+                </div>
+                <div [class.not_valid]="plz_error">
+                    <div class="red bold">{{('aufgeben.kazen.backend.plz' | translate)}}*</div><input type="text" maxlength="7" onlyNumbers
+                        formControlName="plz" [class.error]="plz_error" (focus)="plz_error=false">
+                </div>
+                <div [class.not_valid]="ort_error">
+                    <div class="red bold">{{('aufgeben.kazen.backend.ort' | translate)}}*</div><input type="text" maxlength="100"
+                        formControlName="ort" [class.error]="ort_error" (focus)="ort_error=false">
+                </div>
+            </div>
+        </div>
+        <h2 class="bold">{{('aufgeben.kazen.backend.rechnung_title' | translate)}}</h2>
+        <div class="radio_group" [class.not_valid]="rechnung_error">
+            <div><input type="radio" formControlName="rechnung" name="rechnung" value="Nein" id="rechnung1"
+                    (change)="rechnung_error=false"><label for="rechnung1"><span></span>{{('aufgeben.kazen.backend.nein' | translate)}}</label>
+            </div>
+            <div><input type="radio" formControlName="rechnung" name="rechnung" value="Ja" id="rechnung2"
+                    (change)="rechnung_error=false"><label for="rechnung2"><span></span>{{('aufgeben.kazen.backend.ja' | translate)}}</label>
+            </div>
+        </div>
+        <h2 class="bold" style="margin-top: 60px;">{{'aufgeben.zahlung_title'|translate}}</h2>
+        <div class="radio_group" [class.not_valid]="zahlung_error">
+            <div><input type="radio" formControlName="zahlung" name="zahlung" id="zahlung1" value="Lastschrift"
+                    (change)="zahlung_error=false"><label for="zahlung1"><span></span>
+                    {{('aufgeben.kazen.backend.zahlung_last' | translate)}}</label></div>
+            <div><input type="radio" formControlName="zahlung" name="zahlung" id="zahlung2" value="PayPal"
+                    (change)="zahlung_error=false"><label for="zahlung2"><span></span>PayPal</label></div>
+        </div>
+        <p *ngIf="form.value.zahlung=='PayPal' && globals.editing!=true">
+            <span class="payment_text">{{('aufgeben.kazen.backend.paypal_info3' | translate)}}</span>
+        </p>
+        <!-- <p class='editable' *ngIf='globals.editing'><textarea style='all:inherit; width: 100%'
+                class='editing' type='text'
+                (change)='saveEdit($event, "paypal_info3")'>{{('aufgeben.kazen.backend.paypal_info3' | translate)}}</textarea></p> -->
+        <div class="flex two-columns" *ngIf="form.value.zahlung=='Lastschrift'">
+            <div>
+                <p class="red bold">{{'aufgeben.iban'|translate}}*</p>
+                <input type="text" maxlength="100" [class.error]="iban_name_error"
+                    (click)="iban_name_error=false" formControlName="kto_inhaber">
+            </div>
+            <div>
+                <p class="red bold">IBAN*</p>
+                <input type="text" maxlength="100" formControlName="iban" [class.error]="iban_error"
+                    (click)="iban_error=false">
+            </div>
+        </div>
+        <p class="payment_text" *ngIf="form.value.zahlung=='Lastschrift'">
+            {{ 'aufgeben.result_desc' | translate | replaceWithPrice:total }}</p>
+        <p></p>
+    </div>
+    <!-- summary page before final submit-->
+    <div class="page" [class.show]="page==3">
+        <h2>{{('aufgeben.kazen.backend.fertig_title' | translate)}}</h2>
+        <p class="last_page_desc">{{('aufgeben.kazen.backend.fertig_subtitle' | translate)}}</p>
+        <div class="terms privacy_terms"><input type="checkbox" id="privacy_form" formControlName="privacy_form"><label
+                for="privacy_form"><span></span>{{('aufgeben.kazen.backend.agree' | translate)}}</label>
+            <p>{{'aufgeben.form_privacy' | translate}}</p>
+        </div>
+        <div class="terms simply_terms"><input type="checkbox" id="terms_form" formControlName="terms_form"><label
+                for="terms_form"><span></span>{{('aufgeben.kazen.backend.agree2' | translate)}}</label>
+            <p [innerHtml]="terms$"></p>
+        </div>
+        <div class="buttons absenden_top">
+            <div class="no-margin-on-mobile zuruck-btn no-mobile button" (click)="changePage('back')" *ngIf="page==3"><i
+                    class="aufgeben-icon back"></i>{{('aufgeben.kazen.backend.zuruck' | translate)}}</div>
+            <div class="send button" (click)="sendForm()" *ngIf="page==3">
+                <ng-container *ngIf="waiting | async; else sendFormTmpl1">
+                    <mat-spinner class="sending_form_spinner" diameter="25"></mat-spinner>
+                </ng-container>
+                <ng-template #sendFormTmpl1>{{'aufgeben.send'|translate}}</ng-template>
+            </div>
+        </div>
+        <h5><span class="red">1. {{('aufgeben.kazen.backend.t1' | translate)}}</span></h5>
+        <div class="table">
+            <p><span>Betrag:</span> {{ textCalculation | async }}</p>
+            <p><span class="bold">{{'aufgeben.zahlung_title'|translate}}:</span> {{form.value.zahlung}}
+            </p>
+            <p *ngIf="form.value.zahlung=='Lastschrift'"><span class="bold">{{'aufgeben.kazen.backend.iban_name'|translate}}:</span>
+                {{form.value.kto_inhaber}} </p>
+            <p *ngIf="form.value.zahlung=='Lastschrift'"><span class="bold">{{('aufgeben.kazen.backend.iban' | translate)}}:</span>
+                {{form.value.iban}} </p>
+            <p><span class="bold">{{('aufgeben.kazen.backend.13' | translate)}}:</span> {{form.value.rechnung}} </p>
+        </div>
+        <h5><span class="red">2. {{'aufgeben.kazen.t2' | translate}}</span></h5>
+        <div class="table">
+            <p><span class="bold">{{'aufgeben.kazen.backend.text_title' | translate | titlecase}}:</span> {{form.value.text}} </p>
+            <p><span class="bold">{{('aufgeben.kazen.backend.7' | translate)}}:</span> {{monats_list | monatListSort}} </p>
+            <p><span class="bold">{{('aufgeben.kazen.backend.8' | translate)}}:</span> {{form.value.typ_general}} </p>
+            <p><span class="bold">Art:</span> {{form.value.typ_style}} </p>
+            <p><span class="bold">{{('aufgeben.kazen.backend.9' | translate)}}:</span> {{form.get('rubriken_kat').value.join(', ')}} </p>
+            <p><span class="bold">{{('aufgeben.kazen.backend.10' | translate)}}:</span> {{chiffre.value ? 'Ja' : 'Nein'}} </p>
+            <p *ngIf="chiffre.value"><span class="bold">{{('aufgeben.kazen.backend.11' | translate)}}:</span>
+                {{form.value.chiffre_answer}} </p>
+            <p *ngIf="chiffre.value && form.value.chiffre_answer=='Per eMail und per Post'"><span
+                    class="bold">{{('aufgeben.kazen.backend.12' | translate)}}:</span> {{form.value.chiffre_mail}} </p>
+        </div>
+        <h5><span class="red">3. {{('aufgeben.kazen.backend.t3' | translate)}}</span></h5>
+        <div class="table">
+            <p><span class="bold">{{('aufgeben.kazen.backend.vorname' | translate)}}:</span> {{form.value.vorname}} </p>
+            <p><span class="bold">{{('aufgeben.kazen.backend.nachname' | translate)}}:</span> {{form.value.nachname}} </p>
+            <p><span class="bold">{{('aufgeben.kazen.backend.firma' | translate)}}:</span> {{form.value.firma}} </p>
+            <p><span class="bold">Vorwahl:</span> {{form.value.vorwahl}} </p>
+            <p><span class="bold">{{('aufgeben.kazen.backend.telefon' | translate)}}:</span> {{form.value.telefon}} </p>
+            <p><span class="bold">{{('aufgeben.kazen.backend.email' | translate)}}:</span> {{form.value.email}} </p>
+            <p><span class="bold"><span [innerHTML]="'aufgeben.kazen.backend.strasse' | translate | safeHtml"></span>:</span> {{form.value.strasse}} </p>
+            <p><span class="bold">{{('aufgeben.kazen.backend.plz' | translate)}}:</span> {{form.value.plz}} </p>
+            <p><span class="bold">{{('aufgeben.kazen.backend.ort' | translate)}}:</span> {{form.value.ort}} </p>
+        </div>
+        <h5><span class="red">4. Nachricht ans MIX</span></h5>
+        <div class="table">
+            <p><span class="bold">Nachricht:</span> {{form.value.nachricht}} </p>
+        </div>
+        <p class="last_page_desc2"><span class="red">{{('aufgeben.kazen.backend.fertig_subtitle2' | translate)}}</span></p>
+    </div>
+    <div class="page page4" [class.show]="page==4" id="pdfcontent">
+        <h2>{{('aufgeben.kazen.backend.success_title' | translate)}}</h2>
+        <!-- <h5><span class="red">{{('aufgeben.kazen.backend.success_subtitle' | translate)}}</span></h5> -->
+        <p *ngIf="form.value.zahlung=='PayPal'" class="paypal_final_advice"
+            [innerHTML]="'aufgeben.termine.paypal_final_advice' | translate | replacePaypal:(paypalUrl | async) | safeHtml"></p>
+        <p *ngIf="form.value.zahlung=='Lastschrift'" class="lastschrift_final_advice"
+            [innerHTML]="'aufgeben.kazen.paid_final_advice' | translate | replaceMandat:mandat_id | async | replacePaymentDate:abbuchung$ | async | safeHtml"></p>
+        <p>{{('aufgeben.kazen.backend.success_message1' | translate)}}</p>
+        <p>{{('aufgeben.kazen.backend.success_message2' | translate)}}</p>
+        <p>{{('aufgeben.kazen.backend.success_message3' | translate)}}<span class="kazid red">{{kazid}}</span></p>
+        <p class="weitere"><span class="bold red">{{('aufgeben.kazen.backend.success_next' | translate)}}</span></p>
+        <!-- <button (click)="openPaypal()" class="pay-with-paypal"></button> -->
+        <div class="buttons new absenden_top_kazen">
+            <div class="button" (click)="renew()">{{('aufgeben.kazen.backend.success_new' | translate)}}</div>
+            <div class="button" (click)="goSimilar()">{{ 'aufgeben.kazen.similar' | translate }}</div>
+        </div>
+    </div>
+    <div class="buttons absenden-bottom">
+        <div class="button" (click)="changePage('back')" *ngIf="page>1 && page<4"><i
+                class="aufgeben-icon back"></i>{{('aufgeben.kazen.backend.zuruck' | translate)}}</div>
+        <div class="button" (click)="changePage('forward')" *ngIf="page<3 && page!=4">
+            {{('aufgeben.kazen.backend.weiter' | translate)}}<i class="aufgeben-icon next"></i></div>
+        <div class="send button" (click)="sendForm()" *ngIf="page==3">
+            <ng-container *ngIf="waiting | async; else sendFormTmpl2">
+                <mat-spinner class="sending_form_spinner" diameter="25"></mat-spinner>
+            </ng-container>
+            <ng-template #sendFormTmpl2>{{'aufgeben.send'|translate}}</ng-template>
+        </div>
+    </div>
+
+</form>
+
+<div class="alert" *ngIf="alert">
+    <div class="alert_message">
+        <div *ngIf="!exit_alert">{{pre_alert_message}}</div>
+        <div *ngIf="exit_alert"><span class="red">{{('aufgeben.kazen.backend.exit' | translate)}}</span></div>
+        <div *ngIf="confirm_alert">{{('aufgeben.kazen.backend.confirm' | translate)}}<div
+                *ngIf="form.value.zahlung=='Lastschrift'"><span
+                    class="red">{{('aufgeben.kazen.backend.confirm2' | translate)}}{{abbuchung$ | async}}</span></div>
+        </div>
+        <div *ngIf="!exit_alert" [innerHTML]="message_alert | safeHtml"
+            style=" color: rgba(191, 16, 49, 1); text-align: center"></div>
+    </div>
+    <p class="ok" *ngIf="!exit && !confirm_alert" (click)="alert=false">OK</p>
+    <p class="ok" *ngIf="exit && !exit_alert && paypal" (click)="exit_alert=true">
+        Exit</p>
+    <p class="ok" *ngIf="exit && !exit_alert && !paypal" routerLink="/404">Exit</p>
+    <ng-container *ngIf="exit && exit_alert">
+        <p class="ok" routerLink="/termine">Yes</p>
+        <p class="ok" (click)="exit_alert=false">No</p>
+    </ng-container>
+    <p class="ok paypal-advice" *ngIf="confirm_alert"
+        (click)="sendForm(); this_confirm_alert=false; alert=false;">{{ 'aufgeben.kazen.paypal_advice_yes' | translate }}</p>
+    <p class="ok paypal-advice" *ngIf="confirm_alert" (click)="confirm_alert=false; alert=false">{{ 'aufgeben.kazen.paypal_advice_no' | translate }}</p>
+</div>
+<!-- <ng-container *ngIf='globals.editing'>
+    Error1: <p class='editable'><textarea class='editing' type='text'
+            (change)='saveEdit($event, "error_detected")'>{{('aufgeben.kazen.backend.error_detected' | translate)}}</textarea></p>
+    Error2: <p class='editable'><textarea class='editing' type='text'
+            (change)='saveEdit($event, "error_alert")'>{{('aufgeben.kazen.backend.error_alert' | translate)}}</textarea></p>
+    Paypal confirm: <p class='editable'><textarea class='editing' type='text'
+            (change)='saveEdit($event, "paypal_info2")'>{{('aufgeben.kazen.backend.paypal_info2' | translate)}}</textarea></p>
+    Confirmation message: <p class='editable'><textarea class='editing' type='text'
+            (change)='saveEdit($event, "confirm")'>{{('aufgeben.kazen.backend.confirm' | translate)}}</textarea></p>
+    Lastschrift confirm: <p class='editable'><textarea class='editing' type='text'
+            (change)='saveEdit($event, "confirm2")'>{{('aufgeben.kazen.backend.confirm2' | translate)}}</textarea></p>
+</ng-container> -->
+<mix-aufgeben-disabled *ngIf="showAufgebenDisabled | async"></mix-aufgeben-disabled>
