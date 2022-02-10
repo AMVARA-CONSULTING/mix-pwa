@@ -49,7 +49,7 @@
     "ngx-captcha": "^7.0.0",
     "ngx-clipboard": "^12.2.1",
     "ngx-owl-carousel": "^2.0.7",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "owl.carousel": "^2.3.4",
     "polyfill-array-includes": "^2.0.0",
     "replace": "^1.1.1",
